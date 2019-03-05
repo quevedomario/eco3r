@@ -1,4 +1,4 @@
-Ecología en código abierto
+### Ecología en código abierto
 
 Este módulo presentará varios ejercicios pensados como 1) herramientas de estudio o repaso de conceptos ecológicos, y 2) entrenamiento con herramientas genéricas de análisis y presentación de datos.
 
