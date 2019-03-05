@@ -24,21 +24,15 @@ La misma operación a través de la barra de menús sería `File :: Open file...
 
 Un vistazo a la pestaña **Environment** muestra varios conjuntos de datos. Entre ellos **paine** (tipo = *data.frame*) muestra los enlaces tróficos del famoso experimento de Paine<sup>1</sup>, con el añadido simulado de 8 tipos de productores primarios.
 
-![](/home/marioq/Dropbox/DATA/DOCENCIA/00_INNOVA_DOC/eco3r/paine_starfish.png) <sup>1</sup> Townsend et al. 2008. Fig. 10-07
+![](paine_starfish.png) <sup>1</sup> Townsend et al. 2008. Fig. 10-07
 
 ### Visualización de redes tróficas en 3D
 
 La librería [*foodweb*](http://www.rdocumentation.org/packages/foodweb) genera esquemas de redes tróficas tridimensionales e interactivos. No obstante, usa un código enrevesado y no está actualizada, por lo que usaremos solo su función de visualización.
 
-La siguiente línea analiza las propiedades básicas de la red, almacenándolas en un archivo de texto en la carpeta de trabajo. Es necesario ejecutarla para que la función `plotweb()` a continuación funcione, pero usaremos otra librería más adelante para las métricas.
+El código `analyse.single(filename = "foodweb_pkg_paine0.csv")` analiza las propiedades básicas de la red, almacenándolas en un archivo de texto en la carpeta de trabajo. Es necesario ejecutarlo para que la siguiente función `plotweb()` funcione, pero usaremos otra librería más adelante para las métricas.
 
-``` r
-analyse.single(filename = "foodweb_pkg_paine0.csv")
-```
-
-    ## [1] "Check your current working directory for the output file(s). Network parameters are in a file with the name Results-foodweb_pkg_paine0.csv"
-
-El formato de datos requerido por `analyse.single()` es una matriz de enlaces como la de **paine**, pero sin nombres de filas y columnas.
+El formato de datos requerido por `analyse.single()` es una matriz de vínculos como la de **paine**, pero sin nombres de filas y columnas.
 
 ``` r
 plotweb (col=c("red", "orange", "blue", "green"), radii=c(15,15,15,15))
@@ -46,7 +40,7 @@ plotweb (col=c("red", "orange", "blue", "green"), radii=c(15,15,15,15))
 
 `plotweb()` abrirá una ventana nueva con el esquema *paine* en 3D. Tras maximizarla, es posible hacer *zoom* y rotar la red con el ratón. La función solo define los colores y radios de cada nivel trófico.
 
-![](/home/marioq/Dropbox/DATA/DOCENCIA/00_INNOVA_DOC/eco3r/paine_starfish_3d.png)
+![](paine_starfish_3d.png)
 
 ### Análisis de propiedades de redes tróficas
 
