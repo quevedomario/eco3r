@@ -1,0 +1,249 @@
+---
+title: "Untitled"
+author: "M Quevedo"
+date: "February 26, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+## REVISADO 20181010 
+# textos PAs en:
+# /home/marioq/Dropbox/DATA/DOCENCIA/03_GBIOLO01-3-001_ECO3/01_clases_y_PAs/P2_18_PP_PS_energia_redes/
+
+## setup ####
+install.packages(c("bipartite", "cheddar", "foodweb"))
+load("~/Dropbox/DATA/SINTAX_r_gis/eco3/networks.RData")
+
+save.image("/home/marioq/Dropbox/DATA/SINTAX_r_gis/eco3/networks.RData")
+
+library (foodweb)
+
+## foodwebs #
+## procedure 'foodweb pkg' ####
+# library(foodweb) # not really finished; rocky
+# bug: does not calculate fraction cannibalistic
+# built-in example: Predator:prey matrix of a moss-microarthropod food web.
+data(moss)
+setwd("~/Dropbox/DATA/SINTAX_r_gis/eco3/networks/foodweb_moss")
+
+# write.table (moss, "moss1.csv", append=F,sep=",", row.names=F, col.names=F)
+# write.table (moss[-(2:4), -(8:10)], "moss2.csv",  append=F,sep=",",row.names=F,  col.names=F)
+write.table(rbind("moss1.csv",  "moss2.csv"),"mosslist.csv",append=F,sep=",", 
+            row.names=F,  col.names=F)
+analyse.list(list="mosslist.csv",  maxlevels=4,  sp.names="FALSE")
+
+analyse.single(filename="moss1.csv", omn = "FALSE", cann = "FALSE", positions = "FALSE", 
+               matrix = "FALSE", sp.names = "TRUE")
+
+plotweb(col=c("brown","green","blue", "red"), radii=c(15,15,15,15)) #red si 4 TL
+
+# Paine's foodweb plus 9 sp of algae, 
+# including filter-feeding / browsing compartments
+# modified to Thais eating phytobenthos too
+
+setwd("~/Dropbox/DATA/SINTAX_r_gis/eco3/networks/foodweb_paine")
+paine <- read.csv ("foodweb_pkg_paine_basico.csv")
+paine <- paine[,-1]
+write.table (paine, file = "foodweb_pkg_paine.csv", sep=",", col.names = F, row.names = F)
+analyse.single(filename = "foodweb_pkg_paine.csv", sp.names = "FALSE")
+plotweb (col=c("red", "blue", "brown", "green"),  radii=c(15,25,85,125))
+
+# paine after 3 years tossing out starfish
+paine3yr <- read.csv ("foodweb_pkg_paine_3rdyr.csv")
+paine3yr <- paine3yr[,-1]
+write.table (paine3yr, file = "foodweb_pkg_paine3.csv", row.names=F, col.names=F, sep=",")
+analyse.single (filename="foodweb_pkg_paine3.csv")
+plotweb(col=c("blue", "brown", "green"),  radii=c(25,15,15))
+
+## Communities cheddar ####
+library(cheddar)
+# Hudson et al. 2013. Methods Ecol Evol
+vignette('CheddarQuickstart') # Essential reading
+vignette('Community')         # Also essential
+vignette('PlotsAndStats')
+vignette('Collections')
+vignette('ImportExport')
+
+# Communities
+# Benguela current
+data("Benguela")
+data("BroadstoneStream")
+data("ChesapeakeBay")
+paine <- LoadCommunity(dir="foodweb_paine")
+paine3yr <- LoadCommunity(dir="foodweb_paine3yr")
+data(pHWebs)
+# simulated 1: 1 top, 2 carnivores, 2 omnivores, 8 herbivores, 3 producers
+simulated1 <- LoadCommunity(dir="foodweb_simulated1")
+# simulated 2 exam 2018: 1 top, 1 carnivore, 1 omnivores, 4 herbivores, 3 producers
+# simulated 3 exam 2018: simulated 2 - omnivore1 (species3) and herbivore4 (species7)
+simulated2 <- LoadCommunity(dir="foodweb_simulated2") # A examen julio 2018
+simulated3 <- LoadCommunity(dir="foodweb_simulated3") # B examen julio 2018
+data("SkipwithPond")
+# The communities of Tuesday Lake, Michigan, USA sampled in 1984 and 1986
+data(TL84)
+data(TL86)
+# Ythan estuary
+data ("YthanEstuary")
+
+# community properties
+CPS(Benguela)
+# node properties
+NPS(Benguela)
+TPLS(Benguela)
+
+#	Trophic-link properties
+TLPS(simulated1) 
+# foodweb 
+PlotWebByLevel(TL84, frame.plot = T, show.nodes.as = 'both', cex=2,
+               highlight.nodes=Omnivores)
+# Descriptives
+NumberOfNodes(simulated1)
+NumberOfTrophicLinks(simulated1)
+LinkageDensity(simulated1)
+DirectedConnectance(simulated1)
+FractionBasalNodes(simulated1)
+FractionOmnivorous(simulated1)
+FractionCannibalistic(simulated1)
+PreyAveragedTrophicLevel(simulated1) # yields trophic position
+ChainAveragedTrophicLevel(simulated1)
+# other plots 
+PlotPredationMatrix(simulated3)
+PlotNPS(simulated1,'Log10M', 'TrophicHeight', xlab=Log10MLabel(TL84), 
+        ylab='Trophic height')
+PlotCircularWeb(simulated2)
+PlotNPyramid(YthanEstuary, level=floor(ChainAveragedTrophicLevel(YthanEstuary)))
+PlotBPyramid(YthanEstuary)
+
+## exam 2018 ####
+par(mar=c(1,4,2,1), mfrow=c(1,2), cex=1.3, cex.axis=1, lwd=3)
+PlotWebByLevel(simulated2, frame.plot = F, show.nodes.as="points", 
+               ylab = 'nivel trófico', highlight.nodes=F)
+arrows(x0=6, y0=3, x1=7.2, y1=2.2, length = 0.10)
+PlotWebByLevel(simulated3, frame.plot = F, show.nodes.as="points",
+               highlight.nodes=F)
+
+NumberOfNodes(simulated2)
+NumberOfNodes(simulated3)
+
+NumberOfTrophicLinks(simulated2)
+NumberOfTrophicLinks(simulated3)
+
+LinkageDensity(simulated2)
+LinkageDensity(simulated3)
+
+DirectedConnectance(simulated2)
+DirectedConnectance(simulated3)
+
+FractionOmnivorous(simulated2)
+FractionOmnivorous(simulated3)
+
+PreyAveragedTrophicLevel(simulated2) # yields trophic position
+PreyAveragedTrophicLevel(simulated3)
+
+IsCannibal(simulated2)
+Cannibals(simulated2)
+FractionCannibalistic(simulated2)
+FractionBasalNodes(simulated2)
+IsOmnivore(simulated2)
+Omnivores(simulated2)
+
+## Built-in examples cheddar ####
+setwd("~/Dropbox/DATA/SINTAX_r_gis/eco3/networks/")
+# A collection of 10 webs sampled across a wide pH gradient
+CPS(pHWebs$`Old Lodge`)
+pHWebs$`Old Lodge`
+SaveCommunity(pHWebs$`Mill Stream`, "foodweb_phwebs/oldlodge")
+
+sapply(pHWebs, 'NumberOfNodes')
+sapply(pHWebs, 'NumberOfTrophicLinks')
+plot(pHWebs, plot.fn=PlotWebByLevel, ylim=c(1,4.5))
+pHWebs[['Broadstone']]
+
+# A data.frame of predictors and responses
+varsphwebs <- CollectionCPS(pHWebs, c('pH',
+                        S='NumberOfNodes',
+                        L='NumberOfTrophicLinks',
+                        C='DirectedConnectance',
+                        B='FractionBasalNodes',
+                        T='FractionTopLevelNodes'))
+write.csv(varsphwebs, "varsphwebs.csv")
+plot(varsphwebs$S ~ varsphwebs$pH, xlab="pH", ylab="S")
+plot(varsphwebs$L ~ varsphwebs$S, xlab="S", ylab="L")
+plot(varsphwebs$C ~ varsphwebs$S, xlab="S", ylab="L")
+plot(varsphwebs$C ~ varsphwebs$pH, xlab="pH", ylab="conectancia")
+plot(varsphwebs$B ~ varsphwebs$pH, xlab="pH", ylab="fracción basal")
+a <- lm(varsphwebs$L ~ varsphwebs$S)
+summary(a)
+
+## bipartitas ####
+library(bipartite)
+
+# built-in example
+opar <- par()
+par(mar=c(2,2,10,2))
+data(Safariland) # A pollination web from Argentina
+plotweb(Safariland)
+visweb(Safariland)
+networklevel(Safariland)
+specieslevel(Safariland)
+par(opar)
+
+data("small1976")
+plotweb(small1976) # A flower visitation network from a peat bog in Ottawa, Canada
+
+data("elberling1999")
+plotweb(elberling1999)
+
+data("kevan1970")
+plotweb(kevan1970)
+
+setwd("~/Dropbox/DATA/SINTAX_r_gis/eco3/networks/mutweb_menke")
+# Menkee interior little disturbed 
+menke <- read.csv("menke_interior.csv")
+menke[is.na(menke)] <- 0
+menke.m <- data.matrix(menke)
+menke.m <- menke.m[,-1]
+
+dim(menke.m)
+
+namesofrows1 <- c("Prunus","Ficus1","Polyscias","Bridelia","Ficus2",
+                  "Trilepisium","Antiaris","Harungana")
+row.names(menke.m) <- paste(namesofrows1)
+plotweb(menke.m)
+visweb(menke.m)
+
+# Menkee edge very disturbed 
+menke_edge <- read.csv("menke_edgedisturbed.csv")
+menke_edge[is.na(menke_edge)] <- 0
+menke_edge.m <- data.matrix(menke_edge)
+menke_edge.m <- menke_edge.m[,-1]
+namesofrows2 <- c("Prunus", "Ficus1", "Polyscias", "Bridelia", "Ficus2", 
+                 "Trilepisium", "Antiaris", "Harungana")
+row.names(menke_edge.m) <- paste(namesofrows2)
+plotweb(menke_edge.m)
+visweb(menke_edge.m)
+
+## PA redes ####
+# datos originales en redes_nz_feita
+# a partir de data.frame totales_nz
+par(mfrow=c(1,2))
+boxplot(totales_nz$`L_S plantas`, main="enlaces por especie en plantas")
+boxplot(totales_nz$`L_S aves`, main="enlaces por especie en aves")
+boxplot(totales_nz$intens_plantas, main="intensidad interacción plantas")
+boxplot(totales_nz$intens_aves, main="intensidad interacción aves")
+
+# a partir de data.frame connectivity_nz
+head(connectance_nz)
+par(mfrow=c(1,1))
+plot(connectance_nz$L ~ connectance_nz$S, ylab="enlaces", xlab="riqueza de especies")
+plot(connectance_nz$C ~ connectance_nz$S, ylab="conectancia", xlab="riqueza de especies")
+plot(connectance_nz$C ~ connectance_nz$pr_frutos_exoticas, ylab="conectancia", xlab="intensidad exóticas")
+
+
+```
+
