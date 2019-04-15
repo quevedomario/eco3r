@@ -1,6 +1,6 @@
 Introducción al análisis de redes de interacciones en R
 ================
-Mario Quevedo
+Mario Quevedo;
 Marzo 2019
 
 ### Configuración previa
@@ -15,13 +15,13 @@ Los datos usados en este ejercicio están en el archivo comprimido **redes.zip**
 
 La librería [*foodweb*](http://www.rdocumentation.org/packages/foodweb) pinta **diagramas tridimensionales e interactivos de redes tróficas**, y analiza redes tróficas. Sin embargo, no está actualizada, por lo que usaremos solo su función de visualización. Para obtener métricas de redes tróficas usaremos después otra librería.
 
-El código a continuación analiza las propiedades básicas de la red trófica del experimento de *Pisaster*, contenidas en uno de los archivos \*.csv. Almacena resultados en un archivo de texto en la carpeta de trabajo; no usaremos dicho archivo, pero es necesario ejecutar el código para visualizar el diagrama de la red.
-
 ``` r
-analyse.single(filename = "foodweb_pkg_paine0.csv")
+library(foodweb)
 ```
 
-    ## [1] "Check your current working directory for the output file(s). Network parameters are in a file with the name Results-foodweb_pkg_paine0.csv"
+    ## Loading required package: rgl
+
+Para poder visualizar el diagrama de la red es necesario previamente ejecutar la función que analiza las propiedades básicas de la red trófica, aunque no usaremos esos resultados: `analyse.single(filename = "foodweb_pkg_paine0.csv")`. Utiliza *foodweb\_pkg\_paine0.csv*, uno de los archivos .csv contenidos en **redes.zip**.
 
 El formato de datos requerido por `analyse.single()` es una matriz de vínculos tróficos sin nombres de filas y columnas.
 
@@ -182,7 +182,7 @@ Para cargar esos datos de ejemplo:
 data("YthanEstuary")
 ```
 
-**YthanEstuary** aparecerá en el entorno de trabajo, disponible para usarlo con las funciones de `cheddar`. Por ejemplo, repasando qué nodos contiene con `NPS()` (si bien limitando la salida a las 6 primeras filas con `head()`:
+**YthanEstuary** aparecerá en el entorno de trabajo como conjunto de datos disponible para las funciones de `cheddar`. Por ejemplo, repasamos qué vínculos contiene con `TLPS()` (si bien limitando la salida a las 6 primeras filas con `head()`:
 
 ``` r
 head(TLPS(YthanEstuary))
@@ -196,7 +196,7 @@ head(TLPS(YthanEstuary))
     ## 5           Salmo trutta         Lutra lutra
     ## 6      Anguilla anguilla Phalacrocorax carbo
 
-O pintando la red, mucho más compleja que la simulación en **paine**:
+Diagrama de la red (mucho más compleja que la simulación de *Pisaster*):
 
 ``` r
 PlotWebByLevel(YthanEstuary)
@@ -204,10 +204,46 @@ PlotWebByLevel(YthanEstuary)
 
 ![](networks_files/figure-markdown_github/unnamed-chunk-16-1.png)
 
+Densidad de vínculos y conectancia (**L/S**, **C**)
+
+``` r
+LinkageDensity(YthanEstuary)
+```
+
+    ## [1] 4.532609
+
+``` r
+DirectedConnectance(YthanEstuary)
+```
+
+    ## [1] 0.04926749
+
+La red de Ythan Estuary muestra una densidad de enlaces 1.7 veces mayor que la de *Pisaster*, y una conectancia 2.9 veces menor.
+
+Fracción de nodos basales, omnívoros y caníbales:
+
+``` r
+FractionBasalNodes(YthanEstuary)
+```
+
+    ## [1] 0.04347826
+
+``` r
+FractionOmnivorous(YthanEstuary)
+```
+
+    ## [1] 0.4565217
+
+``` r
+FractionCannibalistic(YthanEstuary)
+```
+
+    ## [1] 0.0326087
+
 Y la matriz de predación:
 
 ``` r
 PlotPredationMatrix(YthanEstuary)
 ```
 
-![](networks_files/figure-markdown_github/unnamed-chunk-17-1.png)
+![](networks_files/figure-markdown_github/unnamed-chunk-19-1.png)
