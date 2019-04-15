@@ -240,10 +240,19 @@ FractionCannibalistic(YthanEstuary)
 
     ## [1] 0.0326087
 
-Y la matriz de predación:
+Identificando caníbales con la función usada anteriormente `IsCannibal()`. Dado que la red contiene muchos nodos, podemos guardar la salida en un objeto llamado **canibal**:
 
 ``` r
-PlotPredationMatrix(YthanEstuary)
+canibal <- IsCannibal(YthanEstuary)
 ```
 
-![](networks_files/figure-markdown_github/unnamed-chunk-19-1.png)
+Convertirla en un conjunto de datos con `as.data.frame(canibal)` y filtrar los contenidos para mostrar aquellos nodos etiquetados como idem con `TRUE`:
+
+``` r
+canibal[canibal==TRUE]
+```
+
+    ## Pomatoschistus microps     Platichthys flesus        Carcinus maenas 
+    ##                   TRUE                   TRUE                   TRUE
+
+Un [gobio](https://www.fishbase.de/summary/1344), una [platija](https://www.fishbase.org/summary/Platichthys-flesus.html) y un [cangrejo](https://www.marlin.ac.uk/species/detail/1497) aparecen identificados como caníbales en esta red trófica.
