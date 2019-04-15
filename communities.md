@@ -1,6 +1,6 @@
 Introducción al análisis de comunidades ecológicas en R
 ================
-Mario Quevedo
+Mario Quevedo;
 Enero de 2019
 
 El título de este tutorial es un ejemplo de la laxitud del término *comunidad*. Rara vez podemos obtener datos de comunidades completas; los datos se referirán más frecuentemente a *taxocenosis*, o a porciones más o menos arbitrarias de una comunidad ecológica local. En este caso tenemos dos conjuntos de datos: invertebrados fluviales en Asturias, y aves en la Sierra Nevada española.
