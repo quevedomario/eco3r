@@ -1,74 +1,71 @@
-Redes
+Introducción al análisis de redes de interacciones en R
 ================
 Mario Quevedo
-March 5, 2019
-
-Introducción al análisis de redes de interacciones en R
--------------------------------------------------------
+Marzo 2019
 
 ### Configuración previa
 
-Desgarga de **redes.zip**, descomprimirlo en la carpeta deseada del disco duro, y cambiar el directorio de trabajo de RStudio a esa carpeta.
-
-Instalación de las librerías `bipartite`, `cheddar` y `foodweb` con `Tools :: Install packages...` en RStudio, o con la línea de código `install.packages(c("bipartite", "cheddar", "foodweb"), dependencies = TRUE)`. En caso de estar ya instaladas, la orden reemplazará las librerías por las versiones más recientes.
+El ejercicio require la instalación de las librerías `bipartite`, `cheddar` y `foodweb`, ya sea con los menús `Tools :: Install packages...` en RStudio, o con la línea de código `install.packages(c("bipartite", "cheddar", "foodweb"), dependencies = TRUE)`. En caso de estar ya instaladas, la orden reemplazará las librerías por las versiones más recientes (la función `installed.packages()` devuelve un listado de las librerías ya instaladas y sus versiones).
 
 ### Los datos
 
-La siguiente línea de código carga los datos de la práctica (asumiendo que están en la carpeta de trabajo).
+Los datos usados en este ejercicio están en el archivo comprimido **redes.zip** disponible en el Campus Virtual. Al descomprimirlo en la carpeta de trabajo, mostrará 4 archivos de datos separados por comas (.csv), 3 de ellos dentro de una carpeta *foodweb\_paine*. Corresponden a los enlaces tróficos del famoso experimento de Paine<sup>1</sup> excluyendo de charcas de marea a la estrella de mar [*Pisaster ochraceus*](https://eol.org/pages/598469), con el añadido simulado de 8 tipos de productores primarios. ![](paine_starfish.png) <sup>1</sup> Townsend et al. 2008. Essentials of Ecology. 3rd ed. Fig. 10-07. Blackwell
+
+### Visualización de redes tróficas
+
+La librería [*foodweb*](http://www.rdocumentation.org/packages/foodweb) pinta **diagramas tridimensionales e interactivos de redes tróficas**, y analiza redes tróficas. Sin embargo, no está actualizada, por lo que usaremos solo su función de visualización. Para obtener métricas de redes tróficas usaremos después otra librería.
+
+El código a continuación analiza las propiedades básicas de la red trófica del experimento de *Pisaster*, contenidas en uno de los archivos \*.csv. Almacena resultados en un archivo de texto en la carpeta de trabajo; no usaremos dicho archivo, pero es necesario ejecutar el código para visualizar el diagrama de la red.
 
 ``` r
-load("redes.RData")
+analyse.single(filename = "foodweb_pkg_paine0.csv")
 ```
 
-La misma operación a través de la barra de menús sería `File :: Open file...`
+    ## [1] "Check your current working directory for the output file(s). Network parameters are in a file with the name Results-foodweb_pkg_paine0.csv"
 
-Un vistazo a la pestaña **Environment** muestra varios conjuntos de datos. Entre ellos **paine** (tipo = *data.frame*) muestra los enlaces tróficos del famoso experimento de Paine<sup>1</sup>, con el añadido simulado de 8 tipos de productores primarios.
+El formato de datos requerido por `analyse.single()` es una matriz de vínculos tróficos sin nombres de filas y columnas.
 
-![](paine_starfish.png) <sup>1</sup> Townsend et al. 2008. Fig. 10-07
-
-### Visualización de redes tróficas en 3D
-
-La librería [*foodweb*](http://www.rdocumentation.org/packages/foodweb) genera esquemas de redes tróficas tridimensionales e interactivos. No obstante, usa un código enrevesado y no está actualizada, por lo que usaremos solo su función de visualización.
-
-El código `analyse.single(filename = "foodweb_pkg_paine0.csv")` analiza las propiedades básicas de la red, almacenándolas en un archivo de texto en la carpeta de trabajo. Es necesario ejecutarlo para que la siguiente función `plotweb()` funcione, pero usaremos otra librería más adelante para las métricas.
-
-El formato de datos requerido por `analyse.single()` es una matriz de vínculos como la de **paine**, pero sin nombres de filas y columnas.
+Para dibujar el diagrama de la red trófica usamos la función `plotweb()`. Esta abrirá una ventana nueva con diagrama en 3D. Tras maximizar la ventana, es posible usar el ratón para hacer *zoom* y rotar la red. La función solo define los colores y radios de cada nivel trófico.
 
 ``` r
 plotweb (col=c("red", "orange", "blue", "green"), radii=c(15,15,15,15))
 ```
 
-`plotweb()` abrirá una ventana nueva con el esquema *paine* en 3D. Tras maximizarla, es posible hacer *zoom* y rotar la red con el ratón. La función solo define los colores y radios de cada nivel trófico.
-
 ![](paine_starfish_3d.png)
+
+Un vistazo a la representación 3D de esta red trófica simplificada muestra 4 niveles tróficos, omnivoría, y dos compartimentos claros, definidos por productores primarios bentónicos y plantónicos, y consumidores raspadores y filtradores.
 
 ### Análisis de propiedades de redes tróficas
 
-La librería [*cheddar*](https://www.rdocumentation.org/packages/cheddar) proporciona muchas funciones específicas de análisis gráfico y numérico de redes tróficas. Incluye además datos de ejemplo de redes tróficas bien conocidas.
-
-Habilitamos la librería:
+La librería [*cheddar*](https://www.rdocumentation.org/packages/cheddar) proporciona funciones específicas de análisis gráfico y numérico de redes tróficas. Incluye además datos de ejemplo de redes tróficas bien conocidas. La usaremos para obtener las métricas de la red trófica de *Pisaster*.
 
 ``` r
 library(cheddar)
 ```
 
-Entre los datos cargados previamente está *paine\_cheddar*; contiene la red trófica simple usada con la librería `foodweb`, y adaptada al formato requerido por `cheddar`. Dicho formato, identificado como *Community* en el entorno de trabajo o *Environment*, parte de tres archivos de texto contenidos en la carpeta *foodweb\_paine*, y que se leerían con `paine_cheddar <- LoadCommunity(dir="foodweb_paine")` (no es necesario al estar incluidos en **redes.RData**).
+Para cargar la red trófica adaptada al formato requerido por la librería `cheddar` es necesario usar la función `LoadCommunity()`; esta accede a los tres archivos de texto de la carpeta *foodweb\_paine*:
 
-A diferencia de `foodweb`, la librería `cheddar` es fácil de usar, a pesar de contener muchas funciones (ayuda fácilmente accesible en la documentación de la librería). La función `TLPS()` devuelve los vínculos tróficos (en este caso ordenados alfabéticamente por *resource*).
+``` r
+paine_cheddar <- LoadCommunity(dir="foodweb_paine")
+```
+
+La librería `cheddar` es fácil de usar a pesar de contener muchas funciones. La función `TLPS()` devuelve los **vínculos tróficos** entre las especies o nodos de la red:
 
 ``` r
 head(TLPS(paine_cheddar))
 ```
 
-    ##        resource consumer
-    ## 1 fitoplancton1 bellota1
-    ## 2 fitoplancton1 bellota2
-    ## 3 fitoplancton1 bellota3
-    ## 4 fitoplancton1 mejillon
-    ## 5 fitoplancton1  percebe
-    ## 6 fitoplancton2 bellota1
+    ##   resource consumer
+    ## 1  balano1 pisaster
+    ## 2  balano1    thais
+    ## 3  balano2 pisaster
+    ## 4  balano2    thais
+    ## 5  balano3 pisaster
+    ## 6  balano3    thais
 
-La siguiente línea comprueba si hay algún nodo canibal. Devuelve **TRUE** para *Pisaster*:
+En el código anterior `head()` limita la presentación de datos en la salida a las 6 primeras filas.
+
+Las proporciones de caníbales y omnivoros son susceptibles de variar mucho entre distintas comunidades, y por ello son objeto habitual de análisis. Las siguientes líneas comprueban si hay nodos caníbales y omnivoros en la red de *Pisaster*:
 
 ``` r
 IsCannibal(paine_cheddar)
@@ -76,34 +73,37 @@ IsCannibal(paine_cheddar)
 
     ## fitoplancton1 fitoplancton2 fitoplancton3 fitoplancton4   fitobentos1 
     ##         FALSE         FALSE         FALSE         FALSE         FALSE 
-    ##   fitobentos2   fitobentos3      bellota1      bellota2      bellota3 
+    ##   fitobentos2   fitobentos3       balano1       balano2       balano3 
     ##         FALSE         FALSE         FALSE         FALSE         FALSE 
     ##       quiton1       quiton2         lapa1         lapa2      mejillon 
     ##         FALSE         FALSE         FALSE         FALSE         FALSE 
     ##       percebe         thais      pisaster 
     ##         FALSE         FALSE          TRUE
 
+``` r
+IsOmnivore(paine_cheddar)
+```
+
+    ## fitoplancton1 fitoplancton2 fitoplancton3 fitoplancton4   fitobentos1 
+    ##         FALSE         FALSE         FALSE         FALSE         FALSE 
+    ##   fitobentos2   fitobentos3       balano1       balano2       balano3 
+    ##         FALSE         FALSE         FALSE         FALSE         FALSE 
+    ##       quiton1       quiton2         lapa1         lapa2      mejillon 
+    ##         FALSE         FALSE         FALSE         FALSE         FALSE 
+    ##       percebe         thais      pisaster 
+    ##         FALSE         FALSE          TRUE
+
+Ambos casos devuelven **TRUE** para *Pisaster*, la única especie identificada en la red como consumidora de individuos de su propia especie, y de recursos de más de un nivel trófico.
+
 #### Pintando la red trófica
 
-En este caso la altura de los nodos es consecuencia de la posición trófica, no del nivel como en `foodweb`
+A diferencia de los diagrámas de la librería `foodweb` en este caso la posición de los nodos es consecuencia de la posición trófica de los mismos, no del nivel trófico. Por eso *Thais* y *Pisaster* aparecen más cerca en este diagrama:
 
 ``` r
 PlotWebByLevel(paine_cheddar, main="")
 ```
 
-![](networks_files/figure-markdown_github/unnamed-chunk-9-1.png)
-
-#### Matriz de predación
-
-`cheddar` permite extraer fácilmente la *matriz de predación*, resumen bidimensional de interacciones similar a las matrices vistas en redes bipartitas para evaluar anidamiento:
-
-``` r
-PlotPredationMatrix(paine_cheddar, main="")
-```
-
-![](networks_files/figure-markdown_github/unnamed-chunk-10-1.png)
-
-La línea diagonal discontinua toca los nodos caníbales, en este caso *Pisaster*.
+![](networks_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
 #### Métrica básica de la red
 
@@ -115,7 +115,7 @@ NumberOfNodes(paine_cheddar)
 
     ## [1] 18
 
-Vínculos tróficos (**L**)
+Número de vínculos tróficos (**L**)
 
 ``` r
 NumberOfTrophicLinks(paine_cheddar)
@@ -165,7 +165,7 @@ PreyAveragedTrophicLevel(paine_cheddar)
 
     ## fitoplancton1 fitoplancton2 fitoplancton3 fitoplancton4   fitobentos1 
     ##           1.0           1.0           1.0           1.0           1.0 
-    ##   fitobentos2   fitobentos3      bellota1      bellota2      bellota3 
+    ##   fitobentos2   fitobentos3       balano1       balano2       balano3 
     ##           1.0           1.0           2.0           2.0           2.0 
     ##       quiton1       quiton2         lapa1         lapa2      mejillon 
     ##           2.0           2.0           2.0           2.0           2.0 
@@ -202,7 +202,7 @@ O pintando la red, mucho más compleja que la simulación en **paine**:
 PlotWebByLevel(YthanEstuary)
 ```
 
-![](networks_files/figure-markdown_github/unnamed-chunk-18-1.png)
+![](networks_files/figure-markdown_github/unnamed-chunk-16-1.png)
 
 Y la matriz de predación:
 
@@ -210,4 +210,4 @@ Y la matriz de predación:
 PlotPredationMatrix(YthanEstuary)
 ```
 
-![](networks_files/figure-markdown_github/unnamed-chunk-19-1.png)
+![](networks_files/figure-markdown_github/unnamed-chunk-17-1.png)
