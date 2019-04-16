@@ -5,7 +5,7 @@ Marzo 2019
 
 ### Configuración previa
 
-El ejercicio require la instalación de las librerías `bipartite`, `cheddar` y `foodweb`, ya sea con los menús `Tools :: Install packages...` en RStudio, o con la línea de código `install.packages(c("bipartite", "cheddar", "foodweb"), dependencies = TRUE)`. En caso de estar ya instaladas, la orden reemplazará las librerías por las versiones más recientes (la función `installed.packages()` devuelve un listado de las librerías ya instaladas y sus versiones).
+El ejercicio requiere la instalación de las librerías `bipartite`, `cheddar` y `foodweb`, ya sea con los menús `Tools :: Install packages...` en RStudio, o con la línea de código `install.packages(c("bipartite", "cheddar", "foodweb"), dependencies = TRUE)`. En caso de estar ya instaladas, la orden reemplazará las librerías por las versiones más recientes (la función `installed.packages()` devuelve un listado de las librerías ya instaladas y sus versiones).
 
 ### Los datos
 
@@ -220,7 +220,24 @@ DirectedConnectance(YthanEstuary)
 
 La red de Ythan Estuary muestra una densidad de enlaces 1.7 veces mayor que la de *Pisaster*, y una conectancia 2.9 veces menor.
 
-Fracción de nodos basales, omnívoros y caníbales:
+La función usada anteriormente `IsCannibal()` identificará nodos caníbales en la red. Para facilitar la revisión de los resultados, y dado que la red contiene muchos nodos, podemos guardar la salida en un objeto llamado **canibal**:
+
+``` r
+canibal <- IsCannibal(YthanEstuary)
+```
+
+A continuación convertimos esos resultados en un conjunto de datos con `as.data.frame(canibal)`, para posteriormente filtrar los contenidos mostrando solo aquellos nodos etiquetados como ídem con `TRUE`:
+
+``` r
+canibal[canibal==TRUE]
+```
+
+    ## Pomatoschistus microps     Platichthys flesus        Carcinus maenas 
+    ##                   TRUE                   TRUE                   TRUE
+
+Dos especies de peces, un [gobio](https://www.fishbase.de/summary/1344) y una [platija](https://www.fishbase.org/summary/Platichthys-flesus.html), y un [cangrejo](https://www.marlin.ac.uk/species/detail/1497) aparecen identificados como caníbales en esta red trófica. Posiblemente un mayor nivel de resolución aportaría más nodos.
+
+Para terminar, extraemos la fracción de nodos basales, omnívoros y caníbales:
 
 ``` r
 FractionBasalNodes(YthanEstuary)
@@ -240,19 +257,4 @@ FractionCannibalistic(YthanEstuary)
 
     ## [1] 0.0326087
 
-Identificando caníbales con la función usada anteriormente `IsCannibal()`. Dado que la red contiene muchos nodos, podemos guardar la salida en un objeto llamado **canibal**:
-
-``` r
-canibal <- IsCannibal(YthanEstuary)
-```
-
-Convertirla en un conjunto de datos con `as.data.frame(canibal)` y filtrar los contenidos para mostrar aquellos nodos etiquetados como idem con `TRUE`:
-
-``` r
-canibal[canibal==TRUE]
-```
-
-    ## Pomatoschistus microps     Platichthys flesus        Carcinus maenas 
-    ##                   TRUE                   TRUE                   TRUE
-
-Un [gobio](https://www.fishbase.de/summary/1344), una [platija](https://www.fishbase.org/summary/Platichthys-flesus.html) y un [cangrejo](https://www.marlin.ac.uk/species/detail/1497) aparecen identificados como caníbales en esta red trófica.
+El 46% de los nodos de la red trófica de Ythan Estuary muestra vínculos con más de un nivel trófico. Dicho de otra forma, la omnivoría es prevalente en una red trófica real como esta.
