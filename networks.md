@@ -9,11 +9,11 @@ El ejercicio requiere la instalación de las librerías `bipartite`, `cheddar` y
 
 ### Los datos
 
-Los datos usados en este ejercicio están en el archivo comprimido **redes.zip** disponible en el Campus Virtual. Al descomprimirlo en la carpeta de trabajo, mostrará 4 archivos de datos separados por comas (.csv), 3 de ellos dentro de una carpeta *foodweb\_paine*. Corresponden a los enlaces tróficos del famoso experimento de Paine<sup>1</sup> excluyendo de charcas de marea a la estrella de mar [*Pisaster ochraceus*](https://eol.org/pages/598469), con el añadido simulado de 8 tipos de productores primarios. ![](paine_starfish.png) <sup>1</sup> Townsend et al. 2008. Essentials of Ecology. 3rd ed. Fig. 10-07. Blackwell
+Los datos usados en este ejercicio están en el archivo comprimido **redes.zip** disponible en el Campus Virtual. Al descomprimirlo en la carpeta de trabajo, mostrará 4 archivos de datos separados por comas (.csv), 3 de ellos dentro de una carpeta *foodweb\_paine*. Corresponden a los enlaces tróficos del experimento de Paine<sup>1</sup> excluyendo de charcas de marea a la estrella de mar *Pisaster ochraceus*<sup>2</sup>, con el añadido simulado de 8 tipos de productores primarios. ![](paine_starfish.png)
 
 ### Visualización de redes tróficas
 
-La librería [*foodweb*](http://www.rdocumentation.org/packages/foodweb) pinta **diagramas tridimensionales e interactivos de redes tróficas**, y analiza redes tróficas. Sin embargo, no está actualizada, por lo que usaremos solo su función de visualización. Para obtener métricas de redes tróficas usaremos después otra librería.
+La librería *foodweb* pinta **diagramas tridimensionales e interactivos de redes tróficas**, y analiza redes tróficas. Sin embargo, no está actualizada, por lo que usaremos solo su función de visualización. Para obtener métricas de redes tróficas usaremos después otra librería.
 
 ``` r
 library(foodweb)
@@ -21,7 +21,7 @@ library(foodweb)
 
     ## Loading required package: rgl
 
-Para poder visualizar el diagrama de la red es necesario previamente ejecutar la función que analiza las propiedades básicas de la red trófica, aunque no usaremos esos resultados: `analyse.single(filename = "foodweb_pkg_paine0.csv")`. Utiliza *foodweb\_pkg\_paine0.csv*, uno de los archivos .csv contenidos en **redes.zip**.
+Para poder visualizar el diagrama de la red es necesario previamente ejecutar la función que analiza las propiedades básicas de la red trófica, aunque no usaremos esos resultados: `analyse.single (filename = "foodweb_pkg_paine0.csv")` utiliza *foodweb\_pkg\_paine0.csv*, uno de los archivos .csv contenidos en **redes.zip**.
 
 El formato de datos requerido por `analyse.single()` es una matriz de vínculos tróficos sin nombres de filas y columnas.
 
@@ -37,7 +37,7 @@ Un vistazo a la representación 3D de esta red trófica simplificada muestra 4 n
 
 ### Análisis de propiedades de redes tróficas
 
-La librería [*cheddar*](https://www.rdocumentation.org/packages/cheddar) proporciona funciones específicas de análisis gráfico y numérico de redes tróficas. Incluye además datos de ejemplo de redes tróficas bien conocidas. La usaremos para obtener las métricas de la red trófica de *Pisaster*.
+La librería *cheddar*<sup>3</sup> proporciona funciones específicas de análisis gráfico y numérico de redes tróficas; la usaremos para obtener las métricas de la red trófica de *Pisaster*.
 
 ``` r
 library(cheddar)
@@ -49,7 +49,7 @@ Para cargar la red trófica adaptada al formato requerido por la librería `ched
 paine_cheddar <- LoadCommunity(dir="foodweb_paine")
 ```
 
-La librería `cheddar` es fácil de usar a pesar de contener muchas funciones. La función `TLPS()` devuelve los **vínculos tróficos** entre las especies o nodos de la red:
+`cheddar` contiene muchas funciones, pero estas son generalmente fáciles de usar. Por ejemplo, la función `TLPS()` devuelve los **vínculos tróficos** entre las especies o nodos de la red que acabamos de asignar a `paine_cheddar`:
 
 ``` r
 head(TLPS(paine_cheddar))
@@ -63,7 +63,7 @@ head(TLPS(paine_cheddar))
     ## 5  balano3 pisaster
     ## 6  balano3    thais
 
-En el código anterior `head()` limita la presentación de datos en la salida a las 6 primeras filas.
+`head()` limita la presentación de datos en la salida a las 6 primeras filas.
 
 Las proporciones de nodos caníbales y omnívoros son susceptibles de variar mucho entre distintas comunidades, entre otros factores en función de la productividad, y por ello son objeto habitual de análisis. Las siguientes líneas comprueban si hay nodos caníbales y omnívoros en la red de *Pisaster*:
 
@@ -105,7 +105,7 @@ PlotWebByLevel(paine_cheddar, main="")
 
 ![](networks_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
-#### Métrica básica de la red
+#### Métricas básicas de la red
 
 Número de nodos en la red (**S**)
 
@@ -174,7 +174,7 @@ PreyAveragedTrophicLevel(paine_cheddar)
 
 #### Una red trófica completa
 
-`cheddar` incluye varias redes tróficas reales, publicadas, como ejemplo de las posibilidades de análisis. Una de ellas corresponde al [estuario de Ythan](https://en.wikipedia.org/wiki/Ythan_Estuary), en Escocia. Muchas de las especies incluidas aparecen también en el norte de la Península Ibérica.
+`cheddar` incluye varias redes tróficas reales, publicadas, como ejemplo de las posibilidades de análisis. Una de ellas corresponde al estuario de Ythan<sup>4</sup>, en Escocia. Buena parte de las especies incluidas aparecen también en el norte de la Península Ibérica.
 
 Para cargar esos datos de ejemplo:
 
@@ -182,7 +182,7 @@ Para cargar esos datos de ejemplo:
 data("YthanEstuary")
 ```
 
-**YthanEstuary** aparecerá en el entorno de trabajo como conjunto de datos disponible para las funciones de `cheddar`. Por ejemplo, repasamos qué vínculos contiene con `TLPS()` (si bien limitando la salida a las 6 primeras filas con `head()`:
+**YthanEstuary** aparecerá en el entorno de trabajo como conjunto de datos disponible para las funciones de `cheddar`. Por ejemplo, repasamos qué vínculos contiene con `TLPS()`, si bien limitando la salida a las 6 primeras filas con `head()`.
 
 ``` r
 head(TLPS(YthanEstuary))
@@ -220,13 +220,13 @@ DirectedConnectance(YthanEstuary)
 
 La red de Ythan Estuary muestra una densidad de enlaces 1.7 veces mayor que la de *Pisaster*, y una conectancia 2.9 veces menor.
 
-La función usada anteriormente `IsCannibal()` identificará nodos caníbales en la red. Para facilitar la revisión de los resultados, y dado que la red contiene muchos nodos, podemos guardar la salida en un objeto llamado **canibal**:
+La función usada anteriormente `IsCannibal()` identificará nodos caníbales en la red. Para facilitar la revisión de los resultados, y dado que la red contiene muchos nodos, podemos guardar la salida en un objeto llamado por ejemplo **canibal**:
 
 ``` r
 canibal <- IsCannibal(YthanEstuary)
 ```
 
-A continuación convertimos esos resultados en un conjunto de datos con `as.data.frame(canibal)`, para posteriormente filtrar los contenidos mostrando solo aquellos nodos etiquetados como ídem con `TRUE`:
+A continuación convertimos esos resultados en un conjunto de datos con `as.data.frame(canibal)`, para posteriormente filtrar los contenidos mostrando solo aquellos nodos etiquetados como caníbales con `TRUE`:
 
 ``` r
 canibal[canibal==TRUE]
@@ -235,7 +235,7 @@ canibal[canibal==TRUE]
     ## Pomatoschistus microps     Platichthys flesus        Carcinus maenas 
     ##                   TRUE                   TRUE                   TRUE
 
-Dos especies de peces, un [gobio](https://www.fishbase.de/summary/1344) y una [platija](https://www.fishbase.org/summary/Platichthys-flesus.html), y un [cangrejo](https://www.marlin.ac.uk/species/detail/1497) aparecen identificados como caníbales en esta red trófica. Posiblemente un mayor nivel de resolución aportaría más nodos.
+Dos especies de peces, un gobio<sup>5</sup> y una platija<sup>6</sup>, y un cangrejo<sup>7</sup> aparecen identificados como caníbales en esta red trófica. Posiblemente un mayor nivel de resolución aportaría más nodos.
 
 Para terminar, extraemos la fracción de nodos basales, omnívoros y caníbales:
 
@@ -258,3 +258,7 @@ FractionCannibalistic(YthanEstuary)
     ## [1] 0.0326087
 
 El 46% de los nodos de la red trófica de Ythan Estuary muestra vínculos con más de un nivel trófico. Dicho de otra forma, la omnivoría es prevalente en una red trófica real como esta.
+
+### Enlaces y referencias
+
+(Mejor con botón drcho. + abrir en nueva pestaña) <sup>1</sup> Townsend et al. 2008. Essentials of Ecology. 3rd ed. Fig. 10-07. Blackwell <sup>2</sup> <https://eol.org/pages/598469> <sup>3</sup> <https://www.rdocumentation.org/packages/cheddar> <sup>4</sup> <https://en.wikipedia.org/wiki/Ythan_Estuary> <sup>5</sup> <https://www.fishbase.de/summary/1344> <sup>6</sup> <https://www.fishbase.org/summary/Platichthys-flesus.html> <sup>7</sup> <https://www.marlin.ac.uk/species/detail/1497>
