@@ -33,7 +33,7 @@ plotweb (col=c("red", "orange", "blue", "green"), radii=c(15,15,15,15))
 
 ![](paine_starfish_3d.png)
 
-Un vistazo a la representación 3D de esta red trófica simplificada muestra 4 niveles tróficos, omnivoría, y dos compartimentos claros, definidos por productores primarios bentónicos y plantónicos, y consumidores raspadores y filtradores.
+Un vistazo a la representación 3D de esta red trófica simplificada muestra 4 niveles tróficos, omnivoría, y dos compartimentos claros, definidos por productores primarios bentónicos y planctónicos, y consumidores raspadores y filtradores.
 
 ### Análisis de propiedades de redes tróficas
 
@@ -65,7 +65,7 @@ head(TLPS(paine_cheddar))
 
 En el código anterior `head()` limita la presentación de datos en la salida a las 6 primeras filas.
 
-Las proporciones de caníbales y omnivoros son susceptibles de variar mucho entre distintas comunidades, y por ello son objeto habitual de análisis. Las siguientes líneas comprueban si hay nodos caníbales y omnivoros en la red de *Pisaster*:
+Las proporciones de nodos caníbales y omnívoros son susceptibles de variar mucho entre distintas comunidades, entre otros factores en función de la productividad, y por ello son objeto habitual de análisis. Las siguientes líneas comprueban si hay nodos caníbales y omnívoros en la red de *Pisaster*:
 
 ``` r
 IsCannibal(paine_cheddar)
@@ -97,7 +97,7 @@ Ambos casos devuelven **TRUE** para *Pisaster*, la única especie identificada e
 
 #### Pintando la red trófica
 
-A diferencia de los diagrámas de la librería `foodweb` en este caso la posición de los nodos es consecuencia de la posición trófica de los mismos, no del nivel trófico. Por eso *Thais* y *Pisaster* aparecen más cerca en este diagrama:
+A diferencia de los diagramas de la librería `foodweb` en este caso la posición de los nodos es consecuencia de la posición trófica de los mismos, no del nivel trófico. Por eso *Thais* y *Pisaster* aparecen más cerca en este diagrama:
 
 ``` r
 PlotWebByLevel(paine_cheddar, main="")
