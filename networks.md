@@ -5,7 +5,7 @@ Marzo 2019
 
 ### Configuración previa
 
-El ejercicio requiere la instalación de las librerías `bipartite`, `cheddar` y `foodweb`, ya sea con los menús `Tools :: Install packages...` en RStudio, o con la línea de código `install.packages(c("bipartite", "cheddar", "foodweb"), dependencies = TRUE)`. En caso de estar ya instaladas, la orden reemplazará las librerías por las versiones más recientes (la función `installed.packages()` devuelve un listado de las librerías ya instaladas y sus versiones).
+El ejercicio requiere la instalación de las librerías `cheddar` y `foodweb`, ya sea con los menús `Tools :: Install packages...` en RStudio, o con la línea de código `install.packages(c("cheddar", "foodweb"), dependencies = TRUE)`. En caso de estar ya instaladas, la orden reemplazará las librerías por las versiones más recientes (la función `installed.packages()` devuelve un listado de las librerías ya instaladas y sus versiones).
 
 ### Los datos
 
