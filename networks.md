@@ -1,4 +1,4 @@
-Introducción al análisis de redes de interacciones en R
+Introducción al análisis de redes de interacciones en R - I
 ================
 Mario Quevedo;
 Marzo 2019
