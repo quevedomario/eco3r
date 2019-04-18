@@ -7,7 +7,7 @@ El título de este tutorial es un ejemplo de la laxitud del término *comunidad*
 
 Antes de entrar a analizar datos, es siempre recomendable echarles un vistazo, especialmente si trabajamos con datos recogidos por otros. Para entender la estuctura de estos datos lo más fácil es abrir **comunidades.xls**, incluido en el archivo comprimido **comunidades.zip**. Incluye varias hojas de cálculo:
 
--   **esva** contiene datos de abundancia de familias de invertebrados fluviales durante varios muestreos semanales en primavera de 2016, en el [río Esva (occidente de Asturias)](https://es.wikipedia.org/wiki/R%C3%ADo_Esva); formaron parte del TFG de Sara Fernández Rodríguez. Las columnas son los taxones encontrados en las muestras, así como variables adicionales como pH o turbidez del agua.
+-   **esva** contiene datos de abundancia de familias de invertebrados fluviales durante varios muestreos semanales en primavera de 2016, en el río Esva (occidente de Asturias)<sup>1</sup>; formaron parte del TFG de Sara Fernández Rodríguez. Las columnas son los taxones encontrados en las muestras, así como variables adicionales como pH o turbidez del agua.
 
 -   **semanas** recopila los datos de **esva** por semana y localidad de muestreo.
 
@@ -17,7 +17,7 @@ Antes de entrar a analizar datos, es siempre recomendable echarles un vistazo, e
 
 ### Configuración previa
 
-Los procedimientos incluidos a continuación asumen la instalación previa de [R](https://www.r-project.org/) y [RStudio](https://www.rstudio.com/), para trabajar en este último. Instrucciones al respecto se encuentran en el apartado *Configuración* del módulo **Ecología en código abierto** del Campus Virtual.
+Los procedimientos incluidos a continuación asumen la instalación previa de R<sup>2</sup> y RStudio<sup>3</sup>, para trabajar en este último. Instrucciones al respecto se encuentran en el apartado *Configuración* del módulo **Ecología en código abierto** del Campus Virtual.
 
 ### Carga de datos
 
@@ -39,7 +39,7 @@ Puede costar acostumbrarse a la presentación cruda de datos en R; para eso tene
 
 ### Estructura de comunidades
 
-Las funciones más específicas en R están incluidas en librerías adicionales, *packages* en jerga R. Una de esas librerías, diseñada específicamente para calcular métricas de comunidades, es [**vegan**](https://www.rdocumentation.org/packages/vegan/versions/2.4-2).
+Las funciones más específicas en R están incluidas en librerías adicionales, *packages* en jerga R. Una de esas librerías, diseñada específicamente para calcular métricas de comunidades, es **vegan**<sup>4</sup>.
 
 Para instalarla podéis usar los menús de RStudio (`Tools :: Install Packages`, escribiendo *vegan* en el cuadro de diálogo). Lo mismo se consigue con el código `install.packages("vegan", dependencies = TRUE)`. Este se leería en "humano" *instala vegan y otras librerías de las que dependa para funcionar*.
 
@@ -212,3 +212,11 @@ radlattice (modelo_2180)
 ```
 
 ![](communities_files/figure-markdown_github/unnamed-chunk-15-1.png)
+
+### Enlaces y referencias
+
+(Mejor con botón drcho. + abrir en nueva pestaña)
+1- <https://es.wikipedia.org/wiki/R%C3%ADo_Esva>
+2- <https://www.r-project.org/>
+3- <https://www.rstudio.com/>
+4- <https://www.rdocumentation.org/packages/vegan/versions/2.4-2>
