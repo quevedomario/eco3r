@@ -262,10 +262,5 @@ El 46% de los nodos de la red trófica de Ythan Estuary muestra vínculos con m�
 ### Enlaces y referencias
 
 (Mejor con botón drcho. + abrir en nueva pestaña)
-<sup>1</sup> Townsend et al. 2008. Essentials of Ecology. 3rd ed. Fig. 10-07. Blackwell
-<sup>2</sup> <https://eol.org/pages/598469>
-<sup>3</sup> <https://www.rdocumentation.org/packages/cheddar>
-<sup>4</sup> <https://en.wikipedia.org/wiki/Ythan_Estuary>
-<sup>5</sup> <https://www.fishbase.de/summary/1344>
-<sup>6</sup> <https://www.fishbase.org/summary/Platichthys-flesus.html>
-<sup>7</sup> <https://www.marlin.ac.uk/species/detail/1497>
+1. Townsend et al. 2008. Essentials of Ecology. 3rd ed. Fig. 10-07. Blackwell 2. <https://eol.org/pages/598469> 3. <https://www.rdocumentation.org/packages/cheddar> 4. <https://en.wikipedia.org/wiki/Ythan_Estuary> 5. <https://www.fishbase.de/summary/1344> 6. <https://www.fishbase.org/summary/Platichthys-flesus.html>
+7. <https://www.marlin.ac.uk/species/detail/1497>
