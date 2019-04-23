@@ -165,7 +165,7 @@ plot (modelos_sierra, xlab="rango de abundancias", ylab="log (abundancia)")
 
 Una evaluación puramente visual de los datos podría llevarnos a interpretar que el panel 1 (1300 m) y el 5 (3100) corresponden a modelos distintos, ya que la comunidad de aves a 1300 metros es más rica en especies, y aparentemente más equitativa. No obstante, ambos conjuntos de datos se ajustan mejor al modelo de *reserva de nicho*, denominado *preemption* en R.
 
-Es posible usar la misma función con una parte de los datos, por ejemplo una altitud (o fila). La salida a continuación indica el ajuste numérico de los modelos a los datos abundancia de aves a 1300 m s.n.m., almacenados en la fila 1 de la hoja **sierra\_vegan**. Interpretar esa salida se escapa de los contenidos del curso, pero esencialmente el mejor ajuste es aquel que presenta menor desviación entre el modelo y los datos, indicada por la columna *Deviance*:
+Es posible usar la misma función con una parte de los datos, por ejemplo una altitud (o fila). La salida a continuación indica el ajuste numérico de los modelos a los datos abundancia de aves a 1300 m s.n.m., almacenados en la fila 1 de la hoja **sierra\_vegan**. Interpretar esa salida se escapa de los contenidos del curso, pero esencialmente el mejor ajuste se produce cuando la desviación de los datos al modelo es mínima (*Deviance*):
 
 ``` r
 (modelo_1300 <- radfit (sierra_vegan [1,]))
@@ -216,7 +216,7 @@ radlattice (modelo_2180)
 ### Enlaces y referencias
 
 (Mejor con botón drcho. + abrir en nueva pestaña)
-1- <https://es.wikipedia.org/wiki/R%C3%ADo_Esva>
-2- <https://www.r-project.org/>
-3- <https://www.rstudio.com/>
-4- <https://www.rdocumentation.org/packages/vegan/versions/2.4-2>
+1. <https://es.wikipedia.org/wiki/R%C3%ADo_Esva>
+2. <https://www.r-project.org/>
+3. <https://www.rstudio.com/>
+4. <https://www.rdocumentation.org/packages/vegan/versions/2.4-2>
