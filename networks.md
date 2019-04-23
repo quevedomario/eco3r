@@ -9,7 +9,9 @@ El ejercicio requiere la instalación de las librerías `cheddar` y `foodweb`, y
 
 ### Los datos
 
-Los datos usados en este ejercicio están en el archivo comprimido **redes.zip** disponible en el Campus Virtual. Al descomprimirlo en la carpeta de trabajo, mostrará 4 archivos de datos separados por comas (.csv), 3 de ellos dentro de una carpeta *foodweb\_paine*. Corresponden a los enlaces tróficos del experimento de Paine<sup>1</sup> excluyendo de charcas de marea a la estrella de mar *Pisaster ochraceus*<sup>2</sup>, con el añadido simulado de 8 tipos de productores primarios. ![](networks_files/figure-markdown_github/paine_starfish.png)
+Los datos usados en este ejercicio están en el archivo comprimido **redes.zip** disponible en el Campus Virtual. Al descomprimirlo en la carpeta de trabajo, mostrará 4 archivos de datos separados por comas (.csv), 3 de ellos dentro de una carpeta *foodweb\_paine*. Corresponden a los enlaces tróficos del experimento de Paine<sup>1</sup> excluyendo de charcas de marea a la estrella de mar *Pisaster ochraceus*<sup>2</sup>, con el añadido simulado de 8 tipos de productores primarios.
+
+![](networks_files/figure-markdown_github/paine_starfish.png)
 
 ### Visualización de redes tróficas
 
