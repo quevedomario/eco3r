@@ -29,27 +29,27 @@ Antes de entrar a analizar datos, es siempre recomendable echarles un vistazo, e
 
 ### Configuración previa
 
-Los procedimientos incluidos a continuación asumen la instalación previa de R^2^ y RStudio^3^, para trabajar en este último. Instrucciones al respecto se encuentran en el apartado *Configuración* del módulo **Ecología en código abierto** del Campus Virtual.
+Los procedimientos incluidos a continuación asumen la instalación previa de R^2^ y RStudio^3^, para trabajar en este último. Instrucciones al respecto se encuentran en el apartado *Configuración* del módulo **Ecología en código abierto** del Campus Virtual de UniOvi.
 
 ### Carga de datos 
-Cambiad la carpeta de trabajo a aquella que contenga los archivos de datos (no es imprescindible, pero por el momento facilita el trabajo). En RStudio, `Session :: Set Working Directory :: Choose Directory...`
+Cambiamos la carpeta de trabajo a aquella que contenga los archivos de datos (no es imprescindible, pero por el momento facilita el trabajo). En RStudio, `Session :: Set Working Directory :: Choose Directory...`
 
-A continuación, cargad los datos con la línea de código siguiente, o bien haciendo doble *click* sobre el archivo en el explorador.
+A continuación, cargamos los datos con la línea de código siguiente, o bien haciendo doble *click* sobre el archivo en el explorador.
 ```{r}
 load("communities_DATA.RData")
 ```
 
-El archivo con extensión **RData** contiene las hojas de datos (`data.frame` es el término en la jerga de R). 
+El archivo con extensión RData contiene las hojas de datos (`data.frame` es el término en la jerga de R). 
 
-Para ver los datos ya en **RStudio** podemos usar la pestaña **Environment**; esta muestra los distintos conjuntos de datos disponibles en memoria, tras cargar el archivo **RData** anterior. Un icono con forma de tabla sirve para mostrar los datos. A medida que obtengamos resultados, estos pasarán a estar disponibles también en memoria para ser reutilizados, y aparecerán en ese listado. 
+Ya en **RStudio** para ver los datos podemos usar la pestaña **Environment**; esta muestra los distintos conjuntos de datos disponibles en la memoria de la sesión, tras cargar el archivo **RData** anterior. Un icono con forma de tabla sirve para mostrar los datos. A medida que obtengamos resultados, estos pasarán a estar disponibles también en memoria para ser reutilizados, y aparecerán en ese listado. 
 
 Puede costar acostumbrarse a la presentación cruda de datos en R; para eso tenemos los mismos datos en la hoja de cálculo **comunidades.xls**. En este caso los datos ya están cargados, pero en **RStudio** es sencillo importar datos en varios formatos, incluido el de MS Excel, a través de `File :: Import dataset`.
 
-***
+********
 
 ### Estructura de comunidades
 
-Las funciones más específicas en R están incluidas en librerías adicionales, *packages* en jerga R. Una de esas librerías, diseñada específicamente para calcular métricas de comunidades, es **vegan**^4^.
+Las funciones más específicas en R están incluidas en librerías adicionales, *packages* en jerga R. Una de esas librerías, diseñada específicamente para calcular métricas de comunidades, es [vegan][4].
 
 Para instalarla podéis usar los menús de RStudio (`Tools :: Install Packages`, escribiendo *vegan* en el cuadro de diálogo). Lo mismo se consigue con el código `install.packages("vegan", dependencies = TRUE)`. Este se leería en "humano" *instala vegan y otras librerías de las que dependa para funcionar*.
 
@@ -59,7 +59,7 @@ library(vegan)
 ```
 
 #### Índices de diversidad
-Algunas funciones típicas de ecología de comunidades son los **índices de diversidad**. La línea de código siguiente usa la función `diversity` incluida en la libreria de funciones `vegan` para calcular los índices de diversidad de Shannon de cada muestra (fila) de la hoja de datos **esva_vegan**. Además de calcularlos, los almacena en memoria en un objeto llamado **H**:
+Algunas funciones típicas de ecología de comunidades son los *índices de diversidad*. La línea de código siguiente usa la función `diversity` incluida en la libreria de funciones `vegan` para calcular los índices de diversidad de Shannon de cada muestra (fila) de la hoja de datos **esva_vegan**. Además de calcularlos, los almacena en memoria en un objeto llamado **H**:
 
 ```{r}
 (H <- diversity (esva_vegan, index="shannon"))
@@ -73,7 +73,7 @@ A continuación, calculamos y almacenamos los índices de diversidad de Simpson 
 D <- diversity (esva_vegan, index="invsimpson")
 ```
 
-Observaréis que en este caso no vemos los valores de la D de Simpson. Rodear una orden entre paréntesis, como en el caso anterior, implica mostrar en la consola el resultado, además de guardarlo en memoria. Si queremos ver los valores de diversidad de Simpson, escribimos simplemente `D` en la consola (o los vemos en la pestaña **Environment**). 
+Observaréis que en este caso no vemos los valores de la D de Simpson. Rodear una orden entre paréntesis, como en el caso anterior, implica mostrar directamente en la consola el resultado, además de guardarlo en memoria. Si queremos ver los valores de diversidad de Simpson, escribimos simplemente `D` en la consola (o los vemos en la pestaña **Environment**). 
 
 Almacenamos también la riqueza de especies en un objeto llamado **S**, aprovechando la función `specnumber`, que devuelve el número de taxones para cada muestra (fila) de la hoja de datos:
 
@@ -81,7 +81,7 @@ Almacenamos también la riqueza de especies en un objeto llamado **S**, aprovech
 (S <- specnumber(esva_vegan))
 ```
 
-Usando ahora R como una calculadora, obtenemos la equitatividad en *versión Simpson* (se leería *asigna a J el resultado de dividir D por S*):
+Usando ahora R como una calculadora, obtenemos la equitatividad en *versión Simpson* (se leería *guarda en J el resultado de dividir D por S*):
 
 ```{r}
 J <- D/S
@@ -89,7 +89,7 @@ J <- D/S
 
 ¿Cómo varía la equitatividad de la comunidad durante el muestreo? Para obtener una primera impresión del contenido de los datos podemos *pintar* esa equitatividad que acabamos de calcular frente al ordinal de la semana de muestreo.
 
-El código a continuación se leería: *Pinta J frente a la semanda de muestreo, contenida en la columna "semana" de la hoja __esva__*. El código añade también un título al gráfico, opcional.
+El código a continuación se leería: *Pinta J frente a la semanda de muestreo, contenida en la columna "semana" de la hoja __esva__*. El argumento `main=""` del código añade un título al gráfico, y es opcional.
 
 ```{r}
 plot (J ~ esva$semana, main="Macroinvertebrados; equitatividad; semanas 13 a 22 de 2016")
@@ -169,4 +169,4 @@ radlattice (modelo_2180)
 1. https://es.wikipedia.org/wiki/R%C3%ADo_Esva  
 2. https://www.r-project.org/  
 3. https://www.rstudio.com/  
-4. https://www.rdocumentation.org/packages/vegan/versions/2.4-2  
+[4]: https://www.rdocumentation.org/packages/vegan/versions/2.4-2  
