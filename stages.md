@@ -101,7 +101,7 @@ La función `plotmat()` tiene una aspecto algo intimidante al admitir muchos arg
 
 ![](stages_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
-Algunos valores quedan superpuestos en ese diagrama básico, y la disposición de los estadios no es buena. Por eso a continuación usamos el argumento `pos=` en `plotmat()`para definir la posición de los estadios en un espacio XY entre 0 y 1. Esas posiciones las almacenamos primero por comodidad como **posit**, y las usamos después en la función:
+Algunos valores quedan superpuestos en ese diagrama básico, y la disposición de los estadios no es buena. Por eso a continuación usamos el argumento `pos=` en `plotmat()`para definir la posición de los estadios en un espacio XY<sup>4</sup> entre 0 y 1:
 
 ``` r
 posit <- cbind (c(0.9, 0.9, 0, 0), c(0.9, 0, 0, 0.8))
@@ -121,8 +121,6 @@ plotmat(whale, pos=posit, relsize =0.75, self.shifty=0.05, box.prop = 0.2,
 ```
 
 ![](stages_files/figure-markdown_github/unnamed-chunk-4-1.png)
-
-**posit** contiene dos columnas, con las posiciones X e Y de los estadios. Así la primera fila (0.9,0.9) corresponde en este caso a la posición de *yearling*. El resto de argumentos en la función `plotmat()` retocan aspectos estéticos, como el color de las flechas `arr.col = "green"`.
 
 ### Calculos básicos
 
@@ -343,10 +341,14 @@ stage.vector.plot (whale_nt_2$stage.vectors, ylim = c(0, 0.6))
 
 La convergencia a la distribución estable de estadios es más rápida ante la distribución de abundancias de **n0\_whale\_1**. Una interpretación posible es que esa distribución inicial corresponde a una población en mejor estado, dado el modelo `whale` con una tasa de crecimiento lambda = 1.025, ligeramente positiva.
 
-### Enlaces y referencias
+### Enlaces, referencias, anotaciones de código
 
 (Mejor con botón drcho. + abrir en nueva pestaña)
-1. Caswell, H. 2001. Matrix population models: construction, analysis, and interpretation; 2nd ed. Sinauer
-2. <https://www.theatlantic.com/science/archive/2017/01/why-do-killer-whales-go-through-menopause/512783/>
-3. O no; ver el ciclo de vida de *Arisaema triphyllum* (datos en Akçakaya HR, Burgman MA, Ginzburg LR. 1999. Applied Population Ecology: Principles and Computer Exercises Using RAMAS EcoLab. Sinauer Associates.):
-![](stages_files/figure-markdown_github/structured_jack_in_the_pulpit_600.jpg)
+
+1.  Caswell, H. 2001. Matrix population models: construction, analysis, and interpretation; 2nd ed. Sinauer
+
+2.  <https://www.theatlantic.com/science/archive/2017/01/why-do-killer-whales-go-through-menopause/512783/>
+
+3.  O no; ver el ciclo de vida de *Arisaema triphyllum* (datos en Akçakaya HR, Burgman MA, Ginzburg LR. 1999. Applied Population Ecology: Principles and Computer Exercises Using RAMAS EcoLab. Sinauer Associates.): ![](stages_files/figure-markdown_github/structured_jack_in_the_pulpit_600.jpg)
+
+4.  Esas posiciones las almacenamos primero por comodidad como **posit**, y las usamos después en la función. **posit** contiene dos columnas, con las posiciones XY de los estadios. Así la primera fila (0.9,0.9) corresponde en este caso a la posición de *yearling*. El resto de argumentos en la función `plotmat()` retocan aspectos estéticos, como el color de las flechas `arr.col = "green"`.
