@@ -39,9 +39,9 @@ Puede costar acostumbrarse a la presentación cruda de datos en R; para eso tene
 
 ### Estructura de comunidades
 
-Las funciones más específicas en R están incluidas en librerías adicionales, *packages* en jerga R. Una de esas librerías, diseñada específicamente para calcular métricas de comunidades, es \[vegan\]\[4\].
+Las funciones más específicas en R están incluidas en librerías adicionales, *packages* en jerga R. Una de esas librerías, diseñada específicamente para calcular métricas de comunidades, es **vegan**<sup>4</sup>.
 
-Para instalarla podéis usar los menús de RStudio (`Tools :: Install Packages`, escribiendo *vegan* en el cuadro de diálogo). Lo mismo se consigue con el código `install.packages("vegan", dependencies = TRUE)`. Este se leería en "humano" *instala vegan y otras librerías de las que dependa para funcionar*.
+Para instalarla podemos usar los menús de RStudio (`Tools :: Install Packages`, escribiendo *vegan* en el cuadro de diálogo). Lo mismo se consigue con el código `install.packages("vegan", dependencies = TRUE)`. Este se leería en "humano" *instala vegan y otras librerías de las que dependa para funcionar*.
 
 Una vez instalada, habilitamos la librería con:
 
@@ -88,7 +88,7 @@ Usando ahora R como una calculadora, obtenemos la equitatividad en *versión Sim
 J <- D/S
 ```
 
-¿Cómo varía la equitatividad de la comunidad durante el muestreo? Para obtener una primera impresión del contenido de los datos podemos *pintar* esa equitatividad que acabamos de calcular frente al ordinal de la semana de muestreo.
+¿Cómo varía la equitatividad de la comunidad durante el muestreo? Para obtener una primera impresión del contenido de los datos podemos dibujar esa equitatividad que acabamos de calcular frente al ordinal de la semana de muestreo.
 
 El código a continuación se leería: *Pinta J frente a la semanda de muestreo, contenida en la columna "semana" de la hoja **esva***. El argumento `main=""` del código añade un título al gráfico, y es opcional.
 
@@ -107,13 +107,15 @@ tax_acum <- (specaccum (esva_vegan,  method="random", permutations = 100))
 plot (tax_acum, xlab = "muestras", ylab = "familias")
 ```
 
-![](communities_files/figure-markdown_github/unnamed-chunk-8-1.png) El gráfico muestra el valor central de la curva de acumulación de especies; las barras indican la variación alrededor de ese valor central. Dicho de otra forma, para cada número de muestras tendremos un promedio de especies esperables, y unos intervalos de confianza resultantes de las 100 permutaciones de los datos.
+![](communities_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
-Observamos en la "comunidad" estudiada la esperable curva asintótica de acumulación de taxones en función del esfuerzo de muestreo o análisis. En este caso es bastante gradual, si bien muestra un cambio de pendiente a partir de 6 - 8 muestras. El esfuerzo de muestreo debería ser superior a ese número de muestras para representar adecuadamente la diversidad de la comunidad.
+El gráfico muestra el valor central de la curva de acumulación de especies; las barras indican la variación alrededor de ese valor central. Dicho de otra forma, **para cada número de muestras tendremos un promedio de especies esperables**, y unos intervalos de confianza resultantes de las 100 permutaciones de los datos.
 
-Una interpretación más naturalista: 10 muestras obtenidas con pescas de red Surber en un río cantábrico encontraron entre 20 y 30 familias distintas de invertebrados de agua dulce.
+Observamos en la *comunidad* estudiada la esperable curva asintótica de acumulación de taxones en función del esfuerzo de muestreo o análisis. En este caso es bastante gradual, si bien muestra un cambio de pendiente a partir de 6 - 8 muestras. El **esfuerzo de muestreo debería ser superior a ese número de muestras para representar adecuadamente la diversidad** de la comunidad.
 
-Es posible también *pintar* todas las permutaciones en lugar de la media e intervalos de confianza. Se consigue añadiendo `random = TRUE` a aquella orden `plot`:
+Una interpretación más naturalista: **10 muestras obtenidas con pescas de red Surber en un río cantábrico encontraron entre 20 y 30 familias distintas de invertebrados de agua dulce**.
+
+Es posible también *pintar* todas las permutaciones en lugar de la media e intervalos de confianza. Se consigue añadiendo `random = TRUE` a la orden `plot`:
 
 ``` r
 plot (tax_acum, xlab = "muestras", ylab = "familias", random = TRUE)
@@ -150,7 +152,7 @@ Un vistazo a **semanas** ayuda a recordar a qué datos corresponden esos resulta
 
 #### Curvas diversidad-dominancia
 
-Los *rangos de abundancias* o curvas deversidad-dominancia se utilizan en la comparación de comunidades basada en la equitatividad. Comunidades en las que los individuos están más distribuidos entre distintas especies, en lugar de dominadas por muchos individuos de algunas, presentarán pendientes menores.
+Los *rangos de abundancias* o curvas deversidad-dominancia se utilizan en la comparación de comunidades basada en la equitatividad. Comunidades en las que los individuos están más distribuidos entre distintas especies presentarán pendientes menores que las dominadas por muchos individuos de unas pocas especies.
 
 Para que esa comparación no sea meramente cualitativa, *a ojo*, podemos ajustar modelos numéricos a los datos. La función `radfit` ajusta varios modelos de curvas diversidad-dominancia, incluyendo los vistos en clase *reserva de nicho* (*preemption*) y el de *fracción aleatoria o broken-stick* (*null*).
 
@@ -165,7 +167,7 @@ plot (modelos_sierra, xlab="rango de abundancias", ylab="log (abundancia)")
 
 Una evaluación puramente visual de los datos podría llevarnos a interpretar que el panel 1 (1300 m) y el 5 (3100) corresponden a modelos distintos, ya que la comunidad de aves a 1300 metros es más rica en especies, y aparentemente más equitativa. No obstante, ambos conjuntos de datos se ajustan mejor al modelo de *reserva de nicho*, denominado *preemption* en R.
 
-Es posible usar la misma función con una parte de los datos, por ejemplo una altitud (o fila). La salida a continuación indica el ajuste numérico de los modelos a los datos abundancia de aves a 1300 m s.n.m., almacenados en la fila 1 de la hoja **sierra\_vegan**. Interpretar esa salida se escapa de los contenidos del curso, pero esencialmente el mejor ajuste se produce cuando la desviación de los datos al modelo es mínima (*Deviance*):
+Es posible usar la misma función con una parte de los datos, por ejemplo una altitud (o fila). La salida a continuación indica el ajuste numérico de los modelos a los datos de abundancia de aves a 1300 m s.n.m., almacenados en la fila 1 de la hoja **sierra\_vegan**. Interpretar esa salida no forma parte de los contenidos de la Ecología de 3º, pero esencialmente el mejor ajuste se produce cuando la desviación de los datos al modelo es mínima (*Deviance*):
 
 ``` r
 (modelo_1300 <- radfit (sierra_vegan [1,]))
@@ -219,4 +221,4 @@ radlattice (modelo_2180)
 1. <https://es.wikipedia.org/wiki/R%C3%ADo_Esva>
 2. <https://www.r-project.org/>
 3. <https://www.rstudio.com/>
-\[4\]: <https://www.rdocumentation.org/packages/vegan/versions/2.4-2>
+4. <https://www.rdocumentation.org/packages/vegan/versions/2.4-2>
