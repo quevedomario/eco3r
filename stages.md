@@ -17,11 +17,11 @@ Trabajamos con poblaciones en las que los individuos presentan características 
 
 ![](stages_files/figure-markdown_github/life_cycle_stage.png)
 
-Ese esquema genérico muestra una población modelada a partir de 4 tipos de individuos, agrupados en clases de edad o estadios - las "cajas". Las flechas indican las transiciones posibles entre clases o estadios. A ese ciclo de vida le correspondería la visión numérica aportada por una matriz de transición:
+Ese esquema genérico muestra una población modelada a partir de 4 tipos de individuos, agrupados en clases de edad o estadios - las "cajas". Las flechas indican las transiciones posibles entre clases o estadios. A ese ciclo de vida le correspondería la visión numérica aportada por las matrices de transición:
 
-![](stages_files/figure-markdown_github/matrices_lefkovitch.jpg)
+![](stages_files/figure-markdown_github/structured_matrices.png)
 
-En la primera fila de las matrices de transición, ya sean de edades o de estadios, encontramos el *esquema de fecundidad*, expresada como promedio de individuos contribuidos al momento *t+1* producidos por cada individuo presente en el momento *t*. El resto de valores no nulos de la matriz representan probabilidades de supervivencia entre *t* y *t+1*, ya sea *permaneciendo* en el mismo estadio, e.g. *P<sub>2</sub>*, o *creciendo* al siguiente, e.g. *G<sub>3</sub>*.
+En la primera fila de las matrices de transición, ya sean de edades (dcha.) o de estadios (izda.), encontramos el *esquema de fecundidad*, expresada como promedio de individuos contribuidos al momento *t+1* producidos por cada individuo presente en el momento *t*. El resto de valores no nulos de la matriz representan probabilidades de supervivencia entre *t* y *t+1*, ya sea *permaneciendo* en el mismo estadio, e.g. *P<sub>2</sub>* en la matriz de estadios, o *creciendo* al siguiente, e.g. *G<sub>3</sub>* en estadios o *S<sub>2</sub>* en edades.
 
 ### Matriz de proyección (estadios)
 
@@ -93,7 +93,7 @@ Los ciclos de vida como el generico del esquema anterior pueden ser útiles para
 
 En **R** se pueden dibujar con `plotmat()`, a partir de una matrix de transición.
 
-La función `plotmat()` tiene una aspecto algo intimidante al admitir muchos argumentos que modifican la estética del ciclo resultante; no todos son necesarios. Un comando simple pinta una versión del ciclo de las orcas:
+La función `plotmat()` tiene una aspecto algo intimidante al admitir muchos argumentos que modifican la estética del ciclo resultante; no todos son necesarios. El comando más simple pinta una versión muy mejorable del ciclo de las orcas:
 
 ``` r
  plotmat(whale)
