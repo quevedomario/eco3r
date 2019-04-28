@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 options(warn=-1)
 ```
 
-### Librerias utilizadas
+### Librerías utilizadas
 ```{r message=FALSE, warning=FALSE}
 library (popbio)
 library(diagram)
@@ -29,10 +29,13 @@ Ese esquema genérico muestra una población modelada a partir de 4 tipos de ind
 
 ![](stages_files/figure-markdown_github/structured_matrices.png)
 
+<<<<<<< HEAD
 En la primera fila de las matrices de transición, ya sean de edades (dcha.) o de estadios (izda.), encontramos el *esquema de fecundidad*, expresada como promedio de individuos contribuidos al momento *t+1* producidos por cada individuo presente en el momento *t*. El resto de valores no nulos de la matriz representan probabilidades de supervivencia entre *t* y *t+1*, ya sea *permaneciendo* en el mismo estadio, e.g. *P~2~* en la matriz de estadios, o *creciendo* al siguiente, e.g. *G~3~* en estadios o *S~2~* en edades.
- 
+=======
+En la primera fila de las matrices de transición, ya sean de edades (dcha.) o de estadios (izda.), encontramos el *esquema de fecundidad*, expresada como promedio de individuos contribuidos al momento *t+1* producidos por cada individuo presente en el momento *t*. El resto de valores no nulos de la matriz representan probabilidades de supervivencia entre *t* y *t+1*, ya sea *permaneciendo* en el mismo estadio, e.g. *P~2~* en la matriz de estadios, o *creciendo* al siguiente, e.g. *G~3~* en estadios o *S~2~* en edades.
+
 ### Matriz de proyección (estadios)
-Para el ejercicio usamos datos de un modelo estructurado de orcas *Orcinus orca*, contenidos en la librería `popbio` (Caswell 2001)^1^. 
+Para el ejercicio usamos datos de un modelo estructurado en estadios para una población de orcas *Orcinus orca*. Los datos están incluidos en la librería `popbio` (Caswell 2001)^1^. 
 
 El código a continuación carga en memoria los datos **whale**, y visualiza a continuación la matriz. la visualización incluye un pequeño truco estético: la función `pander()` rodeando al conjunto de datos devuelve una matriz con un formato más enriquecido útil especialmente para la producción de informes en pdf o html; es opcional:
 
@@ -47,9 +50,9 @@ No es una sorpresa que **yearling** no contribuya a la reproducción, y tampoco 
 
 ### Diagrama de transiciones con `plotmat()`
 
-Los ciclos de vida como el generico del esquema anterior pueden ser útiles para entender visualmente las transiciones entre clases o estadios, e incluso comopaso previo antes de plantear un modelo estructurado. Seguramente sean fáciles casi siempre de pintar a mano^3^, algo menos usando software genérico.
+Los ciclos de vida como el genérico del esquema anterior pueden ser útiles para entender visualmente las transiciones entre clases o estadios, e incluso como paso previo antes de plantear un modelo estructurado. Seguramente sean fáciles casi siempre de pintar a mano^3^, algo menos usando software genérico.
 
-En **R** se pueden dibujar con `plotmat()`, a partir de una matrix de transición. 
+En **R** se pueden dibujar con `plotmat()`, a partir de una matriz de transición. 
 
 La función `plotmat()` tiene una aspecto algo intimidante al admitir muchos argumentos que modifican la estética del ciclo resultante; no todos son necesarios. El comando más simple pinta una versión muy mejorable del ciclo de las orcas:
 
@@ -79,9 +82,9 @@ pander(eigen.analysis (whale))
 
 **stable.stage** indica la proporción de individuos de cada estadio en la población, una vez que esta alcanza un distribución estable. La convergencia a esa proporción estable de edades o estadios es una característica formal de este tipo de modelos, consecuencia de usar una matriz de proyección invariable.
 
-En el caso de esta población de orcas los individuos están repartidos de foma casi identica entre juveniles, reproductores, y postreproductores. 
+En el caso de esta población de orcas los individuos están repartidos de forma casi idéntica entre juveniles, reproductores, y postreproductores. 
 
-**sensitivities** y **elasticities** reflejan dos formas de expresar la contribución de cada elemento de la matriz a la tasa de crecimiento lambda. las *elasticidades* son más fácilies de interpretar al representar una proporción. En este caso indican que los dos elementos con más influencia en la dinámica son las supervivencias de reproductores y juveniles (`whale[3,3]` y `whale[2,2]`)
+**sensitivities** y **elasticities** reflejan dos formas de expresar la contribución de cada elemento de la matriz a la tasa de crecimiento lambda. las *elasticidades* son más fáciles de interpretar al representar una proporción. En este caso indican que los dos elementos con más influencia en la dinámica son las supervivencias de reproductores y juveniles (`whale[3,3]` y `whale[2,2]`)
 
 Otro parámetro habitualmente importante en demografía es el **tiempo de generación**, interpretable como la edad media de los reproductores en la población. La función que lo extrae es intuitiva:
 
@@ -108,7 +111,7 @@ stage.vector.plot (whale_nt_1$stage.vectors, ylim = c(0, 0.6))
 
 El modelo estructurado de la población de orcas `whale` predice que las proporciones de los distintos estadios alcancen una distribución estable a partir de 10-12 años, partiendo de 10 individuos en cada estadio. ¿Cambia mucho el resultado con el vector inicial de abundancias N~0~?
 
-Para comprobarlo definimos un N~0~ muy diferente, y lo proyectamoss:
+Para comprobarlo definimos un N~0~ muy diferente, y lo proyectamos:
 
 ```{r}
 n0_whale_2 <- c(1,2,12,25)
