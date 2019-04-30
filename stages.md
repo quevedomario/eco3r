@@ -1,6 +1,5 @@
-Poblaciones estructuradas - análisis determinista
+Modelos de Poblaciones estructuradas - análisis determinista
 ================
-Mario Quevedo;
 Marzo de 2019
 
 ### Librerías utilizadas

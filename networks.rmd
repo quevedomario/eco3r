@@ -1,6 +1,6 @@
 ---
-title: "Introducción al análisis de redes de interacciones en R - 1"
-author: "Mario Quevedo; "
+title: "Introducción al análisis de redes tróficas en R"
+author:
 date: "Marzo 2019"
 output: github_document
 ---

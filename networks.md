@@ -1,6 +1,5 @@
-Introducción al análisis de redes de interacciones en R - 1
+Introducción al análisis de redes tróficas en R
 ================
-Mario Quevedo;
 Marzo 2019
 
 ### Configuración previa

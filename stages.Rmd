@@ -1,6 +1,6 @@
 ---
-title: "Poblaciones estructuradas - análisis determinista"
-author: "Mario Quevedo; "
+title: "Modelos de Poblaciones estructuradas - análisis determinista"
+author:
 date: "Marzo de 2019"
 output: github_document
 editor_options: 

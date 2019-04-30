@@ -1,6 +1,6 @@
 ---
 title: "Introducción al análisis de comunidades ecológicas en R"
-author: "Mario Quevedo;"
+author:
 date: "Enero de 2019"
 output: github_document
 ---
