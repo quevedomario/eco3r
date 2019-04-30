@@ -1,5 +1,5 @@
 ---
-title: "Modelos de Poblaciones estructuradas - análisis determinista"
+title: "Modelos de Poblaciones estructuradas - análisis determinista (1)"
 author:
 date: "Marzo de 2019"
 output: github_document
