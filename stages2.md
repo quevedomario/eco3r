@@ -138,8 +138,9 @@ pander(arisaema_matriz)
 </tbody>
 </table>
 
-A diferencia de lo que ocurre con la gran mayoria de animales, en modelos de plantas estructurados en tamaños muchas transiciones son posibles, tanto creciendo "saltándose" estadios (e.g. `arisaema_matriz[5,4]`) como retrocediendo a estadios anteriores (e.g. `arisaema_matriz[2,7]`). Además, puede existir reproducción vegetativa, con lo que algunas transiciones pueden ser &gt; 1. Los modelos matriciales permiten estudiar numéricamente ciclos complejos, como este de *Arisaema triphyllum*:
-![](stages_files/figure-markdown_github/structured_jack_in_the_pulpit_600.jpg) \#\#\#\# Tasa de crecimiento y estructura estable de estadios
+A diferencia de lo que ocurre con la gran mayoria de animales, en modelos de plantas estructurados en tamaños muchas transiciones son posibles, tanto creciendo "saltándose" estadios (e.g. `arisaema_matriz[5,4]`) como retrocediendo a estadios anteriores (e.g. `arisaema_matriz[2,7]`). Además, puede existir reproducción vegetativa, con lo que algunas transiciones pueden ser &gt; 1. Los modelos matriciales permiten estudiar numéricamente ciclos complejos como el de *Arisaema triphyllum*. las transiciones recogidas en **arisaema\_matriz** corresponden al ciclo:
+
+![](stages2_files/figure-markdown_github/structured_jack_in_the_pulpit_600.jpg) \#\#\#\# Tasa de crecimiento y estructura estable de estadios
 
 ``` r
 lambda(arisaema_matriz)

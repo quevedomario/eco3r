@@ -1,4 +1,4 @@
-Modelos de poblaciones estructuradas 1 - análisis determinista
+Modelos de poblaciones estructuradas. Análisis determinista 1
 ================
 Marzo de 2019
 
@@ -16,17 +16,15 @@ Trabajamos con poblaciones en las que los individuos presentan características 
 
 ![](stages_files/figure-markdown_github/life_cycle_stage.png)
 
-Ese esquema genérico muestra una población modelada a partir de 4 tipos de individuos, agrupados en clases de edad o estadios - las "cajas". Las flechas indican las transiciones posibles entre clases o estadios. A ese ciclo de vida le correspondería la visión numérica aportada por las matrices de transición:
+Ese esquema genérico muestra una población modelada a partir de 4 tipos de individuos, las "cajas", agrupados en clases de edad o estadios. Las flechas indican las transiciones posibles entre clases o estadios. A ese ciclo de vida le correspondería la visión numérica aportada por las matrices de transición:
 
 ![](stages_files/figure-markdown_github/structured_matrices.png)
 
-En la primera fila de las matrices de transición, ya sean de edades (dcha.) o de estadios (izda.), encontramos el *esquema de fecundidad*, expresada como promedio de individuos contribuidos al momento *t+1* producidos por cada individuo presente en el momento *t*. El resto de valores no nulos de la matriz representan probabilidades de supervivencia entre *t* y *t+1*, ya sea *permaneciendo* en el mismo estadio, e.g. *P<sub>2</sub>* en la matriz de estadios, o *creciendo* al siguiente, e.g. *G<sub>3</sub>* en estadios o *S<sub>2</sub>* en edades.
-
-En la primera fila de las matrices de transición, ya sean de edades (dcha.) o de estadios (izda.), encontramos el *esquema de fecundidad*, expresada como promedio de individuos contribuidos al momento *t+1* producidos por cada individuo presente en el momento *t*. El resto de valores no nulos de la matriz representan probabilidades de supervivencia entre *t* y *t+1*, ya sea *permaneciendo* en el mismo estadio, e.g. *P<sub>2</sub>* en la matriz de estadios, o *creciendo* al siguiente, e.g. *G<sub>3</sub>* en estadios o *S<sub>2</sub>* en edades.
+La primera fila de las matrices de transición, ya sean de edades (dcha.) o de estadios (izda.), muestra el *esquema de fecundidad*, expresada como promedio de individuos contribuidos al momento *t+1*, producidos por cada individuo presente en el momento *t*. El resto de valores distintos de cero en la matriz representan probabilidades de supervivencia entre *t* y *t+1*, ya sea *permaneciendo* en el mismo estadio, e.g. *P<sub>2</sub>* en la matriz de estadios, o *creciendo* al siguiente, e.g. *G<sub>3</sub>* en estadios o *S<sub>2</sub>* en edades.
 
 ### Matriz de proyección (estadios)
 
-Para el ejercicio usamos datos de un modelo estructurado en estadios para una población de orcas *Orcinus orca*. Los datos están incluidos en la librería `popbio` (Caswell 2001)<sup>1</sup>. Al final del ejercicio<sup>5</sup> incluyo instrucciones para introducir datos matriciales.
+Para el ejercicio usamos datos de un modelo estructurado en estadios de una población de orcas *Orcinus orca*. Los datos están incluidos en la librería `popbio` (Caswell 2001)<sup>1,2</sup>.
 
 El código a continuación carga en memoria los datos **whale**, y visualiza a continuación la matriz. la visualización incluye un pequeño truco estético: la función `pander()` rodeando al conjunto de datos devuelve una matriz con un formato más enriquecido útil especialmente para la producción de informes en pdf o html; es opcional:
 
@@ -84,13 +82,13 @@ pander (whale)
 </tbody>
 </table>
 
-En el modelo la población está dividida en individuos de primer año **yearling**, juveniles no reproductores **juvenile**, individuos reproductores **mature**, y postreproductores **postreprod**. Este último estadio es muy peculiar: muy pocas especies en la naturaleza conservan aquellos individuos que han dejado de contribuir a la reproducción<sup>2</sup>.
+En el modelo la población está dividida en individuos de primer año **yearling**, juveniles no reproductores **juvenile**, individuos reproductores **mature**, y postreproductores **postreprod**. Este último estadio es muy peculiar: muy pocas especies en la naturaleza conservan aquellos individuos que han dejado de contribuir a la reproducción<sup>3</sup>.
 
 No es una sorpresa que **yearling** no contribuya a la reproducción, y tampoco lo será en el caso de **postreprod**, definidos precisamente por haber alcanzado la menopausia. Algo más sorprendente será la pequeña proporción de individuos a priori juveniles que sí contribuyen; es el valor contenido en la celda \[1, 2\]. Los valores de las filas 2, 3 y 4 representan probabilidades de supervivencia permaneciendo en el mismo estadio, e.g. `whale[2,2]`, o pasando al siguiente `whale[3,2]`. En general, las supervivencias son muy altas y la fecundidad baja, como corresponde a un predador apical.
 
 ### Diagrama de transiciones con `plotmat()`
 
-Los ciclos de vida como el genérico del esquema anterior pueden ser útiles para entender visualmente las transiciones entre clases o estadios, e incluso como paso previo antes de plantear un modelo estructurado. Seguramente sean fáciles casi siempre de pintar a mano<sup>3</sup>, algo menos usando software genérico.
+Los ciclos de vida como el genérico del esquema anterior pueden ser útiles para entender visualmente las transiciones entre clases o estadios, e incluso como paso previo antes de plantear un modelo estructurado. Seguramente sean fáciles casi siempre de pintar a mano<sup>5</sup>, algo menos usando software genérico.
 
 En **R** se pueden dibujar con `plotmat()`, a partir de una matriz de transición.
 
@@ -337,137 +335,12 @@ La convergencia a la distribución estable de estadios es más rápida ante la d
 Para abrir los enlaces en otra pestaña, *botón derecho + abrir en nueva pestaña*, o *Ctrl click*)
 1. Caswell, H. 2001. Matrix population models: construction, analysis, and interpretation; 2nd ed. Sinauer
 
-1.  <https://www.theatlantic.com/science/archive/2017/01/why-do-killer-whales-go-through-menopause/512783/>
+1.  Este otro ejercicio corto incluye instrucciones para introducir datos matriciales: *Ctrl. + click* <https://github.com/quevedomario/eco3r/blob/master/stages2.md>
 
-2.  O no; ver el ciclo de vida de *Arisaema triphyllum*, Jack-in-the-pulpit <https://en.wikipedia.org/wiki/Arisaema_triphyllum>, a partir de los datos incluidos en Akçakaya *et al.* 1999. Applied Population Ecology: Principles and Computer Exercises Using RAMAS EcoLab. Sinauer:
+2.  <https://www.theatlantic.com/science/archive/2017/01/why-do-killer-whales-go-through-menopause/512783/>
+
+3.  Esas posiciones las almacenamos primero por comodidad como **posit**, y las usamos después en la función. **posit** contiene dos columnas, con las posiciones XY de los estadios. Así la primera fila (0.6,1) corresponde en el caso de las orcas a la posición de *yearling*. El resto de argumentos en la función `plotmat()` retocan aspectos estéticos, como el color de las flechas `arr.col = "green"`.
+
+4.  O no; ver el ciclo de vida de *Arisaema triphyllum*, Jack-in-the-pulpit <https://en.wikipedia.org/wiki/Arisaema_triphyllum>, a partir de los datos incluidos en Akçakaya *et al.* 1999. Applied Population Ecology: Principles and Computer Exercises Using RAMAS EcoLab. Sinauer:
 
 ![](stages_files/figure-markdown_github/structured_jack_in_the_pulpit_600.jpg)
-
-1.  Esas posiciones las almacenamos primero por comodidad como **posit**, y las usamos después en la función. **posit** contiene dos columnas, con las posiciones XY de los estadios. Así la primera fila (0.6,1) corresponde en el caso de las orcas a la posición de *yearling*. El resto de argumentos en la función `plotmat()` retocan aspectos estéticos, como el color de las flechas `arr.col = "green"`.
-
-2.  Los datos del modelo para las orcas estaban incluidos en la librería **popbio**. Para introducir nuestro propio modelo hay que usar sintaxis de R para matrices. A continuación un ejemplo con los datos de la herbácea *Arisaema triphyllum*:
-
-El primer paso es definir los estadios o clases. El formato es un simple vector de texto, construido con `c("estadios entre comillas", "separados por comas")`:
-
-``` r
-stages_arisaema <- c("seeds",   "stage2",   "stage3",   "stage4",   "stage5",   
-                      "stage6", "stage7")
-```
-
-A continuación introducimos los datos de la matriz de transición. El modelo tiene 7 estadios, portanto la matriz necesita 7 filas y 7 columnas. Los números los introducimos como un simple "churro", o vector numérico `c()`, en el que la matriz se lee de izquierda a derecha, y de arriba a abajo:
-
-``` r
-arisaema <- c(
-  0.00,0.00,0.00,0.25,0.82,4.51,5.99,
-  0.30,0.58,0.30,0.06,0.06,0.10,0.06,
-  0.00,0.20,0.59,0.19,0.02,0.05,0.09,
-  0.00,0.00,0.08,0.47,0.12,0.05,0.00,
-  0.00,0.00,0.02,0.23,0.38,0.22,0.09,
-  0.00,0.00,0.00,0.05,0.40,0.34,0.43,
-  0.00,0.00,0.00,0.00,0.02,0.25,0.34
-)
-```
-
-Y finalmente construimos la matriz con la función `matrix2()` que combina estadios y transiiciones, y vemos el resultado:
-
-``` r
-arisaema_matriz <- matrix2(arisaema, stages_arisaema)
-pander(arisaema_matriz)
-```
-
-<table>
-<colgroup>
-<col width="17%" />
-<col width="10%" />
-<col width="12%" />
-<col width="12%" />
-<col width="12%" />
-<col width="12%" />
-<col width="12%" />
-<col width="12%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center"> </th>
-<th align="center">seeds</th>
-<th align="center">stage2</th>
-<th align="center">stage3</th>
-<th align="center">stage4</th>
-<th align="center">stage5</th>
-<th align="center">stage6</th>
-<th align="center">stage7</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center"><strong>seeds</strong></td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0.25</td>
-<td align="center">0.82</td>
-<td align="center">4.51</td>
-<td align="center">5.99</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>stage2</strong></td>
-<td align="center">0.3</td>
-<td align="center">0.58</td>
-<td align="center">0.3</td>
-<td align="center">0.06</td>
-<td align="center">0.06</td>
-<td align="center">0.1</td>
-<td align="center">0.06</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>stage3</strong></td>
-<td align="center">0</td>
-<td align="center">0.2</td>
-<td align="center">0.59</td>
-<td align="center">0.19</td>
-<td align="center">0.02</td>
-<td align="center">0.05</td>
-<td align="center">0.09</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>stage4</strong></td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0.08</td>
-<td align="center">0.47</td>
-<td align="center">0.12</td>
-<td align="center">0.05</td>
-<td align="center">0</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>stage5</strong></td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0.02</td>
-<td align="center">0.23</td>
-<td align="center">0.38</td>
-<td align="center">0.22</td>
-<td align="center">0.09</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>stage6</strong></td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0.05</td>
-<td align="center">0.4</td>
-<td align="center">0.34</td>
-<td align="center">0.43</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>stage7</strong></td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0.02</td>
-<td align="center">0.25</td>
-<td align="center">0.34</td>
-</tr>
-</tbody>
-</table>
