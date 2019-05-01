@@ -86,7 +86,7 @@ pander (whale)
 
 En el modelo la población está dividida en individuos de primer año **yearling**, juveniles no reproductores **juvenile**, individuos reproductores **mature**, y postreproductores **postreprod**. Este último estadio es muy peculiar: muy pocas especies en la naturaleza conservan aquellos individuos que han dejado de contribuir a la reproducción<sup>2</sup>.
 
-No es una sorpresa que **yearling** no contribuya a la reproducción, y tampoco lo será en el caso de **postreprod**, definidos precisamente por habert alcanzado la menopausia. Algo más sorprendente será la pequeña proporción de individuos a priori juveniles que sí contribuyen; es el valor contenido en la celda \[1, 2\]. El resto de valores no nulos de la matriz representan probabilidades de supervivencia permaneciendo en el mismo estadio, e.g. `whale[2,2]`, o pasando al siguiente `whale[3,2]`. En general, las supervivencias son muy altas y la fecundidad baja, como corresponde a un predador apical.
+No es una sorpresa que **yearling** no contribuya a la reproducción, y tampoco lo será en el caso de **postreprod**, definidos precisamente por haber alcanzado la menopausia. Algo más sorprendente será la pequeña proporción de individuos a priori juveniles que sí contribuyen; es el valor contenido en la celda \[1, 2\]. Los valores de las filas 2, 3 y 4 representan probabilidades de supervivencia permaneciendo en el mismo estadio, e.g. `whale[2,2]`, o pasando al siguiente `whale[3,2]`. En general, las supervivencias son muy altas y la fecundidad baja, como corresponde a un predador apical.
 
 ### Diagrama de transiciones con `plotmat()`
 
@@ -117,7 +117,7 @@ plotmat(whale, pos=posit, relsize =0.75, self.shifty=0.05, box.prop = 0.2,
 
 ### Calculos básicos
 
-Una vez comprendida la estructura del modelo, procedemos a extraer la información numérica contenida en la matriz de transición; es decir, aquella que es posible obtener de la combinación de valores de supervivencia y fecundidad. La función que extrae buena parte de esa información determinista del modelo es `eigen.analysis()`. Como en el caso anterior, `pander()` es una mera opción estética. Los parámetros están explicados a continuación de la salida:
+Una vez comprendida la estructura del modelo, extraemos la información numérica contenida en la matriz de transición; es decir, aquella dependiente solo de la combinación de valores de supervivencia y fecundidad. La función que extrae buena parte de esa información determinista del modelo es `eigen.analysis()`. Como en el caso anterior, `pander()` es una mera opción estética. Los parámetros están explicados a continuación de la salida:
 
 ``` r
 pander(eigen.analysis (whale))
@@ -285,11 +285,9 @@ pander(eigen.analysis (whale))
 <!-- end of list -->
 **lambda1** muestra el valor de la tasa de crecimiento determinista. En matemáticas corresponde con el *valor propio* de la matriz, *eigenvalue* en inglés.
 
-**stable.stage** indica la proporción de individuos de cada estadio en la población, una vez que esta alcanza un distribución estable. La convergencia a esa proporción estable de edades o estadios es una característica formal de este tipo de modelos, consecuencia de usar una matriz de proyección invariable.
+**stable.stage** indica la proporción de individuos de cada estadio en la población, una vez que esta alcanza un distribución estable. La convergencia a esa proporción estable de edades o estadios es una característica formal de este tipo de modelos, consecuencia de usar una matriz de proyección invariable. En el caso de esta población de orcas los individuos están repartidos de forma casi idéntica entre juveniles, reproductores, y postreproductores.
 
-En el caso de esta población de orcas los individuos están repartidos de forma casi idéntica entre juveniles, reproductores, y postreproductores.
-
-**sensitivities** y **elasticities** reflejan dos formas de expresar la contribución de cada elemento de la matriz a la tasa de crecimiento lambda. las *elasticidades* son más fáciles de interpretar al representar una proporción. En este caso indican que los dos elementos con más influencia en la dinámica son las supervivencias de reproductores y juveniles (`whale[3,3]` y `whale[2,2]`)
+**sensitivities** y **elasticities** reflejan dos formas de expresar la contribución de cada elemento de la matriz a la tasa de crecimiento lambda. las *elasticidades* son más fáciles de interpretar al representar una proporción. En este caso indican que los dos elementos con más influencia en la dinámica son las supervivencias de reproductores y juveniles (`whale[3,3]` y `whale[2,2]`). No nos ocupamos aquí del resto de parámetros incluidos en la salida de `eigen.analysis()`.
 
 Otro parámetro habitualmente importante en demografía es el **tiempo de generación**, interpretable como la edad media de los reproductores en la población. La función que lo extrae es intuitiva:
 
@@ -341,11 +339,13 @@ Para abrir los enlaces en otra pestaña, *botón derecho + abrir en nueva pesta�
 
 1.  <https://www.theatlantic.com/science/archive/2017/01/why-do-killer-whales-go-through-menopause/512783/>
 
-2.  O no; ver el ciclo de vida de *Arisaema triphyllum*, Jack-in-the-pulpit <https://en.wikipedia.org/wiki/Arisaema_triphyllum>, a partir de los datos incluidos en Akçakaya *et al.* 1999. Applied Population Ecology: Principles and Computer Exercises Using RAMAS EcoLab. Sinauer: ![](stages_files/figure-markdown_github/structured_jack_in_the_pulpit_600.jpg)
+2.  O no; ver el ciclo de vida de *Arisaema triphyllum*, Jack-in-the-pulpit <https://en.wikipedia.org/wiki/Arisaema_triphyllum>, a partir de los datos incluidos en Akçakaya *et al.* 1999. Applied Population Ecology: Principles and Computer Exercises Using RAMAS EcoLab. Sinauer:
 
-3.  Esas posiciones las almacenamos primero por comodidad como **posit**, y las usamos después en la función. **posit** contiene dos columnas, con las posiciones XY de los estadios. Así la primera fila (0.6,1) corresponde en el caso de las orcas a la posición de *yearling*. El resto de argumentos en la función `plotmat()` retocan aspectos estéticos, como el color de las flechas `arr.col = "green"`.
+![](stages_files/figure-markdown_github/structured_jack_in_the_pulpit_600.jpg)
 
-4.  Los datos del modelo para las orcas estaban incluidos en la librería **popbio**. Para introducir nuestro propio modelo hay que usar sintaxis de R para matrices. A continuación un ejemplo con los datos de la herbácea *Arisaema triphyllum*:
+1.  Esas posiciones las almacenamos primero por comodidad como **posit**, y las usamos después en la función. **posit** contiene dos columnas, con las posiciones XY de los estadios. Así la primera fila (0.6,1) corresponde en el caso de las orcas a la posición de *yearling*. El resto de argumentos en la función `plotmat()` retocan aspectos estéticos, como el color de las flechas `arr.col = "green"`.
+
+2.  Los datos del modelo para las orcas estaban incluidos en la librería **popbio**. Para introducir nuestro propio modelo hay que usar sintaxis de R para matrices. A continuación un ejemplo con los datos de la herbácea *Arisaema triphyllum*:
 
 El primer paso es definir los estadios o clases. El formato es un simple vector de texto, construido con `c("estadios entre comillas", "separados por comas")`:
 
