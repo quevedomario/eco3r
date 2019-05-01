@@ -20,7 +20,9 @@ Ese esquema genérico muestra una población modelada a partir de 4 tipos de ind
 
 ![](stages_files/figure-markdown_github/structured_matrices.png)
 
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD En la primera fila de las matrices de transición, ya sean de edades (dcha.) o de estadios (izda.), encontramos el *esquema de fecundidad*, expresada como promedio de individuos contribuidos al momento *t+1* producidos por cada individuo presente en el momento *t*. El resto de valores no nulos de la matriz representan probabilidades de supervivencia entre *t* y *t+1*, ya sea *permaneciendo* en el mismo estadio, e.g. *P<sub>2</sub>* en la matriz de estadios, o *creciendo* al siguiente, e.g. *G<sub>3</sub>* en estadios o *S<sub>2</sub>* en edades. ======= En la primera fila de las matrices de transición, ya sean de edades (dcha.) o de estadios (izda.), encontramos el *esquema de fecundidad*, expresada como promedio de individuos contribuidos al momento *t+1* producidos por cada individuo presente en el momento *t*. El resto de valores no nulos de la matriz representan probabilidades de supervivencia entre *t* y *t+1*, ya sea *permaneciendo* en el mismo estadio, e.g. *P<sub>2</sub>* en la matriz de estadios, o *creciendo* al siguiente, e.g. *G<sub>3</sub>* en estadios o *S<sub>2</sub>* en edades.
+En la primera fila de las matrices de transición, ya sean de edades (dcha.) o de estadios (izda.), encontramos el *esquema de fecundidad*, expresada como promedio de individuos contribuidos al momento *t+1* producidos por cada individuo presente en el momento *t*. El resto de valores no nulos de la matriz representan probabilidades de supervivencia entre *t* y *t+1*, ya sea *permaneciendo* en el mismo estadio, e.g. *P<sub>2</sub>* en la matriz de estadios, o *creciendo* al siguiente, e.g. *G<sub>3</sub>* en estadios o *S<sub>2</sub>* en edades.
+
+En la primera fila de las matrices de transición, ya sean de edades (dcha.) o de estadios (izda.), encontramos el *esquema de fecundidad*, expresada como promedio de individuos contribuidos al momento *t+1* producidos por cada individuo presente en el momento *t*. El resto de valores no nulos de la matriz representan probabilidades de supervivencia entre *t* y *t+1*, ya sea *permaneciendo* en el mismo estadio, e.g. *P<sub>2</sub>* en la matriz de estadios, o *creciendo* al siguiente, e.g. *G<sub>3</sub>* en estadios o *S<sub>2</sub>* en edades.
 
 ### Matriz de proyección (estadios)
 
@@ -342,12 +344,11 @@ La convergencia a la distribución estable de estadios es más rápida ante la d
 
 ### Enlaces, referencias, anotaciones de código
 
-(Mejor con botón drcho. + abrir en nueva pestaña)
+Para abrir los enlaces en otra pestaña, *botón derecho + abrir en nueva pestaña*, o *Ctrl click*)
+1. Caswell, H. 2001. Matrix population models: construction, analysis, and interpretation; 2nd ed. Sinauer
 
-1.  Caswell, H. 2001. Matrix population models: construction, analysis, and interpretation; 2nd ed. Sinauer
+1.  <https://www.theatlantic.com/science/archive/2017/01/why-do-killer-whales-go-through-menopause/512783/>
 
-2.  <https://www.theatlantic.com/science/archive/2017/01/why-do-killer-whales-go-through-menopause/512783/>
+2.  O no; ver el ciclo de vida de *Arisaema triphyllum* (datos en Akçakaya *et al.* 1999. Applied Population Ecology: Principles and Computer Exercises Using RAMAS EcoLab. Sinauer): ![](stages_files/figure-markdown_github/structured_jack_in_the_pulpit_600.jpg)
 
-3.  O no; ver el ciclo de vida de *Arisaema triphyllum* (datos en Akçakaya HR, Burgman MA, Ginzburg LR. 1999. Applied Population Ecology: Principles and Computer Exercises Using RAMAS EcoLab. Sinauer Associates.): ![](stages_files/figure-markdown_github/structured_jack_in_the_pulpit_600.jpg)
-
-4.  Esas posiciones las almacenamos primero por comodidad como **posit**, y las usamos después en la función. **posit** contiene dos columnas, con las posiciones XY de los estadios. Así la primera fila (0.9,0.9) corresponde en este caso a la posición de *yearling*. El resto de argumentos en la función `plotmat()` retocan aspectos estéticos, como el color de las flechas `arr.col = "green"`.
+3.  Esas posiciones las almacenamos primero por comodidad como **posit**, y las usamos después en la función. **posit** contiene dos columnas, con las posiciones XY de los estadios. Así la primera fila (0.9,0.9) corresponde en este caso a la posición de *yearling*. El resto de argumentos en la función `plotmat()` retocan aspectos estéticos, como el color de las flechas `arr.col = "green"`.
