@@ -1,4 +1,4 @@
-Modelos de Poblaciones estructuradas - análisis determinista (1)
+Modelos de poblaciones estructuradas 1 - análisis determinista
 ================
 Marzo de 2019
 
@@ -26,7 +26,7 @@ En la primera fila de las matrices de transición, ya sean de edades (dcha.) o d
 
 ### Matriz de proyección (estadios)
 
-Para el ejercicio usamos datos de un modelo estructurado en estadios para una población de orcas *Orcinus orca*. Los datos están incluidos en la librería `popbio` (Caswell 2001)<sup>1</sup>.
+Para el ejercicio usamos datos de un modelo estructurado en estadios para una población de orcas *Orcinus orca*. Los datos están incluidos en la librería `popbio` (Caswell 2001)<sup>1</sup>. Al final del ejercicio<sup>5</sup> incluyo instrucciones para introducir datos matriciales.
 
 El código a continuación carga en memoria los datos **whale**, y visualiza a continuación la matriz. la visualización incluye un pequeño truco estético: la función `pander()` rodeando al conjunto de datos devuelve una matriz con un formato más enriquecido útil especialmente para la producción de informes en pdf o html; es opcional:
 
@@ -94,23 +94,15 @@ Los ciclos de vida como el genérico del esquema anterior pueden ser útiles par
 
 En **R** se pueden dibujar con `plotmat()`, a partir de una matriz de transición.
 
-La función `plotmat()` tiene una aspecto algo intimidante al admitir muchos argumentos que modifican la estética del ciclo resultante; no todos son necesarios. El comando más simple pinta una versión muy mejorable del ciclo de las orcas:
+La función `plotmat()` tiene una aspecto algo intimidante al admitir muchos argumentos que modifican la estética del ciclo resultante; no todos son necesarios. El comando más simple `plotmat(whale)` pinta una versión muy mejorable del ciclo de las orcas, en la que algunos valores quedan superpuestos, y la disposición de los estadios no es buena. Por eso usamos el argumento `pos=` dentro de `plotmat()`para definir la posición de los estadios en un espacio XY<sup>4</sup> entre 0 y 1:
 
 ``` r
- plotmat(whale)
-```
-
-![](stages_files/figure-markdown_github/unnamed-chunk-3-1.png)
-
-Algunos valores quedan superpuestos en ese diagrama básico, y la disposición de los estadios no es buena. Por eso a continuación usamos el argumento `pos=` en `plotmat()`para definir la posición de los estadios en un espacio XY<sup>4</sup> entre 0 y 1:
-
-``` r
-posit <- cbind (c(0.9, 0.9, 0, 0), c(0.9, 0, 0, 0.8))
+posit <- cbind (c(0.6, 0.9, 0, 0), c(1, 0, 0, 0.8))
 posit
 ```
 
     ##      [,1] [,2]
-    ## [1,]  0.9  0.9
+    ## [1,]  0.6  1.0
     ## [2,]  0.9  0.0
     ## [3,]  0.0  0.0
     ## [4,]  0.0  0.8
@@ -118,10 +110,10 @@ posit
 ``` r
 plotmat(whale, pos=posit, relsize =0.75, self.shifty=0.05, box.prop = 0.2,
         box.type = "square", box.size = 0.12, lwd = 1, arr.col = "green",
-        arr.lcol = "black", arr.type = "triangle")
+        arr.lcol = "black", arr.type = "triangle", main = "Orcas")
 ```
 
-![](stages_files/figure-markdown_github/unnamed-chunk-4-1.png)
+![](stages_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
 ### Calculos básicos
 
@@ -326,7 +318,7 @@ whale_nt_1 <- pop.projection (whale, n0_whale_1, 50)
 stage.vector.plot (whale_nt_1$stage.vectors, ylim = c(0, 0.6))
 ```
 
-![](stages_files/figure-markdown_github/unnamed-chunk-8-1.png)
+![](stages_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
 El modelo estructurado de la población de orcas `whale` predice que las proporciones de los distintos estadios alcancen una distribución estable a partir de 10-12 años, partiendo de 10 individuos en cada estadio. ¿Cambia mucho el resultado con el vector inicial de abundancias N<sub>0</sub>?
 
@@ -338,9 +330,9 @@ whale_nt_2 <- pop.projection (whale, n0_whale_2, 50)
 stage.vector.plot (whale_nt_2$stage.vectors, ylim = c(0, 0.6))
 ```
 
-![](stages_files/figure-markdown_github/unnamed-chunk-9-1.png)
+![](stages_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
-La convergencia a la distribución estable de estadios es más rápida ante la distribución de abundancias de **n0\_whale\_1**. Una interpretación posible es que esa distribución inicial corresponde a una población en mejor estado, dado el modelo `whale` con una tasa de crecimiento lambda = 1.025, ligeramente positiva.
+La convergencia a la distribución estable de estadios es más rápida ante la distribución de abundancias de **n0\_whale\_1**. Una interpretación posible es que esa distribución inicial corresponde a una población en mejor estado, dado el modelo contenido en la matriz de transición `whale`, que tiene una tasa de crecimiento lambda = 1.025, ligeramente positiva.
 
 ### Enlaces, referencias, anotaciones de código
 
@@ -349,6 +341,133 @@ Para abrir los enlaces en otra pestaña, *botón derecho + abrir en nueva pesta�
 
 1.  <https://www.theatlantic.com/science/archive/2017/01/why-do-killer-whales-go-through-menopause/512783/>
 
-2.  O no; ver el ciclo de vida de *Arisaema triphyllum* (datos en Akçakaya *et al.* 1999. Applied Population Ecology: Principles and Computer Exercises Using RAMAS EcoLab. Sinauer): ![](stages_files/figure-markdown_github/structured_jack_in_the_pulpit_600.jpg)
+2.  O no; ver el ciclo de vida de *Arisaema triphyllum*, Jack-in-the-pulpit <https://en.wikipedia.org/wiki/Arisaema_triphyllum>, a partir de los datos incluidos en Akçakaya *et al.* 1999. Applied Population Ecology: Principles and Computer Exercises Using RAMAS EcoLab. Sinauer: ![](stages_files/figure-markdown_github/structured_jack_in_the_pulpit_600.jpg)
 
-3.  Esas posiciones las almacenamos primero por comodidad como **posit**, y las usamos después en la función. **posit** contiene dos columnas, con las posiciones XY de los estadios. Así la primera fila (0.9,0.9) corresponde en este caso a la posición de *yearling*. El resto de argumentos en la función `plotmat()` retocan aspectos estéticos, como el color de las flechas `arr.col = "green"`.
+3.  Esas posiciones las almacenamos primero por comodidad como **posit**, y las usamos después en la función. **posit** contiene dos columnas, con las posiciones XY de los estadios. Así la primera fila (0.6,1) corresponde en el caso de las orcas a la posición de *yearling*. El resto de argumentos en la función `plotmat()` retocan aspectos estéticos, como el color de las flechas `arr.col = "green"`.
+
+4.  Los datos del modelo para las orcas estaban incluidos en la librería **popbio**. Para introducir nuestro propio modelo hay que usar sintaxis de R para matrices. A continuación un ejemplo con los datos de la herbácea *Arisaema triphyllum*:
+
+El primer paso es definir los estadios o clases. El formato es un simple vector de texto, construido con `c("estadios entre comillas", "separados por comas")`:
+
+``` r
+stages_arisaema <- c("seeds",   "stage2",   "stage3",   "stage4",   "stage5",   
+                      "stage6", "stage7")
+```
+
+A continuación introducimos los datos de la matriz de transición. El modelo tiene 7 estadios, portanto la matriz necesita 7 filas y 7 columnas. Los números los introducimos como un simple "churro", o vector numérico `c()`, en el que la matriz se lee de izquierda a derecha, y de arriba a abajo:
+
+``` r
+arisaema <- c(
+  0.00,0.00,0.00,0.25,0.82,4.51,5.99,
+  0.30,0.58,0.30,0.06,0.06,0.10,0.06,
+  0.00,0.20,0.59,0.19,0.02,0.05,0.09,
+  0.00,0.00,0.08,0.47,0.12,0.05,0.00,
+  0.00,0.00,0.02,0.23,0.38,0.22,0.09,
+  0.00,0.00,0.00,0.05,0.40,0.34,0.43,
+  0.00,0.00,0.00,0.00,0.02,0.25,0.34
+)
+```
+
+Y finalmente construimos la matriz con la función `matrix2()` que combina estadios y transiiciones, y vemos el resultado:
+
+``` r
+arisaema_matriz <- matrix2(arisaema, stages_arisaema)
+pander(arisaema_matriz)
+```
+
+<table>
+<colgroup>
+<col width="17%" />
+<col width="10%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">seeds</th>
+<th align="center">stage2</th>
+<th align="center">stage3</th>
+<th align="center">stage4</th>
+<th align="center">stage5</th>
+<th align="center">stage6</th>
+<th align="center">stage7</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>seeds</strong></td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0.25</td>
+<td align="center">0.82</td>
+<td align="center">4.51</td>
+<td align="center">5.99</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>stage2</strong></td>
+<td align="center">0.3</td>
+<td align="center">0.58</td>
+<td align="center">0.3</td>
+<td align="center">0.06</td>
+<td align="center">0.06</td>
+<td align="center">0.1</td>
+<td align="center">0.06</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>stage3</strong></td>
+<td align="center">0</td>
+<td align="center">0.2</td>
+<td align="center">0.59</td>
+<td align="center">0.19</td>
+<td align="center">0.02</td>
+<td align="center">0.05</td>
+<td align="center">0.09</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>stage4</strong></td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0.08</td>
+<td align="center">0.47</td>
+<td align="center">0.12</td>
+<td align="center">0.05</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>stage5</strong></td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0.02</td>
+<td align="center">0.23</td>
+<td align="center">0.38</td>
+<td align="center">0.22</td>
+<td align="center">0.09</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>stage6</strong></td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0.05</td>
+<td align="center">0.4</td>
+<td align="center">0.34</td>
+<td align="center">0.43</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>stage7</strong></td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0.02</td>
+<td align="center">0.25</td>
+<td align="center">0.34</td>
+</tr>
+</tbody>
+</table>
