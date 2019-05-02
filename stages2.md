@@ -54,7 +54,9 @@ arisaema_matrix
 
 A diferencia de la gran mayoría de animales, en modelos de plantas estructurados en tamaños muchas transiciones son posibles; tanto creciendo y "saltándose" estadios (e.g. `arisaema_matrix[5,4]`) como retrocediendo a estadios anteriores (e.g. `arisaema_matrix[2,7]`). Además, puede existir reproducción vegetativa, con lo que algunas transiciones pueden ser &gt; 1. Las transiciones recogidas en **arisaema\_matrix** equivalen al ciclo:
 
-![](stages2_files/figure-markdown_github/structured_jack_in_the_pulpit_600.jpg) \#\#\#\# Tasa de crecimiento y estructura estable de estadios
+![](stages2_files/figure-markdown_github/structured_jack_in_the_pulpit_600.jpg)
+
+#### Tasa de crecimiento y estructura estable de estadios
 
 ``` r
 lambda(arisaema_matrix)
@@ -100,7 +102,7 @@ stage.vector.plot (arisaema_nt$stage.vectors, ylim = c(0, 0.7))
 
 ¿Por qué no varían las proporciones de los distintos estadios?
 
-### Enlaces, referencias, anotaciones de código
+#### Enlaces, referencias, anotaciones de código
 
 Para abrir los enlaces en otra pestaña, *botón derecho + abrir en nueva pestaña*, o *Ctrl click*)
 
