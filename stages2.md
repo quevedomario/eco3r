@@ -104,6 +104,6 @@ stage.vector.plot (arisaema_nt$stage.vectors, ylim = c(0, 0.7))
 
 #### Enlaces, referencias, anotaciones de código
 
-Para abrir los enlaces en otra pestaña, *botón derecho + abrir en nueva pestaña*, o *Ctrl click*)
+Para abrir los enlaces en otra pestaña, *botón derecho + abrir en nueva pestaña*, o *Ctrl. + clic*
 
 1.  **arisaema\_nt** contiene varios resultados. El código que pinta la trayectoria del tamaño de la población `plot(arisaema_nt$pop.sizes, ylim=c(90, 110), xlab = "año")` usa la forma habitual en **R** de referirse a distintas partes de objetos en memoria. El símbolo **$** identifica un apartado de **arisaema\_nt**, concretamente los resultados del tamaño de la población **pop.sizes**. Para comprobar el contenido y estructura de un objeto en R, podemos usar `str(arisaema_nt)`.
