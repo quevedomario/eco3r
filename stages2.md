@@ -54,7 +54,9 @@ arisaema_matrix
 
 A diferencia de la gran mayoría de animales, en modelos de plantas estructurados en tamaños muchas transiciones son posibles; tanto creciendo y "saltándose" estadios (e.g. `arisaema_matrix[5,4]`) como retrocediendo a estadios anteriores (e.g. `arisaema_matrix[2,7]`). Además, puede existir reproducción vegetativa, con lo que algunas transiciones pueden ser &gt; 1. Las transiciones recogidas en **arisaema\_matrix** equivalen al ciclo:
 
-![](stages2_files/figure-markdown_github/structured_jack_in_the_pulpit_600.jpg) \#\#\#\# Tasa de crecimiento y estructura estable de estadios
+![](stages2_files/figure-markdown_github/structured_jack_in_the_pulpit_600.jpg)
+
+### Tasa de crecimiento y estructura estable de estadios
 
 ``` r
 lambda(arisaema_matrix)
@@ -73,7 +75,7 @@ stable.stage(arisaema_matrix)
 
 La combinación de fecundidad y supervivencia de los distintos estadios se traduce en una dinámica estable (lambda = 1.002), y en una población mayoritariamente compuesta por semillas e individuos en los estadios de tamaño 1 y 2; aproximadamente un 11% estarán en los tamaños 3 a 5.
 
-#### Proyección de la población de N<sub>0</sub> a N<sub>25</sub>
+### Proyección de la población de N<sub>0</sub> a N<sub>25</sub>
 
 Tras definir un vector de abundancias iniciales N<sub>0</sub>, lo proyectamos de t<sub>0</sub> a t<sub>25</sub> con la función `pop.projection()`:
 
