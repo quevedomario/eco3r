@@ -4,7 +4,7 @@ Enero de 2019
 
 El título de este tutorial es un ejemplo de la laxitud del término *comunidad*. Rara vez podemos obtener datos de comunidades completas; los datos se referirán más frecuentemente a *taxocenosis*, o a porciones más o menos arbitrarias de una comunidad ecológica local. En este caso tenemos dos conjuntos de datos: invertebrados fluviales en Asturias, y aves en la Sierra Nevada española.
 
-Antes de entrar a analizar datos, es siempre recomendable echarles un vistazo, especialmente si trabajamos con datos recogidos por otros. Para entender la estuctura de estos datos lo más fácil es abrir **comunidades.xls**, incluido en el archivo comprimido **comunidades.zip** disponible en el Campus Virtual. Incluye varias hojas de cálculo:
+Antes de entrar a analizar datos, es siempre recomendable echarles un vistazo, especialmente si trabajamos con datos recogidos por otros. Para entender la estuctura de estos datos lo más fácil es abrir **comunidades.xls**, incluido en el archivo comprimido [**comunidades.zip**](https://www.dropbox.com/s/fiosatewunlfh48/comunidades.zip?dl=0) disponible en el Campus Virtual. Incluye varias hojas de cálculo:
 
 -   **esva** contiene datos de abundancia de familias de invertebrados fluviales durante varios muestreos semanales en primavera de 2016, en el río Esva (occidente de Asturias)<sup>1</sup>; formaron parte del TFG de Sara Fernández Rodríguez. Las columnas son los taxones encontrados en las muestras, así como variables adicionales como pH o turbidez del agua.
 
@@ -16,7 +16,7 @@ Antes de entrar a analizar datos, es siempre recomendable echarles un vistazo, e
 
 ### Configuración previa
 
-Los procedimientos incluidos a continuación asumen la instalación previa de R<sup>2</sup> y RStudio<sup>3</sup>, para trabajar en este último. Instrucciones al respecto se encuentran en el apartado *Configuración* del módulo **Ecología en código abierto** del Campus Virtual de UniOvi.
+Los procedimientos incluidos a continuación asumen la instalación previa de R y RStudio<sup>2</sup>, para trabajar en este último. Instrucciones al respecto se encuentran en el apartado *Configuración* del módulo **Ecología en código abierto** del Campus Virtual de UniOvi.
 
 ### Carga de datos
 
@@ -38,7 +38,7 @@ Puede costar acostumbrarse a la presentación cruda de datos en R; para eso tene
 
 ### Estructura de comunidades
 
-Las funciones más específicas en R están incluidas en librerías adicionales, *packages* en jerga R. Una de esas librerías, diseñada específicamente para calcular métricas de comunidades, es **vegan**<sup>4</sup>.
+Las funciones más específicas en R están incluidas en librerías adicionales, *packages* en jerga R. Una de esas librerías, diseñada específicamente para calcular métricas de comunidades, es **vegan**<sup>3</sup>.
 
 Para instalarla podemos usar los menús de RStudio (`Tools :: Install Packages`, escribiendo *vegan* en el cuadro de diálogo). Lo mismo se consigue con el código `install.packages("vegan", dependencies = TRUE)`. Este se leería en "humano" *instala vegan y otras librerías de las que dependa para funcionar*.
 
@@ -218,6 +218,5 @@ radlattice (modelo_2180)
 
 (Mejor con botón drcho. + abrir en nueva pestaña)
 1. <https://es.wikipedia.org/wiki/R%C3%ADo_Esva>
-2. <https://www.r-project.org/>
-3. <https://www.rstudio.com/>
-4. <https://www.rdocumentation.org/packages/vegan/versions/2.4-2>
+2. <https://www.r-project.org/> y <https://www.rstudio.com/>
+3. <https://www.rdocumentation.org/packages/vegan/versions/2.4-2>
