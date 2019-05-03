@@ -8,7 +8,7 @@ El ejercicio requiere la instalación de las librerías `cheddar` y `foodweb`, y
 
 ### Los datos
 
-Los datos usados en este ejercicio están en el archivo comprimido **redes.zip** disponible en el Campus Virtual de UniOvi. Al descomprimirlo en la carpeta de trabajo, mostrará 4 archivos de datos separados por comas (.csv), 3 de ellos dentro de una carpeta *foodweb\_paine*. Corresponden a los enlaces tróficos del experimento de Paine<sup>1</sup> excluyendo a la estrella de mar *Pisaster ochraceus* <sup>2</sup> de charcas de marea, con el añadido simulado de 8 tipos de productores primarios.
+Los datos usados en este ejercicio están en el archivo comprimido (Ctrl. + clic) [**redes.zip**](https://github.com/quevedomario/eco3r/blob/master/redes.zip). Al descomprimirlo en la carpeta de trabajo, mostrará 4 archivos de datos separados por comas (csv), 3 de ellos dentro de una carpeta *foodweb\_paine*. Corresponden a los enlaces tróficos del experimento de Paine<sup>1</sup> excluyendo a la estrella de mar *Pisaster ochraceus*<sup>2</sup> de charcas de marea, con el añadido simulado de 8 tipos de productores primarios.
 
 ![](networks_files/figure-markdown_github/paine_starfish.png)
 
@@ -27,6 +27,9 @@ Para dibujar el diagrama de la red trófica<sup>3</sup> usamos la función `plot
 ``` r
 plotweb (col=c("red", "orange", "blue", "green"), radii=c(15,15,15,15))
 ```
+
+    ## Warning in par3d(userMatrix = structure(c(1, 0, 0, 0, 0,
+    ## 0.342020143325668, : font family "sans" not found, using "bitmap"
 
 ![](networks_files/figure-markdown_github/paine_starfish_3d.png)
 
@@ -256,7 +259,7 @@ El 46% de los nodos de la red trófica de Ythan Estuary muestra vínculos con m�
 
 ### Enlaces, referencias, anotaciones de código
 
-(Mejor con botón drcho. + abrir en nueva pestaña)
+(Mejor con botón drcho. + abrir en nueva pestaña, o Ctrl. + clic)
 1. Townsend et al. 2008. Essentials of Ecology. 3rd ed. Fig. 10-07. Blackwell
 2. <https://eol.org/pages/598469>
 3. Para poder visualizar el diagrama de la red es necesario previamente ejecutar la función que analiza las propiedades básicas de la red trófica, aunque no usaremos esos resultados: `analyse.single (filename = "foodweb_pkg_paine0.csv")` utiliza *foodweb\_pkg\_paine0.csv*, uno de los archivos .csv contenidos en **redes.zip**. El formato de datos requerido por `analyse.single()` es una matriz de vínculos tróficos sin nombres de filas y columnas.

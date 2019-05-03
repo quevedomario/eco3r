@@ -6,7 +6,7 @@ Enero de 2019
 
 Los procedimientos incluidos a continuación asumen la instalación previa de R y RStudio<sup>1</sup>, para trabajar en este último. Instrucciones al respecto se encuentran en el apartado *Configuración* del módulo **Ecología en código abierto** del Campus Virtual de UniOvi.
 
-Antes de entrar a analizar datos, es siempre recomendable echarles un vistazo, especialmente si trabajamos con datos recogidos por otros. Para entender la estuctura de estos datos lo más fácil es abrir **comunidades.xls**, incluido en el archivo comprimido [Ctrl. + clic **comunidades.zip**](https://github.com/quevedomario/eco3r/blob/master/comunidades.zip). Incluye varias hojas de cálculo:
+Antes de entrar a analizar datos, es siempre recomendable echarles un vistazo, especialmente si trabajamos con datos recogidos por otros. Para entender la estuctura de estos datos lo más fácil es abrir **comunidades.xls**, incluido en el archivo comprimido (Ctrl. + clic) [**comunidades.zip**](https://github.com/quevedomario/eco3r/blob/master/comunidades.zip). Incluye varias hojas de cálculo:
 
 -   **esva** contiene datos de abundancia de familias de invertebrados fluviales durante varios muestreos semanales en primavera de 2016, en el río Esva (occidente de Asturias). Formaron parte del TFG de Sara Fernández Rodríguez. Las columnas son los taxones encontrados en las muestras, así como variables adicionales como pH o turbidez del agua.
 
