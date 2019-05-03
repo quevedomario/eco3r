@@ -125,7 +125,9 @@ plot (tax_acum, xlab = "muestras", ylab = "familias", random = TRUE)
 La función `rarecurve` calcula y pinta la acumulación de taxones en función del número de individuos.
 
 ``` r
-rarecurve(semanas_vegan, sample = 50, col =  c("black", "forestgreen", "blue", "red", "violet", "orange", "navy"),lwd = 1.5, xlab="individuos identificados", ylab="taxones encontrados")
+rarecurve(semanas_vegan, sample = 50, 
+          col =  c("black", "forestgreen", "blue", "red", "violet", "orange", "navy"),
+          lwd = 1.5, xlab="individuos identificados", ylab="taxones encontrados")
 ```
 
 ![](communities_files/figure-markdown_github/unnamed-chunk-10-1.png) La línea vertical marca el tamaño muestral de referencia, especificado en el código con la opción `sample=`. las líneas horizontales muestran la riqueza de especies correspondiente a ese tamaño de muestra de referencia.

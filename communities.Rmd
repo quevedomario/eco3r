@@ -41,7 +41,7 @@ El archivo con extensión RData contiene las hojas de datos mencionadas arriba (
 
 Para ver los datos en **RStudio** una vez cargado el archivo **RData** anterior 
 podemos usar la pestaña **Environment**. El icono con forma de tabla permite mostrar los datos. A medida que obtengamos resultados, estos pasarán a estar disponibles también en ese **Environment** para ser reutilizados, hasta que cerremos la sesión. 
-
+ 
 ********
 
 ### Estructura de comunidades
@@ -118,7 +118,9 @@ plot (tax_acum, xlab = "muestras", ylab = "familias", random = TRUE)
 La función `rarecurve` calcula y pinta la acumulación de taxones en función del número de individuos. 
 
 ```{r}
-rarecurve(semanas_vegan, sample = 50, col =  c("black", "forestgreen", "blue", "red", "violet", "orange", "navy"),lwd = 1.5, xlab="individuos identificados", ylab="taxones encontrados")
+rarecurve(semanas_vegan, sample = 50, 
+          col =  c("black", "forestgreen", "blue", "red", "violet", "orange", "navy"),
+          lwd = 1.5, xlab="individuos identificados", ylab="taxones encontrados")
 ```
 La línea vertical marca el tamaño muestral de referencia, especificado en el código con la opción `sample=`. las líneas horizontales muestran la riqueza de especies correspondiente a ese tamaño de muestra de referencia.
 
