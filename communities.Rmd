@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 El título de este tutorial es un ejemplo de la laxitud del término *comunidad*. Rara vez podemos obtener datos de comunidades completas; los datos se referirán más frecuentemente a *taxocenosis*, o a porciones más o menos arbitrarias de una comunidad ecológica local. En este caso tenemos dos conjuntos de datos: invertebrados fluviales en Asturias, y aves en la Sierra Nevada española. 
 
-Antes de entrar a analizar datos, es siempre recomendable echarles un vistazo, especialmente si trabajamos con datos recogidos por otros. Para entender la estuctura de estos datos lo más fácil es abrir **comunidades.xls**, incluido en el archivo comprimido **comunidades.zip**. Incluye varias hojas de cálculo:
+Antes de entrar a analizar datos, es siempre recomendable echarles un vistazo, especialmente si trabajamos con datos recogidos por otros. Para entender la estuctura de estos datos lo más fácil es abrir **comunidades.xls**, incluido en el archivo comprimido **comunidades.zip** disponible en el Campus Virtual. Incluye varias hojas de cálculo:
 
 - **esva** contiene datos de abundancia de familias de invertebrados fluviales durante varios muestreos semanales en primavera de 2016, en el río Esva (occidente de Asturias)^1^; formaron parte del TFG de Sara Fernández Rodríguez. Las columnas son los taxones encontrados en las muestras, así como variables adicionales como pH o turbidez del agua.
 
@@ -75,7 +75,7 @@ D <- diversity (esva_vegan, index="invsimpson")
 
 Observaréis que en este caso no vemos los valores de la D de Simpson. Rodear una orden entre paréntesis, como en el caso anterior, implica mostrar directamente en la consola el resultado, además de guardarlo en memoria. Si queremos ver los valores de diversidad de Simpson, escribimos simplemente `D` en la consola (o los vemos en la pestaña **Environment**). 
 
-Almacenamos también la riqueza de especies en un objeto llamado **S**, aprovechando la función `specnumber`, que devuelve el número de taxones para cada muestra (fila) de la hoja de datos:
+Almacenamos también la riqueza de especies - familias en este caso - en un objeto llamado **S**, aprovechando la función `specnumber`, que devuelve el número de taxones para cada muestra (fila) de la hoja de datos:
 
 ```{r}
 (S <- specnumber(esva_vegan))
