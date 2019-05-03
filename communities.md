@@ -2,11 +2,13 @@ Introducción al análisis de comunidades ecológicas en R
 ================
 Enero de 2019
 
-El título de este tutorial es un ejemplo de la laxitud del término *comunidad*. Rara vez podemos obtener datos de comunidades completas; los datos se referirán más frecuentemente a *taxocenosis*, o a porciones más o menos arbitrarias de una comunidad ecológica local. En este caso tenemos dos conjuntos de datos: invertebrados fluviales en Asturias, y aves en la Sierra Nevada española.
+### Configuración previa y datos
+
+Los procedimientos incluidos a continuación asumen la instalación previa de R y RStudio<sup>1</sup>, para trabajar en este último. Instrucciones al respecto se encuentran en el apartado *Configuración* del módulo **Ecología en código abierto** del Campus Virtual de UniOvi.
 
 Antes de entrar a analizar datos, es siempre recomendable echarles un vistazo, especialmente si trabajamos con datos recogidos por otros. Para entender la estuctura de estos datos lo más fácil es abrir **comunidades.xls**, incluido en el archivo comprimido [Ctrl. + clic **comunidades.zip**](https://github.com/quevedomario/eco3r/blob/master/comunidades.zip). Incluye varias hojas de cálculo:
 
--   **esva** contiene datos de abundancia de familias de invertebrados fluviales durante varios muestreos semanales en primavera de 2016, en el río Esva (occidente de Asturias)<sup>1</sup>; formaron parte del TFG de Sara Fernández Rodríguez. Las columnas son los taxones encontrados en las muestras, así como variables adicionales como pH o turbidez del agua.
+-   **esva** contiene datos de abundancia de familias de invertebrados fluviales durante varios muestreos semanales en primavera de 2016, en el río Esva (occidente de Asturias). Formaron parte del TFG de Sara Fernández Rodríguez. Las columnas son los taxones encontrados en las muestras, así como variables adicionales como pH o turbidez del agua.
 
 -   **semanas** recopila los datos de **esva** por semana y localidad de muestreo.
 
@@ -14,31 +16,27 @@ Antes de entrar a analizar datos, es siempre recomendable echarles un vistazo, e
 
 -   **esva\_vegan**, **semanas\_vegan** y **sierra\_vegan** son versiones simplificadas de las anteriores, conservando solo las abundancias de invertebrados por requisitos de formato de algunas funciones en R.
 
-### Configuración previa
+#### Carga de datos
 
-Los procedimientos incluidos a continuación asumen la instalación previa de R y RStudio<sup>2</sup>, para trabajar en este último. Instrucciones al respecto se encuentran en el apartado *Configuración* del módulo **Ecología en código abierto** del Campus Virtual de UniOvi.
+Desde RStudio es fácil importar datos en distintos formatos a través de `File :: Import dataset`. En este caso no es necesario porque están ya empaquetados y listos para usarlos en **R**. Cambiamos la carpeta de trabajo a aquella que contenga los archivos de datos (no es imprescindible, pero por el momento facilita el trabajo). En RStudio, `Session :: Set Working Directory :: Choose Directory...`
 
-### Carga de datos
-
-Cambiamos la carpeta de trabajo a aquella que contenga los archivos de datos (no es imprescindible, pero por el momento facilita el trabajo). En RStudio, `Session :: Set Working Directory :: Choose Directory...`
-
-A continuación, cargamos los datos con la línea de código siguiente, o bien haciendo doble *click* sobre el archivo en el explorador.
+A continuación, cargamos los datos con la línea de código siguiente (o bien a través de los menús de RStudio):
 
 ``` r
 load("communities_DATA.RData")
 ```
 
-El archivo con extensión RData contiene las hojas de datos (`data.frame` es el término en la jerga de R).
+El archivo con extensión RData contiene las hojas de datos mencionadas arriba (`data.frame` es el término en la jerga de R).
 
-Ya en **RStudio** para ver los datos podemos usar la pestaña **Environment**; esta muestra los distintos conjuntos de datos disponibles en la memoria de la sesión, tras cargar el archivo **RData** anterior. Un icono con forma de tabla sirve para mostrar los datos. A medida que obtengamos resultados, estos pasarán a estar disponibles también en memoria para ser reutilizados, y aparecerán en ese listado.
-
-Puede costar acostumbrarse a la presentación cruda de datos en R; para eso tenemos los mismos datos en la hoja de cálculo **comunidades.xls**. En este caso los datos ya están cargados, pero en **RStudio** es sencillo importar datos en varios formatos, incluido el de MS Excel, a través de `File :: Import dataset`.
+Para ver los datos en **RStudio** una vez cargado el archivo **RData** anterior podemos usar la pestaña **Environment**. El icono con forma de tabla permite mostrar los datos. A medida que obtengamos resultados, estos pasarán a estar disponibles también en ese **Environment** para ser reutilizados, hasta que cerremos la sesión.
 
 ------------------------------------------------------------------------
 
 ### Estructura de comunidades
 
-Las funciones más específicas en R están incluidas en librerías adicionales, *packages* en jerga R. Una de esas librerías, diseñada específicamente para calcular métricas de comunidades, es **vegan**<sup>3</sup>.
+El título de este tutorial es un ejemplo de la laxitud del término *comunidad*. Rara vez podemos obtener datos de comunidades completas; los datos se referirán más frecuentemente a *taxocenosis*, o a porciones más o menos arbitrarias de una comunidad ecológica local. En este caso tenemos dos conjuntos de datos: invertebrados fluviales en Asturias, y aves en la Sierra Nevada española.
+
+Las funciones más específicas en R están incluidas en librerías adicionales, *packages* en jerga R. Una de esas librerías, diseñada específicamente para calcular métricas de comunidades, es **vegan**<sup>2</sup>.
 
 Para instalarla podemos usar los menús de RStudio (`Tools :: Install Packages`, escribiendo *vegan* en el cuadro de diálogo). Lo mismo se consigue con el código `install.packages("vegan", dependencies = TRUE)`. Este se leería en "humano" *instala vegan y otras librerías de las que dependa para funcionar*.
 
@@ -217,6 +215,5 @@ radlattice (modelo_2180)
 ### Enlaces y referencias
 
 (Mejor con botón drcho. + abrir en nueva pestaña)
-1. <https://es.wikipedia.org/wiki/R%C3%ADo_Esva>
-2. <https://www.r-project.org/> y <https://www.rstudio.com/>
-3. <https://www.rdocumentation.org/packages/vegan/versions/2.4-2>
+1. <https://www.r-project.org/> y <https://www.rstudio.com/>
+2. <https://www.rdocumentation.org/packages/vegan/versions/2.4-2>
