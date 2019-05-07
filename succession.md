@@ -6,7 +6,7 @@ Abril 2019
 
 #### Configuración previa
 
-El ejercicio requiere escasa preparación previa. Usamos las librerías **popbio** para manipular las probabilidades de sustitución, y **pander** para mejorar formatos de salida:
+El ejercicio requiere escasa preparación previa. Usamos las librerías **popbio** para manipular las probabilidades de sustitución, y **pander** para mejorar la presentación de resultados:
 
 ``` r
 library(popbio)
@@ -21,7 +21,7 @@ El modelo cuantitativo siguiente es un ejemplo clásico de sucesión secundaria 
 
 La matriz contiene las probabilidades (en columnas) de que cada individuo sea sustituido por otro de la misma u otra especie en un intervalo de tiempo (50 años en el trabajo original de Horn). Así la probabilidad de que *Betula* GB sea sustituido por *Nyssa* BG es 0.36, mientras que la probabilidad de que \* Acer\* RM sea sustituido por *Fagus* BE es 0.31.
 
-Para construir la matriz definimos primero los **nombres** de las especies almacenándolos en un vector de texto con `c()`. A continuación almacenamos las **probabilidades** de sustitución en otro vector, numérico en este caso (i.e. valores sin comillas). Por último, combinamos ambos objetos en la **matriz** de proyección con `matrix2()`:
+Para construir la matriz podemos definir primero los **nombres** de las especies, almacenándolos en un vector de texto con `c()`. A continuación almacenamos las **probabilidades** de sustitución en otro vector, numérico en este caso (i.e. valores sin comillas). Por último, combinamos ambos objetos en la **matriz** de proyección con `matrix2()`:
 
 ``` r
 nombres <- c("Betula","Nyssa","Acer","Fagus") 
@@ -95,7 +95,7 @@ n0 <- c(100,0,0,0)
 tiempo <- c(1:30)
 ```
 
-Para almacenar los resultados de cada intervalo de sustitución, las **proyecciones**, construimos una matriz con 4 filas (especies) y 5 columnas (intervalos de tiempo), por el momento vacía. Usamos los nombres de las especies y los 5 primeros intervalos de tiempo para identificar filas `rownames()` y columnas `colnames()`:
+Para almacenar los resultados de cada intervalo de sustitución, las **proyecciones**, construimos una matriz con 4 filas (especies) y 5 columnas (intervalos de tiempo), por el momento vacía. Usamos los nombres de las especies y los 5 primeros intervalos de tiempo para identificar las filas `rownames()` y columnas `colnames()` de **proyecciones**:
 
 ``` r
 proyecciones <- matrix(nrow = 4, ncol = 5)
@@ -161,7 +161,7 @@ pander(proyecciones)
 </tbody>
 </table>
 
-El código a continuación utiliza un bucle `for()` para proyectar la dinámica del modelo durante 5 intervalos de sustitución:
+Para proyectar la dinámica del modelo durante 5 intervalos de sustitución podemos usar un bucle. Una de las formas de prepararlos en **R** es la función `for()`
 
 ``` r
 for (i in 1:5) {
@@ -172,7 +172,7 @@ for (i in 1:5) {
   }
 ```
 
-El código se lee "*para cada intervalo de tiempo de 1 a 5, multiplica la matriz por N<sub>0</sub>, y guardalo en la columna i de proyecciones*"<sup>3</sup>. Mostrará en la consola **R** el estado de la matriz en cada intervalo vía `pander(proyecciones)`.
+El código se lee "*para cada intervalo de tiempo i entre 1 a 5, multiplica matriz por N<sub>0</sub>, y guardalo en la columna i de proyecciones*"<sup>3</sup>. En la consola **R** aparecerá el estado de la matriz en cada intervalo vía `pander(proyecciones)`.
 
 <table style="width:74%;">
 <colgroup>
@@ -243,7 +243,7 @@ lines(tiempo[1:5], proyecciones[4,], col="green")
 
 La proyección de cada especie está almacenada en una fila de **proyecciones**. El código define un gráfico `plot()` con la primera curva, la de los *Betula*, y a continuación añade el resto de curvas a dicho gráfico con `lines()`.
 
-Adaptando el código anterior es inmediato proyectar la sustitución de especies más tiempo, o incluir cambios en las probabilidades de sustitución. Si perturbaciones recurrentes incrementan un 35% la **probabilidad global de transición a arces** y **disminuyen la de las hayas** en la misma magnitud, ¿cuál es la proporción de arces y hayas tras 6 intervalos de sustitución?
+Adaptando el código anterior es inmediato proyectar la sustitución de especies más tiempo, o incluir cambios en las probabilidades de sustitución. POr ejemplo, si perturbaciones recurrentes incrementan un 35% la **probabilidad global de transición a arces** y **disminuyen la de las hayas** en la misma magnitud, ¿cuál es la proporción de arces y hayas tras 6 intervalos de sustitución?
 
 #### Referencias y anotaciones de código
 
