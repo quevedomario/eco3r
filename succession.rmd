@@ -18,14 +18,16 @@ library(popbio)
 library(pander)
 ```
 
-### Los datos
-El modelo cuantitativo siguiente es un ejemplo clásico de sucesión secundaria forestal^1^ ^y^ ^2^ con cuatro especies arbóreas norteamericanas: *Betula populifolia*  (GB en la imagen), *Nyssa sylvatica* (BG), *Acer rubrum* (RM) y *Fagus grandifolia* (BE).
+#### Un modelos analítico de sucesión
+Estos modelos son simplificaciones de los procesos reales, pero pueden servir para comprender mejor los procesos que conducen la sustitución de especies, y para comparar la dinámica de distintas comunidades. El modelo analítico de Horn (1981) de sucesión secundaria forestal parte de la composición inicial de adultos de las especies arbóreas, y la proporción de cada especie entre los juveniles. Dicha proporción indicaría la probabilidad de que un adulto de la especie A sea reemplazado por otro de su misma especie, u otra. Cada reemplazo puede ser representado como una transición, con una determinada probabilidad. 
+
+El ejemplo a continuación de sucesión secundaria forestal^1^ ^y^ ^2^ incluye cuatro especies arbóreas norteamericanas: *Betula populifolia* (GB en la imagen), *Nyssa sylvatica* (BG), *Acer rubrum* (RM) y *Fagus grandifolia* (BE). 
 
 ![](succession_files/figure-markdown_github/sustituciones.jpg)
 
-La matriz contiene las probabilidades (en columnas) de que cada individuo sea sustituido por otro de la misma u otra especie en un intervalo de tiempo (50 años en el trabajo original de Horn). Así la probabilidad de que *Betula* GB sea sustituido por *Nyssa* BG es 0.36, mientras que la probabilidad de que * Acer* RM sea sustituido por *Fagus* BE es 0.31.
+La matriz contiene las probabilidades de sustitución, en columnas, en un intervalo de tiempo (50 años en el trabajo original de Horn). Así la probabilidad de que *Betula* GB sea sustituido por *Nyssa* BG es 0.36, mientras que la probabilidad de que * Acer* RM sea sustituido por *Fagus* BE es 0.31.
 
-Para construir la matriz podemos definir primero los **nombres** de las especies, almacenándolos en un vector de texto con `c()`. A continuación almacenamos las **probabilidades** de sustitución en otro vector, numérico en este caso (i.e. valores sin comillas). Por último, combinamos ambos objetos en la **matriz** de proyección con `matrix2()`:  
+Para introducir los datos y construir la matriz podemos definir primero los **nombres** de las especies, almacenándolos en un vector de texto con `c()`. A continuación almacenamos las **probabilidades** de sustitución en otro vector, numérico en este caso (i.e. valores sin comillas). Por último, combinamos ambos objetos en la **matriz** de proyección con `matrix2()`:  
 
 ```{r}
 nombres <- c("Betula","Nyssa","Acer","Fagus") 
@@ -79,7 +81,7 @@ pander(proyecciones)
 Usando los resultados almacenados en **proyecciones** podemos pintar el cambio de abundancia de las 4 especies entre t~1~ y t~5~. En negro *Betula*, en azul *Nyssa*, en rojo *Acer*, y en verde *Fagus*:
 ```{r}
 plot(tiempo[1:5], proyecciones[1,], type="l", ylim=c(0,70), ylab = "individuos",
-     main="Proyección de N0 a 5 intervalos de sustitución")
+     main="Proyección de N0 durante 5 intervalos de sustitución")
 lines(tiempo[1:5], proyecciones[2,], col="blue")
 lines(tiempo[1:5], proyecciones[3,], col="red")
 lines(tiempo[1:5], proyecciones[4,], col="green")
@@ -87,7 +89,7 @@ lines(tiempo[1:5], proyecciones[4,], col="green")
 
 La proyección de cada especie está almacenada en una fila de **proyecciones**. El código define un gráfico `plot()` con la primera curva, la de los *Betula*, y a continuación añade el resto de curvas a dicho gráfico con `lines()`.
 
-Adaptando el código anterior es inmediato proyectar la sustitución de especies más tiempo, o incluir cambios en las probabilidades de sustitución. POr ejemplo, si perturbaciones recurrentes incrementan un 35% la **probabilidad global de transición a arces** y **disminuyen la de las hayas** en la misma magnitud, ¿cuál es la proporción de arces y hayas tras 6 intervalos de sustitución?
+Adaptando el código anterior es inmediato proyectar la sustitución de especies más tiempo, o incluir cambios en las probabilidades de sustitución. Por ejemplo, si perturbaciones recurrentes incrementan un 35% la **probabilidad global de transición a arces** y **disminuyen la de las hayas** en la misma magnitud, ¿cuál es la proporción de arces y hayas tras 6 intervalos de sustitución?
 
 #### Referencias y anotaciones de código
 1. Morin PJ. 2011. Community Ecology, 2nd Edition. Wiley. Tabla 13.2.  
