@@ -18,8 +18,8 @@ library(popbio)
 library(pander)
 ```
 
-#### Un modelos analítico de sucesión
-Estos modelos son simplificaciones de los procesos reales, pero pueden servir para comprender mejor los procesos que conducen la sustitución de especies, y para comparar la dinámica de distintas comunidades. El modelo analítico de Horn (1981) de sucesión secundaria forestal parte de la composición inicial de adultos de las especies arbóreas, y la proporción de cada especie entre los juveniles. Dicha proporción indicaría la probabilidad de que un adulto de la especie A sea reemplazado por otro de su misma especie, u otra. Cada reemplazo puede ser representado como una transición, con una determinada probabilidad. 
+#### Un modelo analítico de sucesión
+Estos modelos son simplificaciones de los procesos reales, pero pueden servir para comprender mejor los procesos que conducen la sustitución de especies, y para comparar la dinámica de distintas comunidades. El modelo analítico de Horn (1981) de sucesión secundaria forestal parte de la composición inicial de adultos de las especies arbóreas, y de la proporción de cada especie entre los juveniles. Dicha proporción indicaría la probabilidad de que un adulto de una especie sea reemplazado por otro de su misma especie, u otra. Cada reemplazo puede ser representado como una transición, que ocurrirá con una determinada probabilidad. 
 
 El ejemplo a continuación de sucesión secundaria forestal^1^ ^y^ ^2^ incluye cuatro especies arbóreas norteamericanas: *Betula populifolia* (GB en la imagen), *Nyssa sylvatica* (BG), *Acer rubrum* (RM) y *Fagus grandifolia* (BE). 
 
@@ -44,24 +44,29 @@ pander(matriz)
 ```
 
 #### Proyecciones
-Para saber las abundancias o proporciones de las distintas especies en el futuro, a partir de las probabilidades de sustitución, proyectamos los cambios del parche forestal asumiendo que la composición inicial **N~0~** son 100 abedules *Betula populifolia*. Definimos también un vector de intervalos de **tiempo** con el generador de secuencias `seq()`:
+Para saber las abundancias o proporciones de las distintas especies en el futuro a partir de las probabilidades de sustitución, proyectamos los cambios del parche forestal asumiendo que la composición inicial **N~0~** son 100 abedules *Betula populifolia*. Definimos también un vector de intervalos de **tiempo** con el generador de secuencias `seq()`:
 ```{r}
 n0 <- c(100,0,0,0)
 tiempo <- seq(from=50, to=300, by=50)
 ```
 
-Para almacenar los resultados de cada intervalo de sustitución, las **proyecciones**, construimos una matriz con 5 filas (intervalos de tiempo) y 4 columnas (especies), por el momento vacía. Usamos los nombres de las especies y los 5 primeros intervalos de tiempo para identificar las columnas `colnames()` y las filas `rownames()` de **proyecciones**:
+Para almacenar los resultados de cada intervalo de sustitución, las **proyecciones**, construimos una matriz con 6 filas (6 intervalos de tiempo) y 4 columnas (especies), por el momento vacía. 
+```{r}
+proyecciones <- matrix(nrow = 6, ncol = 4)
+```
+
+Usamos los nombres de las especies y los intervalos de tiempo para etiquetar las columnas `colnames()` y las filas `rownames()` en **proyecciones**:
 
 ```{r} 
-proyecciones <- matrix(nrow = 6, ncol = 4)
-
 colnames(proyecciones) <- especies
 rownames(proyecciones) <- tiempo[1:6]
 
 pander(proyecciones)
 ```
 
-Para proyectar la dinámica del modelo durante *i* intervalos de sustitución podemos usar un bucle. Una de las formas de prepararlos en **R** es la función `for()` 
+Las proyecciones de estos modelos de sustitución son multiplicaciones sucesivas de la matriz de probabilidades por el vector de abundancias *N~i~*
+
+Para automatizar las proyecciones durante *i* intervalos de sustitución podemos usar un bucle. Una de las formas de prepararlos en **R** es la función `for()` 
 
 ```{r}
 for (i in 1:6) {
@@ -81,13 +86,13 @@ pander(proyecciones)
 Usando los resultados almacenados en **proyecciones** podemos pintar el cambio de abundancia de las 4 especies entre los intervalos 1 y 6, t~50~ y t~300~. En negro *Betula*, en azul *Nyssa*, en rojo *Acer*, y en verde *Fagus*:
 ```{r}
 plot(tiempo[1:6], proyecciones[,1], type="l", ylim=c(0,70), ylab = "individuos",
-     main="Proyección de N0 durante 5 intervalos de sustitución")
+     main="Proyección de N0 durante 6 intervalos de sustitución")
 lines(tiempo[1:6], proyecciones[,2], col="blue")
 lines(tiempo[1:6], proyecciones[,3], col="red")
 lines(tiempo[1:6], proyecciones[,4], col="green")
 ```
 
-La proyección de cada especie está almacenada en una fila de **proyecciones**. El código define un gráfico `plot()` con la primera curva, la de los *Betula*, y a continuación añade el resto de curvas a dicho gráfico con `lines()`.
+La proyección de cada especie está almacenada en cada una de las columnas de **proyecciones**. `plot()` pinta la primera curva, la de los *Betula*, y a continuación añade el resto de curvas a los mismos ejes con `lines()`.
 
 Adaptando el código anterior es inmediato proyectar la sustitución de especies más tiempo, o incluir cambios en las probabilidades de sustitución. Por ejemplo, si perturbaciones recurrentes incrementan un 35% la **probabilidad global de transición a arces** y **disminuyen la de las hayas** en la misma magnitud, ¿cuál es la proporción de arces y hayas tras 6 intervalos de sustitución?
 
