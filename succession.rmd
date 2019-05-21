@@ -30,7 +30,7 @@ La matriz contiene las probabilidades de sustitución, en columnas, en un interv
 Para introducir los datos y construir la matriz podemos definir primero los **nombres** de las especies, almacenándolos en un vector de texto con `c()`. A continuación almacenamos las **probabilidades** de sustitución en otro vector, numérico en este caso (i.e. valores sin comillas). Por último, combinamos ambos objetos en la **matriz** de proyección con `matrix2()`:  
 
 ```{r}
-nombres <- c("Betula","Nyssa","Acer","Fagus") 
+especies <- c("Betula","Nyssa","Acer","Fagus") 
 
 probabilidades <- c(
   0.05, 0.01,	0.00,	0.00,
@@ -39,52 +39,52 @@ probabilidades <- c(
   0.09,	0.17,	0.31,	0.96
   )
 
-matriz <- matrix2(probabilidades, nombres)
+matriz <- matrix2(probabilidades, especies)
 pander(matriz)
 ```
 
 #### Proyecciones
-Para saber las abundancias o proporciones de las distintas especies en el futuro, a partir de las probabilidades de sustitución, proyectamos los cambios del parche forestal asumiendo que la composición inicial **N~0~** son 100 abedules *Betula populifolia*. Definimos también un vector de intervalos de **tiempo**, de 1 a 30.
+Para saber las abundancias o proporciones de las distintas especies en el futuro, a partir de las probabilidades de sustitución, proyectamos los cambios del parche forestal asumiendo que la composición inicial **N~0~** son 100 abedules *Betula populifolia*. Definimos también un vector de intervalos de **tiempo** con el generador de secuencias `seq()`:
 ```{r}
 n0 <- c(100,0,0,0)
-tiempo <- c(1:30)
+tiempo <- seq(from=50, to=300, by=50)
 ```
 
-Para almacenar los resultados de cada intervalo de sustitución, las **proyecciones**, construimos una matriz con 4 filas (especies) y 5 columnas (intervalos de tiempo), por el momento vacía. Usamos los nombres de las especies y los 5 primeros intervalos de tiempo para identificar las filas `rownames()` y columnas `colnames()` de **proyecciones**:
+Para almacenar los resultados de cada intervalo de sustitución, las **proyecciones**, construimos una matriz con 5 filas (intervalos de tiempo) y 4 columnas (especies), por el momento vacía. Usamos los nombres de las especies y los 5 primeros intervalos de tiempo para identificar las columnas `colnames()` y las filas `rownames()` de **proyecciones**:
 
 ```{r} 
-proyecciones <- matrix(nrow = 4, ncol = 5)
+proyecciones <- matrix(nrow = 6, ncol = 4)
 
-colnames(proyecciones) <- tiempo[1:5]
-rownames(proyecciones) <- nombres
+colnames(proyecciones) <- especies
+rownames(proyecciones) <- tiempo[1:6]
 
 pander(proyecciones)
 ```
 
-Para proyectar la dinámica del modelo durante 5 intervalos de sustitución podemos usar un bucle. Una de las formas de prepararlos en **R** es la función `for()` 
+Para proyectar la dinámica del modelo durante *i* intervalos de sustitución podemos usar un bucle. Una de las formas de prepararlos en **R** es la función `for()` 
 
 ```{r}
-for (i in 1:5) {
+for (i in 1:6) {
   n0 <- matriz %*% n0
-  proyecciones[,i] <- n0
+  proyecciones[i,] <- n0
   pander(proyecciones)
   Sys.sleep(1)
   }
 ```
 
-El código se lee "*para cada intervalo de tiempo i entre 1 a 5, multiplica matriz por N~0~, y guardalo en la columna i de proyecciones*"^3^. En la consola **R** aparecerá el estado de la matriz en cada intervalo vía `pander(proyecciones)`.
+El código se lee "*para cada intervalo de tiempo i entre 1 a 6, multiplica matriz por N~0~, y guarda el resultado en la columna i de proyecciones*"^3^. En la consola **R** aparecerá el estado de la matriz en cada intervalo vía `pander(proyecciones)`.
 
 ```{r echo=FALSE}
 pander(proyecciones)
 ```
 
-Usando los resultados almacenados en **proyecciones** podemos pintar el cambio de abundancia de las 4 especies entre t~1~ y t~5~. En negro *Betula*, en azul *Nyssa*, en rojo *Acer*, y en verde *Fagus*:
+Usando los resultados almacenados en **proyecciones** podemos pintar el cambio de abundancia de las 4 especies entre los intervalos 1 y 6, t~50~ y t~300~. En negro *Betula*, en azul *Nyssa*, en rojo *Acer*, y en verde *Fagus*:
 ```{r}
-plot(tiempo[1:5], proyecciones[1,], type="l", ylim=c(0,70), ylab = "individuos",
+plot(tiempo[1:6], proyecciones[,1], type="l", ylim=c(0,70), ylab = "individuos",
      main="Proyección de N0 durante 5 intervalos de sustitución")
-lines(tiempo[1:5], proyecciones[2,], col="blue")
-lines(tiempo[1:5], proyecciones[3,], col="red")
-lines(tiempo[1:5], proyecciones[4,], col="green")
+lines(tiempo[1:6], proyecciones[,2], col="blue")
+lines(tiempo[1:6], proyecciones[,3], col="red")
+lines(tiempo[1:6], proyecciones[,4], col="green")
 ```
 
 La proyección de cada especie está almacenada en una fila de **proyecciones**. El código define un gráfico `plot()` con la primera curva, la de los *Betula*, y a continuación añade el resto de curvas a dicho gráfico con `lines()`.
@@ -94,4 +94,4 @@ Adaptando el código anterior es inmediato proyectar la sustitución de especies
 #### Referencias y anotaciones de código
 1. Morin PJ. 2011. Community Ecology, 2nd Edition. Wiley. Tabla 13.2.  
 2. Horn HS. 1975. Markovian properties of forest succession. En *Ecology and Evolution of Communities*; Cody ML, Diamond JM (eds.). Harvard University Press, Cambridge, MS.  
-3. En cada repetición **n0** es sustituido por el resultado de multiplicar el anterior por la matriz, si bien el contenido queda guardado en **proyecciones**. Los bucles `for(){}` son útiles para repetir cálculos y almacenar los resultados sucesivos. Entre paréntesis llevan siempre la variable que identifica la secuencia de repeticiones; entre corchetes, el conjunto de comandos u operaciones en orden de ejecución. En el ejemplo `Sys.sleep()` introduce un retraso de un segundo para ver los resultados sucesivos en la consola. Para acelerar el código podemos prescindir de la visualización de resultados intermedios, y del retraso. 
+3. En cada repetición **n0** es sustituido por el resultado de multiplicar el anterior por la matriz, si bien el contenido queda guardado en **proyecciones**. Los bucles `for(){}` son útiles para repetir cálculos y almacenar los resultados sucesivos. Entre paréntesis llevan siempre la variable que identifica la secuencia de repeticiones; entre corchetes, el conjunto de comandos u operaciones en orden de ejecución. En el ejemplo, `Sys.sleep()` introduce un retraso de un segundo para ver los resultados sucesivos en la consola. Para acelerar el código podemos prescindir de la visualización de resultados intermedios, y del retraso.
