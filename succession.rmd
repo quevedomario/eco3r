@@ -25,7 +25,7 @@ El ejemplo a continuación de sucesión secundaria forestal^1^ ^y^ ^2^ incluye c
 
 ![](succession_files/figure-markdown_github/sustituciones.jpg)
 
-La matriz contiene las probabilidades de sustitución, en columnas, en un intervalo de tiempo (50 años en el trabajo original de Horn). Así la probabilidad de que *Betula* GB sea sustituido por *Nyssa* BG es 0.36, mientras que la probabilidad de que * Acer* RM sea sustituido por *Fagus* BE es 0.31.
+La matriz contiene las probabilidades de sustitución, en columnas, en un intervalo de tiempo (50 años en el trabajo original de Horn). Así la probabilidad de que *Betula* GB sea sustituido por *Nyssa* BG es 0.36, mientras que la probabilidad de que *Acer* RM sea sustituido por *Fagus* BE es 0.31.
 
 Para introducir los datos y construir la matriz podemos definir primero los **nombres** de las especies, almacenándolos en un vector de texto con `c()`. A continuación almacenamos las **probabilidades** de sustitución en otro vector, numérico en este caso (i.e. valores sin comillas). Por último, combinamos ambos objetos en la **matriz** de proyección con `matrix2()`:  
 
