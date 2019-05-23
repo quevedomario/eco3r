@@ -21,9 +21,9 @@ El ejemplo a continuación de sucesión secundaria forestal<sup>1</sup> <sup>y</
 
 ![](succession_files/figure-markdown_github/sustituciones.jpg)
 
-La matriz contiene las probabilidades de sustitución, en columnas, en un intervalo de tiempo (50 años en el trabajo original de Horn). Así la probabilidad de que *Betula* GB sea sustituido por *Nyssa* BG es 0.36, mientras que la probabilidad de que \* Acer\* RM sea sustituido por *Fagus* BE es 0.31.
+La matriz contiene las probabilidades de sustitución, en columnas, en un intervalo de tiempo (50 años en el trabajo original de Horn). Así la probabilidad de que GB *Betula* sea sustituido por BG *Nyssa* es 0.36, mientras que la probabilidad de que RM *Acer* sea sustituido por BE *Fagus* es 0.31.
 
-Para introducir los datos y construir la matriz podemos definir primero los **nombres** de las especies, almacenándolos en un vector de texto con `c()`. A continuación almacenamos las **probabilidades** de sustitución en otro vector, numérico en este caso (i.e. valores sin comillas). Por último, combinamos ambos objetos en la **matriz** de proyección con `matrix2()`:
+Para introducir los datos y construir la matriz podemos definir primero los **nombres** de las especies, almacenándolos en un vector de texto con `c()`. A continuación almacenamos las **probabilidades** de sustitución en otro vector, numérico en este caso (i.e. valores sin comillas). Por último, combinamos ambos objetos en la **matriz** de proyección con la función `matrix2()`:
 
 ``` r
 especies <- c("Betula","Nyssa","Acer","Fagus") 
@@ -36,8 +36,9 @@ probabilidades <- c(
   )
 
 matriz <- matrix2(probabilidades, especies)
-pander(matriz)
 ```
+
+Visualizamos el resultado, la matriz almacenada, simplemente "llamándola" en la consola con `matriz`:
 
 <table style="width:61%;">
 <colgroup>
@@ -97,7 +98,7 @@ n0 <- c(100,0,0,0)
 tiempo <- seq(from=50, to=300, by=50)
 ```
 
-Para almacenar los resultados de cada intervalo de sustitución, las **proyecciones**, construimos una matriz con 6 filas (6 intervalos de tiempo) y 4 columnas (especies), por el momento vacía.
+Para almacenar los resultados de cada intervalo de sustitución, las **proyecciones**, construimos una matriz con 6 filas para los intervalos de tiempo definidos arriba con `seq()`), y 4 columnas para las 4 especies que tenemos. Queda por el momento vacía.
 
 ``` r
 proyecciones <- matrix(nrow = 6, ncol = 4)
@@ -188,7 +189,7 @@ for (i in 1:6) {
   }
 ```
 
-El código se lee "*para cada intervalo de tiempo i entre 1 a 6, multiplica matriz por N<sub>0</sub>, y guarda el resultado en la columna i de proyecciones*"<sup>3</sup>. En la consola **R** aparecerá el estado de la matriz en cada intervalo vía `pander(proyecciones)`.
+El código se lee "*para cada intervalo de tiempo i entre 1 a 6, almacena como n0 el resultado de multiplicar la matriz por el N<sub>0</sub> previo, guarda el resultado en la columna i de proyecciones, y muestra la matriz*"<sup>3</sup>. En la consola **R** aparecerá brevemente el estado de la matriz en cada intervalo.
 
 <table style="width:60%;">
 <colgroup>
@@ -263,7 +264,7 @@ lines(tiempo[1:6], proyecciones[,3], col="red")
 lines(tiempo[1:6], proyecciones[,4], col="green")
 ```
 
-![](succession_files/figure-markdown_github/unnamed-chunk-8-1.png)
+![](succession_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
 La proyección de cada especie está almacenada en cada una de las columnas de **proyecciones**. `plot()` pinta la primera curva, la de los *Betula*, y a continuación añade el resto de curvas a los mismos ejes con `lines()`.
 
