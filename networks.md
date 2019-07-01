@@ -14,7 +14,7 @@ instaladas y sus versiones).
 
 ### Los datos
 
-Los datos usados en este ejercicio están en el archivo comprimido (Ctrl.
+Los datos usados en este ejercicio están en el archivo comprimido (Ctrl
 + clic)
 [**redes.zip**](https://github.com/quevedomario/eco3r/blob/master/redes.zip).
 Al descomprimirlo en la carpeta de trabajo, mostrará 4 archivos de datos
