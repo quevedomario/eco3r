@@ -18,7 +18,7 @@ Los datos usados en este ejercicio están en el archivo comprimido (Ctrl. + clic
 
 ### Visualización de redes tróficas
 
-La librería **foodweb** pinta **diagramas tridimensionales e interactivos de redes tróficas**, y extrae métricas habituales en el estudio de las mismas. Sin embargo, no está actualizada, por lo que usaremos solo su función de visualización. Para obtener las métricas usaremos después otra librería.
+La librería **foodweb** dibuja **diagramas tridimensionales e interactivos de redes tróficas**, y extrae métricas habituales en el estudio de las mismas. Sin embargo, no está actualizada, por lo que usaremos solo su función de visualización. Para obtener las métricas usaremos después otra librería.
 
 ```{r echo=TRUE}
 library(foodweb)
