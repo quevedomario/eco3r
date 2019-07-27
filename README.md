@@ -7,3 +7,6 @@ Los ejercicios se desarrollan en el entorno numérico gratuito R. Este se ha con
 Para mejorar y facilitar el uso de R, recomiendo usar la potente interfaz gratuita RStudio con estos ejercicios. 
 
 Los archivos .rmd de igual nombre al ejercicio correspondiente contienen el código en versión ejecutable en RStudio.
+
+#### Ejercicios
+
