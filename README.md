@@ -11,7 +11,7 @@ Los archivos .rmd de igual nombre al ejercicio correspondiente contienen el cód
 #### Ejercicios
 1\. Configuración previa https://github.com/quevedomario/eco3r/blob/master/config.md  
 2\. Introducción. Crecimiento exponencial y logístico https://github.com/quevedomario/eco3r/blob/master/intro_crecimiento_log_rcmdr.md  
-3\. Dinámica de poblaciones estructuradas. Análisis determinista 1 https://github.com/quevedomario/eco3r/blob/master/stages.md    
+3\. Dinámica de poblaciones estructuradas. Analisis determinista 1 https://github.com/quevedomario/eco3r/blob/master/stages.md    
 4\. Dinámica de poblaciones estructuradas. Análisis determinista 2 https://github.com/quevedomario/eco3r/blob/master/stages2.md    
 5\. Análisis de comunidades - Diversidad y dominancia https://github.com/quevedomario/eco3r/blob/master/communities.md    
 6\. Redes tróficas... https://github.com/quevedomario/eco3r/blob/master/networks.md  
