@@ -1,7 +1,7 @@
 ---
 title: "Modelos de poblaciones estructuradas. Análisis determinista 2"
 author:
-date: "Abril de 2019"
+date:
 output: github_document
 editor_options: 
   chunk_output_type: console

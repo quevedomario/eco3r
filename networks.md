@@ -1,6 +1,5 @@
 Introducción al análisis de redes tróficas en R
 ================
-Marzo 2019
 
 ### Configuración previa
 
