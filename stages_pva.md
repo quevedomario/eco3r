@@ -12,13 +12,11 @@ library (popbio)
 (Con *botón derecho + abrir en nueva pestaña* o *Ctrl click* los enlaces
 se abrirán en otra pestaña)  
 Este ejercicio desarrolla un análisis de viabilidad para una población
-de *Lotus
-arinagensis*.
+de *Lotus arinagensis*.
 
-![](stages_pva_draft_files/figure-markdown_github/lotus_arinagensis1.jpg)
-La imagen es una captura de pantalla de la información recogida en el
-Atlas y Libro Rojo de la Flora Vascular Amenazada de España, [disponible
-en
+![](stages_pva_files/figure-gfm/lotus_arinagensis1.jpg) La imagen es una
+captura de pantalla de la información recogida en el Atlas y Libro Rojo
+de la Flora Vascular Amenazada de España, [disponible en
 pdf](https://www.miteco.gob.es/es/biodiversidad/temas/inventarios-nacionales/829_tcm30-99330.pdf).
 
 El ejercicio practica la inclusión de la variabilidad ambiental no

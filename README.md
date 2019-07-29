@@ -14,5 +14,6 @@ Los archivos .rmd de igual nombre al ejercicio correspondiente contienen el cód
 3\. [Dinámica de poblaciones estructuradas. Análisis determinista 1](https://github.com/quevedomario/eco3r/blob/master/stages.md)    
 4\. [Dinámica de poblaciones estructuradas. Análisis determinista 2](https://github.com/quevedomario/eco3r/blob/master/stages2.md)    
 5\. [Estocasticidad en dinámica de poblaciones estructuradas](https://github.com/quevedomario/eco3r/blob/master/stages_pva.md)  
-6\. [Análisis de comunidades - Diversidad y dominancia](https://github.com/quevedomario/eco3r/blob/master/communities.md) 7\. [Redes tróficas](https://github.com/quevedomario/eco3r/blob/master/networks.md)  
+6\. [Análisis de comunidades - Diversidad y dominancia](https://github.com/quevedomario/eco3r/blob/master/communities.md)  
+7\. [Redes tróficas](https://github.com/quevedomario/eco3r/blob/master/networks.md)  
 8\. [Sucesión ecológica - modelo analítico de sustitución de especies](https://github.com/quevedomario/eco3r/blob/master/succession.md)    
