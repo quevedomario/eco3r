@@ -190,7 +190,7 @@ función `stoch.growth.rate()`:
   - *Analítica*, basada en los elementos de esas matrices. Esta se llama
     *aproximación analítica de Tuljapurkar*.
 
-Aparecen identificadas como $sim y $aprox en los resultados:
+Aparecen identificadas como `$sim` y `$aprox` en los resultados:
 
 ``` r
 set.seed(12345)
@@ -208,10 +208,11 @@ set.seed(12345)
     ## $sim.CI
     ## [1] -0.1457980  0.1459934
 
-Esos valores ligeramente inferiores a 0 corresponden a la
+Esos valores ligeramente inferiores a 0 corresponden en realidad a la
 tasa intrínseca de crecimiento *r*, o al logaritmo de lambda
-estocástica; para obtener lambda tenemos que usar \(\lambda=e^{r}\).
-`exp()` es la función que devuelve el resultado de \(e^{x}\):
+estocástica; para obtener lambda tenemos que usar lambda =
+e<sup>r</sup>. `exp()` es la función que devuelve el resultado de
+e<sup>x</sup>:
 
 ``` r
 (lotus_lambda_sim <- exp(lotus_stoch_r$sim))

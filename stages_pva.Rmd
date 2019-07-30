@@ -112,13 +112,13 @@ Nos podemos preguntar cómo afecta la estocasticidad ambiental a la tasa de crec
 - A partir de *simulación*, utilizando en cada repetición una de las 3 matrices disponibles en **lotus_lista**. 
 - *Analítica*, basada en los elementos de esas matrices. Esta se llama *aproximación analítica de Tuljapurkar*. 
 
-Aparecen identificadas como $sim y $aprox en los resultados:
+Aparecen identificadas como `$sim` y `$aprox` en los resultados:
 ```{r}
 set.seed(12345)
 (lotus_stoch_r <- stoch.growth.rate (lotus_lista, prob = NULL, maxt = 50 ))
 ```
 
-Esos valores ligeramente inferiores a 0 corresponden en realidad a la tasa intrínseca de crecimiento *r*, o al logaritmo de lambda estocástica; para obtener lambda tenemos que usar $\lambda=e^{r}$. `exp()` es la función que devuelve el resultado de $e^{x}$:
+Esos valores ligeramente inferiores a 0 corresponden en realidad a la tasa intrínseca de crecimiento *r*, o al logaritmo de lambda estocástica; para obtener lambda tenemos que usar lambda = e^r^. `exp()` es la función que devuelve el resultado de e^x^:
 
 ```{r}
 (lotus_lambda_sim <- exp(lotus_stoch_r$sim))
