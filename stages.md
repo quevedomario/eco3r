@@ -185,7 +185,7 @@ reproductores, y postreproductores.
 
 **sensitivities** y **elasticities** reflejan dos formas de expresar la
 contribución de cada elemento de la matriz a la tasa de crecimiento
-lambda. las *elasticidades* son más fáciles de interpretar al
+lambda. Las *elasticidades* son más fáciles de interpretar al
 representar una proporción. En este caso indican que los dos elementos
 con más influencia en la dinámica son las supervivencias de
 reproductores y juveniles (`whale[3,3]` y `whale[2,2]`). No nos ocupamos

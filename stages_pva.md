@@ -9,15 +9,13 @@ library(diagram)
 library (popbio) 
 ```
 
-(Con *botón derecho + abrir en nueva pestaña* o *Ctrl click* los enlaces
-se abrirán en otra pestaña)  
-Este ejercicio desarrolla un análisis de viabilidad para una población
-de *Lotus arinagensis*.
+### Análisis de viabilidad para una población de *Lotus arinagensis*
 
 ![](stages_pva_files/figure-gfm/lotus_arinagensis1.jpg) La imagen es una
 captura de pantalla de la información recogida en el Atlas y Libro Rojo
-de la Flora Vascular Amenazada de España, [disponible en
-pdf](https://www.miteco.gob.es/es/biodiversidad/temas/inventarios-nacionales/829_tcm30-99330.pdf).
+de la Flora Vascular Amenazada de España, [disponible en pdf; Ctrl click
+para abrir en otra
+pestaña](https://www.miteco.gob.es/es/biodiversidad/temas/inventarios-nacionales/829_tcm30-99330.pdf).
 
 El ejercicio practica la inclusión de la variabilidad ambiental no
 predecible, *estocasticidad ambiental*, en los modelos de poblaciones
@@ -133,10 +131,14 @@ para realizar algunos cálculos:
 lotus_lista <- list(lotus_20022003, lotus_20032004, lotus_20042005)
 ```
 
+### Proyección estocástica
+
 A continuación podemos simular el crecimiento bajo influencia de
-estocásticidad ambiental con la función `stoch.projection()`, a partir
-de 2 o más matrices de proyección (tenemos 3). El resultado de esa
-proyección estocástica lo almacenamos en un objeto
+estocásticidad ambiental, con la función `stoch.projection()`. Esta
+requiere 2 o más matrices de proyección (tenemos 3); es decir, requiere
+tener información sobre la variación en las tasas vitales.
+
+El resultado de la *proyección estocástica* lo almacenamos en un objeto
 **lotus\_stoch\_proj**. Los argumentos de la función son el tiempo de
 proyección `tmax=` y el número de repeticiones `nreps=`:
 
@@ -169,11 +171,13 @@ oscila entre 113.7 (repetición 998) y 885.3 (repetición 997) en las 6
 
 La función `set.seed(12345)` es responsable de que todos obtengamos el
 mismo resultado a pesar de “jugar” con números aleatorios. Le dice al
-generador de números aleatorios por donde empezar a generar. De no
-definirlo onbtendríamos un resultado diferente para cada proyección. Es
-decir, proporciona un código repetible. El resultado general, eso sí,
-será esencialmente el mismo si el número de repeticiones `nreps=` es
+generador de números aleatorios por donde empezar a generar. Es decir,
+proporciona un código repetible. De no definirlo onbtendríamos un
+resultado diferente para cada proyección, si bien resultado general será
+esencialmente el mismo si el número de repeticiones `nreps=` es
 suficientemente grande.
+
+### Tasa estocástica de crecimiento
 
 Nos podemos preguntar cómo afecta la estocasticidad ambiental a la tasa
 de crecimiento lambda. El valor determinista de la misma `lambda
@@ -189,35 +193,32 @@ crecimiento estocástico mediante dos aproximaciones, usando la función
 Aparecen identificadas como $sim y $aprox en los resultados:
 
 ``` r
-(lotus_stoch_r <- stoch.growth.rate (lotus_lista, prob = NULL))
+set.seed(12345)
+(lotus_stoch_r <- stoch.growth.rate (lotus_lista, prob = NULL, maxt = 50 ))
 ```
 
     ## [1] Calculating stochastic growth at time 1
-    ## [1] Calculating stochastic growth at time 10000
-    ## [1] Calculating stochastic growth at time 20000
-    ## [1] Calculating stochastic growth at time 30000
-    ## [1] Calculating stochastic growth at time 40000
-    ## [1] Calculating stochastic growth at time 50000
 
     ## $approx
     ## [1] -0.004196428
     ## 
     ## $sim
-    ## [1] -0.009065402
+    ## [1] 9.772141e-05
     ## 
     ## $sim.CI
-    ## [1] -0.013909218 -0.004221587
+    ## [1] -0.1457980  0.1459934
 
 Esos valores ligeramente inferiores a 0 corresponden en realidad a la
-tasa intrínseca de crecimiento *r*; para obtener *lambda* tenemos que
-usar *e* elevado a la tasa simulada y analítica, respectivamente.
-`exp()` es la función que devuelve el resultado de *e<sup>x</sup>*:
+tasa intrínseca de crecimiento *r*, o al logaritmo de \(\lambda\)
+estocástica; para obtener \(\lambda\) tenemos que usar *e* elevado a la
+tasa simulada y analítica, respectivamente. `exp()` es la función que
+devuelve el resultado de \(e^{x}\):
 
 ``` r
 (lotus_lambda_sim <- exp(lotus_stoch_r$sim))
 ```
 
-    ## [1] 0.9909756
+    ## [1] 1.000098
 
 ``` r
 (lotus_lambda_anal <- exp(lotus_stoch_r$approx))
@@ -225,11 +226,45 @@ usar *e* elevado a la tasa simulada y analítica, respectivamente.
 
     ## [1] 0.9958124
 
-A partir de ambos aproximaciones a la influencia de la variabilidad
+Con cualquiera de las aproximaciones a la influencia de la variabilidad
 ambiental en la *tasa asintótica de crecimiento lambda* obtenemos
 valores inferiores a la *lambda determinista (1.02)*. En este caso de
 hecho la incorporación de la estocasticidad deja lambda por debajo de 1,
-es decir, **indica una tendencia decreciente** (si bien muy tenue).
+es decir, **indica una tendencia decreciente**; el intervalo de
+confianza para la tasa estocástica simulada, `$sim.CI` en el resultado
+de `stoch_growth_rate()`, en ambos extremos menor que 0, la confirma.
+
+### Elasticidades
+
+En el ejercicio previo [de análisis exclusivamente
+determinista](https://github.com/quevedomario/eco3r/blob/master/stages.md)
+veíamos que la salida de `eigen.analysis()` incluía sensibilidades y
+elasticidades. La **elasticidad** de un elemento de la matriz de
+transición es el cambio proporcional en \(lambda\) que resulta de un
+cambio en ese elemento de la matriz. Las elasticidades indican *a
+priori* qué elementos de la matriz son **más determinantes para la
+dinámica de la población**.
+
+La obtenemos con la función `stoch.sens()`:
+
+``` r
+set.seed(12345)
+stoch.sens(lotus_lista)
+```
+
+    ## $sensitivities
+    ##       plántula      repro1       repro2    repro3
+    ## [1,] 0.2738956 0.000000000 0.0003213493 0.1123084
+    ## [2,] 0.4653165 0.001393729 0.0019555598 0.2058651
+    ## [3,] 0.9069241 0.003465732 0.0045223189 0.3984175
+    ## [4,] 1.6726674 0.008215348 0.0101758119 0.7476724
+    ## 
+    ## $elasticities
+    ##       plántula       repro1       repro2      repro3
+    ## [1,] 0.0000000 0.0000000000 0.0002640958 0.266810455
+    ## [2,] 0.0000000 0.0000000000 0.0000000000 0.000000000
+    ## [3,] 0.0000000 0.0000000000 0.0000948545 0.001021964
+    ## [4,] 0.2599737 0.0009858417 0.0037044538 0.467144650
 
 ### Enlaces, referencias, anotaciones de código
 

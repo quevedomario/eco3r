@@ -13,11 +13,10 @@ library(diagram)
 library (popbio) 
 ```
 
-(Con *botón derecho + abrir en nueva pestaña* o *Ctrl click* los enlaces se abrirán en otra pestaña)  
-Este ejercicio desarrolla un análisis de viabilidad para una población de *Lotus arinagensis*.
+### Análisis de viabilidad para una población de *Lotus arinagensis*
 
 ![](stages_pva_files/figure-gfm/lotus_arinagensis1.jpg)
-La imagen es una captura de pantalla de la información recogida en el Atlas y Libro Rojo de la Flora Vascular Amenazada de España, [disponible en pdf](https://www.miteco.gob.es/es/biodiversidad/temas/inventarios-nacionales/829_tcm30-99330.pdf). 
+La imagen es una captura de pantalla de la información recogida en el Atlas y Libro Rojo de la Flora Vascular Amenazada de España, [disponible en pdf; Ctrl click para abrir en otra pestaña](https://www.miteco.gob.es/es/biodiversidad/temas/inventarios-nacionales/829_tcm30-99330.pdf). 
 
 El ejercicio practica la inclusión de la variabilidad ambiental no predecible, *estocasticidad ambiental*, en los modelos de poblaciones estructuradas vistos anteriormente en https://github.com/quevedomario/eco3r/blob/master/stages.md y en https://github.com/quevedomario/eco3r/blob/master/stages2.md  
 
@@ -94,7 +93,10 @@ Una vez introducidas en la memoria de la sesión de R, combinamos las tres matri
 lotus_lista <- list(lotus_20022003, lotus_20032004, lotus_20042005)
 ```
 
-A continuación podemos simular el crecimiento bajo influencia de estocásticidad ambiental con la función `stoch.projection()`, a partir de 2 o más matrices de proyección (tenemos 3). El resultado de esa proyección estocástica lo almacenamos en un objeto **lotus_stoch_proj**. Los argumentos de la función son el tiempo de proyección `tmax=` y el número de repeticiones `nreps=`:
+### Proyección estocástica
+A continuación podemos simular el crecimiento bajo influencia de estocásticidad ambiental, con la función `stoch.projection()`. Esta requiere 2 o más matrices de proyección (tenemos 3); es decir, requiere tener información sobre la variación en las tasas vitales. 
+
+El resultado de la *proyección estocástica* lo almacenamos en un objeto **lotus_stoch_proj**. Los argumentos de la función son el tiempo de proyección `tmax=` y el número de repeticiones `nreps=`:
 ```{r}
 set.seed(12345)
 lotus_stoch_proj <- stoch.projection (lotus_lista, lotus_n0, tmax=25, nreps=1000)
@@ -103,8 +105,9 @@ tail (lotus_stoch_proj)
 
 La función `tail()`anterior muestra las 6 últimas de las 1000 (`nreps=1000`) proyecciones estocásticas de nuestro conjunto de matrices de *Lotus arinagensis*. Nos muestra el tamaño de cada estadio a los 25 años (`tmax=25`), sometido a variación ambiental. Las fluctuaciones son consecuencia de los distintos valores de las transiciones obtenidos en las tres temporadas de campo, y recogidos en las matrices **lotus_20022003**, **lotus_20032004** y **lotus_20042005**. Por ejemplo, el elemento [4,1] de las matrices indica la probabilidad de transición del estadio *plántula* a *repro3* entre t y t+1, y oscila entre 0 y 0.379. Y en el resultado la abundancia del estadio *plántula* oscila entre 113.7 (repetición 998) y 885.3 (repetición 997) en las 6 últimas repeticiones de la proyección.
 
-La función `set.seed(12345)` es responsable de que todos obtengamos el mismo resultado a pesar de "jugar" con números aleatorios. Le dice al generador de números aleatorios por donde empezar a generar. De no definirlo onbtendríamos un resultado diferente para cada proyección. Es decir, proporciona un código repetible. El resultado general, eso sí, será esencialmente el mismo si el número de repeticiones `nreps=` es suficientemente grande.
+La función `set.seed(12345)` es responsable de que todos obtengamos el mismo resultado a pesar de "jugar" con números aleatorios. Le dice al generador de números aleatorios por donde empezar a generar. Es decir, proporciona un código repetible. De no definirlo onbtendríamos un resultado diferente para cada proyección, si bien resultado general será esencialmente el mismo si el número de repeticiones `nreps=` es suficientemente grande.
 
+### Tasa estocástica de crecimiento
 Nos podemos preguntar cómo afecta la estocasticidad ambiental a la tasa de crecimiento lambda. El valor determinista de la misma `lambda (lotus_matrix)` era 1.02. la librería **popbio** calcula la tasa de crecimiento estocástico mediante dos aproximaciones, usando la función `stoch.growth.rate()`: 
 
 - Una a partir de *simulación*, utilizando en cada repetición una de las matrices disponibles en **lotus_lista**, 3 en este caso. 
@@ -113,16 +116,26 @@ Nos podemos preguntar cómo afecta la estocasticidad ambiental a la tasa de crec
 Aparecen identificadas como $sim y $aprox en los resultados:
 
 ```{r}
-(lotus_stoch_r <- stoch.growth.rate (lotus_lista, prob = NULL))
+set.seed(12345)
+(lotus_stoch_r <- stoch.growth.rate (lotus_lista, prob = NULL, maxt = 50 ))
 ```
 
-Esos valores ligeramente inferiores a 0 corresponden en realidad a la tasa intrínseca de crecimiento *r*; para obtener *lambda* tenemos que usar *e* elevado a la tasa simulada y analítica, respectivamente. `exp()` es la función que devuelve el resultado de *e^x^*: 
+Esos valores ligeramente inferiores a 0 corresponden en realidad a la tasa intrínseca de crecimiento *r*, o al logaritmo de $\lambda$ estocástica; para obtener $\lambda$ tenemos que usar *e* elevado a la tasa simulada y analítica, respectivamente. `exp()` es la función que devuelve el resultado de $e^{x}$: 
 ```{r}
 (lotus_lambda_sim <- exp(lotus_stoch_r$sim))
 (lotus_lambda_anal <- exp(lotus_stoch_r$approx))
 ```
 
-A partir de ambos aproximaciones a la influencia de la variabilidad ambiental en la *tasa asintótica de crecimiento lambda* obtenemos valores inferiores a la *lambda determinista (1.02)*. En este caso de hecho la incorporación de la estocasticidad deja lambda por debajo de 1, es decir, **indica una tendencia decreciente** (si bien muy tenue).
+Con cualquiera de las aproximaciones a la influencia de la variabilidad ambiental en la *tasa asintótica de crecimiento lambda* obtenemos valores inferiores a la *lambda determinista (1.02)*. En este caso de hecho la incorporación de la estocasticidad deja lambda por debajo de 1, es decir, **indica una tendencia decreciente**; el intervalo de confianza para la tasa estocástica simulada, `$sim.CI` en el resultado de `stoch_growth_rate()`, en ambos extremos menor que 0, la confirma.
+
+### Elasticidades
+En el ejercicio previo [de análisis exclusivamente determinista](https://github.com/quevedomario/eco3r/blob/master/stages.md) veíamos que la salida de `eigen.analysis()` incluía sensibilidades y elasticidades. La **elasticidad** de un elemento de la matriz de transición es el cambio proporcional en $lambda$ que resulta de un cambio en ese elemento de la matriz. Las elasticidades indican *a priori* qué elementos de la matriz son **más determinantes para la dinámica de la población**.
+
+La obtenemos con la función `stoch.sens()`:
+```{r}
+set.seed(12345)
+stoch.sens(lotus_lista)
+```
 
 ### Enlaces, referencias, anotaciones de código
 Para abrir los enlaces en otra pestaña, *botón derecho + abrir en nueva pestaña*, o *Ctrl click*)  

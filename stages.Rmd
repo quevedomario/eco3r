@@ -72,7 +72,7 @@ pander(eigen.analysis (whale))
 
 **stable.stage** indica la proporción de individuos de cada estadio en la población, una vez que esta alcanza un distribución estable. La convergencia a esa proporción estable de edades o estadios es una característica formal de este tipo de modelos, consecuencia de usar una matriz de proyección invariable. En el caso de esta población de orcas los individuos están repartidos de forma casi idéntica entre juveniles, reproductores, y postreproductores. 
 
-**sensitivities** y **elasticities** reflejan dos formas de expresar la contribución de cada elemento de la matriz a la tasa de crecimiento lambda. las *elasticidades* son más fáciles de interpretar al representar una proporción. En este caso indican que los dos elementos con más influencia en la dinámica son las supervivencias de reproductores y juveniles (`whale[3,3]` y `whale[2,2]`). No nos ocupamos aquí del resto de parámetros incluidos en la salida de `eigen.analysis()`.
+**sensitivities** y **elasticities** reflejan dos formas de expresar la contribución de cada elemento de la matriz a la tasa de crecimiento lambda. Las *elasticidades* son más fáciles de interpretar al representar una proporción. En este caso indican que los dos elementos con más influencia en la dinámica son las supervivencias de reproductores y juveniles (`whale[3,3]` y `whale[2,2]`). No nos ocupamos aquí del resto de parámetros incluidos en la salida de `eigen.analysis()`.
 
 Otro parámetro habitualmente importante en demografía es el **tiempo de generación**, interpretable como la edad media de los reproductores en la población. La función que lo extrae es intuitiva:
 
