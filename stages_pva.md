@@ -208,7 +208,7 @@ set.seed(12345)
     ## $sim.CI
     ## [1] -0.1457980  0.1459934
 
-Esos valores ligeramente inferiores a 0 corresponden en realidad a la
+Esos valores ligeramente inferiores a 0 corresponden a la
 tasa intrínseca de crecimiento *r*, o al logaritmo de lambda
 estocástica; para obtener lambda tenemos que usar \(\lambda=e^{r}\).
 `exp()` es la función que devuelve el resultado de \(e^{x}\):
