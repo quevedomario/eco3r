@@ -163,7 +163,7 @@ años (`tmax=25`), sometido a variación ambiental. Las fluctuaciones son
 consecuencia de los distintos valores de las transiciones obtenidos en
 las tres temporadas de campo, y recogidos en las matrices
 **lotus\_20022003**, **lotus\_20032004** y **lotus\_20042005**. Por
-ejemplo, el elemento \[4,1\] de las matrices indica la probabilidad de
+ejemplo, el elemento `[4,1]` de las matrices indica la probabilidad de
 transición del estadio *plántula* a *repro3* entre t y t+1, y oscila
 entre 0 y 0.379. Y en el resultado la abundancia del estadio *plántula*
 oscila entre 113.7 (repetición 998) y 885.3 (repetición 997) en las 6
@@ -185,8 +185,8 @@ de crecimiento lambda. El valor determinista de la misma obtenido con
 de crecimiento estocástico mediante dos aproximaciones, usando la
 función `stoch.growth.rate()`:
 
-  - A partir de *simulación*, utilizando en cada repetición una de las
-    matrices disponibles en **lotus\_lista**, 3 en este caso.
+  - A partir de *simulación*, utilizando en cada repetición una de las 3
+    matrices disponibles en **lotus\_lista**.
   - *Analítica*, basada en los elementos de esas matrices. Esta se llama
     *aproximación analítica de Tuljapurkar*.
 
@@ -210,9 +210,8 @@ set.seed(12345)
 
 Esos valores ligeramente inferiores a 0 corresponden en realidad a la
 tasa intrínseca de crecimiento *r*, o al logaritmo de lambda
-estocástica; para obtener lambda tenemos que usar *e* elevado a las
-tasas simulada y analítica, respectivamente. `exp()` es la función que
-devuelve el resultado de *e<sup>x</sup>*:
+estocástica; para obtener lambda tenemos que usar \(\lambda=e^{r}\).
+`exp()` es la función que devuelve el resultado de \(e^{x}\):
 
 ``` r
 (lotus_lambda_sim <- exp(lotus_stoch_r$sim))
