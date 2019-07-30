@@ -180,15 +180,15 @@ suficientemente grande.
 ### Tasa estocástica de crecimiento
 
 Nos podemos preguntar cómo afecta la estocasticidad ambiental a la tasa
-de crecimiento lambda. El valor determinista de la misma `lambda
-(lotus_matrix)` era 1.02. la librería **popbio** calcula la tasa de
-crecimiento estocástico mediante dos aproximaciones, usando la función
-`stoch.growth.rate()`:
+de crecimiento lambda. El valor determinista de la misma obtenido con
+`lambda (lotus_matrix)` era 1.02. la librería **popbio** calcula la tasa
+de crecimiento estocástico mediante dos aproximaciones, usando la
+función `stoch.growth.rate()`:
 
-  - Una a partir de *simulación*, utilizando en cada repetición una de
-    las matrices disponibles en **lotus\_lista**, 3 en este caso.
-  - Otra *analítica*, basada en los elementos de esas matrices. Esta se
-    llama *aproximación analítica de Tuljapurkar*.
+  - A partir de *simulación*, utilizando en cada repetición una de las
+    matrices disponibles en **lotus\_lista**, 3 en este caso.
+  - *Analítica*, basada en los elementos de esas matrices. Esta se llama
+    *aproximación analítica de Tuljapurkar*.
 
 Aparecen identificadas como $sim y $aprox en los resultados:
 
@@ -209,10 +209,10 @@ set.seed(12345)
     ## [1] -0.1457980  0.1459934
 
 Esos valores ligeramente inferiores a 0 corresponden en realidad a la
-tasa intrínseca de crecimiento *r*, o al logaritmo de \(\lambda\)
-estocástica; para obtener \(\lambda\) tenemos que usar *e* elevado a la
-tasa simulada y analítica, respectivamente. `exp()` es la función que
-devuelve el resultado de \(e^{x}\):
+tasa intrínseca de crecimiento *r*, o al logaritmo de lambda
+estocástica; para obtener lambda tenemos que usar *e* elevado a las
+tasas simulada y analítica, respectivamente. `exp()` es la función que
+devuelve el resultado de *e<sup>x</sup>*:
 
 ``` r
 (lotus_lambda_sim <- exp(lotus_stoch_r$sim))
@@ -240,10 +240,10 @@ En el ejercicio previo [de análisis exclusivamente
 determinista](https://github.com/quevedomario/eco3r/blob/master/stages.md)
 veíamos que la salida de `eigen.analysis()` incluía sensibilidades y
 elasticidades. La **elasticidad** de un elemento de la matriz de
-transición es el cambio proporcional en \(lambda\) que resulta de un
-cambio en ese elemento de la matriz. Las elasticidades indican *a
-priori* qué elementos de la matriz son **más determinantes para la
-dinámica de la población**.
+transición es el cambio proporcional en lambda que resulta de un cambio
+en ese elemento de la matriz. Las elasticidades indican *a priori* qué
+elementos de la matriz son **más determinantes para la dinámica de la
+población**.
 
 La obtenemos con la función `stoch.sens()`:
 

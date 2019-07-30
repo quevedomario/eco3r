@@ -108,10 +108,10 @@ La función `tail()`anterior muestra las 6 últimas de las 1000 (`nreps=1000`) p
 La función `set.seed(12345)` es responsable de que todos obtengamos el mismo resultado a pesar de "jugar" con números aleatorios. Le dice al generador de números aleatorios por donde empezar a generar. Es decir, proporciona un código repetible. De no definirlo onbtendríamos un resultado diferente para cada proyección, si bien resultado general será esencialmente el mismo si el número de repeticiones `nreps=` es suficientemente grande.
 
 ### Tasa estocástica de crecimiento
-Nos podemos preguntar cómo afecta la estocasticidad ambiental a la tasa de crecimiento lambda. El valor determinista de la misma `lambda (lotus_matrix)` era 1.02. la librería **popbio** calcula la tasa de crecimiento estocástico mediante dos aproximaciones, usando la función `stoch.growth.rate()`: 
+Nos podemos preguntar cómo afecta la estocasticidad ambiental a la tasa de crecimiento lambda. El valor determinista de la misma obtenido con `lambda (lotus_matrix)` era 1.02. la librería **popbio** calcula la tasa de crecimiento estocástico mediante dos aproximaciones, usando la función `stoch.growth.rate()`: 
 
-- Una a partir de *simulación*, utilizando en cada repetición una de las matrices disponibles en **lotus_lista**, 3 en este caso. 
-- Otra *analítica*, basada en los elementos de esas matrices. Esta se llama *aproximación analítica de Tuljapurkar*. 
+- A partir de *simulación*, utilizando en cada repetición una de las matrices disponibles en **lotus_lista**, 3 en este caso. 
+- *Analítica*, basada en los elementos de esas matrices. Esta se llama *aproximación analítica de Tuljapurkar*. 
 
 Aparecen identificadas como $sim y $aprox en los resultados:
 
@@ -120,7 +120,7 @@ set.seed(12345)
 (lotus_stoch_r <- stoch.growth.rate (lotus_lista, prob = NULL, maxt = 50 ))
 ```
 
-Esos valores ligeramente inferiores a 0 corresponden en realidad a la tasa intrínseca de crecimiento *r*, o al logaritmo de $\lambda$ estocástica; para obtener $\lambda$ tenemos que usar *e* elevado a la tasa simulada y analítica, respectivamente. `exp()` es la función que devuelve el resultado de $e^{x}$: 
+Esos valores ligeramente inferiores a 0 corresponden en realidad a la tasa intrínseca de crecimiento *r*, o al logaritmo de lambda estocástica; para obtener lambda tenemos que usar *e* elevado a las tasas simulada y analítica, respectivamente. `exp()` es la función que devuelve el resultado de *e^x^*: 
 ```{r}
 (lotus_lambda_sim <- exp(lotus_stoch_r$sim))
 (lotus_lambda_anal <- exp(lotus_stoch_r$approx))
@@ -129,7 +129,7 @@ Esos valores ligeramente inferiores a 0 corresponden en realidad a la tasa intr�
 Con cualquiera de las aproximaciones a la influencia de la variabilidad ambiental en la *tasa asintótica de crecimiento lambda* obtenemos valores inferiores a la *lambda determinista (1.02)*. En este caso de hecho la incorporación de la estocasticidad deja lambda por debajo de 1, es decir, **indica una tendencia decreciente**; el intervalo de confianza para la tasa estocástica simulada, `$sim.CI` en el resultado de `stoch_growth_rate()`, en ambos extremos menor que 0, la confirma.
 
 ### Elasticidades
-En el ejercicio previo [de análisis exclusivamente determinista](https://github.com/quevedomario/eco3r/blob/master/stages.md) veíamos que la salida de `eigen.analysis()` incluía sensibilidades y elasticidades. La **elasticidad** de un elemento de la matriz de transición es el cambio proporcional en $lambda$ que resulta de un cambio en ese elemento de la matriz. Las elasticidades indican *a priori* qué elementos de la matriz son **más determinantes para la dinámica de la población**.
+En el ejercicio previo [de análisis exclusivamente determinista](https://github.com/quevedomario/eco3r/blob/master/stages.md) veíamos que la salida de `eigen.analysis()` incluía sensibilidades y elasticidades. La **elasticidad** de un elemento de la matriz de transición es el cambio proporcional en lambda que resulta de un cambio en ese elemento de la matriz. Las elasticidades indican *a priori* qué elementos de la matriz son **más determinantes para la dinámica de la población**.
 
 La obtenemos con la función `stoch.sens()`:
 ```{r}
