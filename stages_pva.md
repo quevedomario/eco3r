@@ -2,8 +2,8 @@ Estocasticidad en dinámica de poblaciones estructuradas
 ================
 Mario Quevedo
 
-Para este ejercicio son necesarias las librerías **popbio** y
-**diagram**
+\(\lambda\) Para este ejercicio son necesarias las librerías **popbio**
+y **diagram**
 
 ``` r
 library(diagram)
