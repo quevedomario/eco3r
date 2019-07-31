@@ -1,8 +1,9 @@
 Estocasticidad en dinámica de poblaciones estructuradas
 ================
+Mario Quevedo
 
-Para este ejercicio son necesarias las librerías **popbio** y
-**diagram**
+\(\lambda\) Para este ejercicio son necesarias las librerías **popbio**
+y **diagram**
 
 ``` r
 library(diagram)
@@ -180,10 +181,10 @@ suficientemente grande.
 ### Tasa estocástica de crecimiento
 
 Nos podemos preguntar cómo afecta la estocasticidad ambiental a la tasa
-de crecimiento lambda. El valor determinista de la misma obtenido con
-`lambda (lotus_matrix)` era 1.02. la librería **popbio** calcula la tasa
-de crecimiento estocástico mediante dos aproximaciones, usando la
-función `stoch.growth.rate()`:
+asintótica de crecimiento, lambda. El valor determinista de la misma
+obtenido con `lambda (lotus_matrix)` era 1.02. la librería **popbio**
+calcula la tasa de crecimiento estocástico mediante dos aproximaciones,
+usando la función `stoch.growth.rate()`:
 
   - A partir de *simulación*, utilizando en cada repetición una de las 3
     matrices disponibles en **lotus\_lista**.
