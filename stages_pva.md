@@ -149,7 +149,7 @@ set.seed(12345)
     ## $sim.CI
     ## [1] -0.1457980  0.1459934
 
-Esos valores próximos a 0 corresponden en realidad a la tasa intrínseca de crecimiento *r*, o a ![](stages_pva_files/figure-gfm/lnlambda.jpg); para obtener lambda tenemos que usar ![](stages_pva_files/figure-gfm/lambda_e_r.jpg). `exp()` es la función que devuelve el resultado de e<sup>x</sup>:
+Esos valores próximos a 0 corresponden en realidad a la tasa intrínseca de crecimiento *r*, o ![](stages_pva_files/figure-gfm/lnlambda.jpg); para obtener lambda tenemos que usar ![](stages_pva_files/figure-gfm/lambda_e_r.jpg). `exp()` es la función que devuelve el resultado de e<sup>x</sup>:
 
 ``` r
 (lotus_lambda_sim <- exp(lotus_stoch_r$sim))
