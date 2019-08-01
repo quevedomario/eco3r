@@ -1,9 +1,8 @@
 Estocasticidad en dinámica de poblaciones estructuradas
 ================
-Mario Quevedo
 
-Para este ejercicio son necesarias las librerías **popbio** y
-**diagram**
+\[\lambda\] Para este ejercicio son necesarias las librerías **popbio**
+y **diagram**
 
 ``` r
 library(diagram)
@@ -25,7 +24,9 @@ estructuradas vistos anteriormente en
 <https://github.com/quevedomario/eco3r/blob/master/stages2.md>
 
 El modelo está estructurado en 4 estadios, plántulas y 3 clases de
-reproductores. Introducimos el vector de estadios:
+reproductores. Introducimos el vector de estadios, al que llamo
+arbitrariamente `lotus_stages`; podría llamarse `molly`, pero quizás
+tendríamos problemas para recordarlo después:
 
 ``` r
 lotus_stages <- c ("plántula", "repro1", "repro2", "repro3")
@@ -33,7 +34,7 @@ lotus_stages <- c ("plántula", "repro1", "repro2", "repro3")
 
 Definimos además dos vectores alternativos de abundancias en t = 0,
 *N<sub>0</sub>*; uno con el mismo número de individuos por estadio, y
-otro con mayoría del estadio 4, *repro3*:
+otro con mayoría del estadio *repro3*:
 
 ``` r
 lotus_n0 <- c (100,100,100,100)
@@ -171,12 +172,12 @@ oscila entre 113.7 (repetición 998) y 885.3 (repetición 997) en las 6
 últimas repeticiones de la proyección.
 
 La función `set.seed(12345)` es responsable de que todos obtengamos el
-mismo resultado a pesar de “jugar” con números aleatorios. Le dice al
-generador de números aleatorios por donde empezar a generar. Es decir,
-proporciona un código repetible. De no definirlo onbtendríamos un
-resultado diferente para cada proyección, si bien resultado general será
-esencialmente el mismo si el número de repeticiones `nreps=` es
-suficientemente grande.
+mismo resultado a partir dde este guión, a pesar de “jugar” con números
+aleatorios. Le dice al generador de números aleatorios por donde empezar
+a generar. Es decir, proporciona un código repetible. De no definirlo
+onbtendríamos un resultado diferente para cada proyección, si bien
+resultado general será esencialmente el mismo si el número de
+repeticiones `nreps=` es suficientemente grande.
 
 ### Tasa estocástica de crecimiento
 
@@ -186,12 +187,12 @@ obtenido con `lambda (lotus_matrix)` era 1.02. la librería **popbio**
 calcula la tasa de crecimiento estocástico mediante dos aproximaciones,
 usando la función `stoch.growth.rate()`:
 
-  - A partir de *simulación*, utilizando en cada repetición una de las 3
-    matrices disponibles en **lotus\_lista**.
   - *Analítica*, basada en los elementos de esas matrices. Esta se llama
     *aproximación analítica de Tuljapurkar*.
+  - *Simulada*, utilizando en cada repetición una de las 3 matrices
+    disponibles en **lotus\_lista**.
 
-Aparecen identificadas como `$sim` y `$aprox` en los resultados:
+Aparecen identificadas como `$aprox` y `$sim` en los resultados:
 
 ``` r
 set.seed(12345)
@@ -209,11 +210,11 @@ set.seed(12345)
     ## $sim.CI
     ## [1] -0.1457980  0.1459934
 
-Esos valores ligeramente inferiores a 0 corresponden en realidad a la
-tasa intrínseca de crecimiento *r*, o al logaritmo de lambda
-estocástica; para obtener lambda tenemos que usar lambda =
-e<sup>r</sup>. `exp()` es la función que devuelve el resultado de
-e<sup>x</sup>:
+Esos valores próximos a 0 corresponden en realidad a la tasa intrínseca
+de crecimiento *r*, o a ![](stages_pva_files/figure-gfm/lnlambda.jpg);
+para obtener lambda tenemos que usar
+![](stages_pva_files/figure-gfm/lambda_e_r.jpg). `exp()` es la función
+que devuelve el resultado de e<sup>x</sup>:
 
 ``` r
 (lotus_lambda_sim <- exp(lotus_stoch_r$sim))
@@ -227,13 +228,11 @@ e<sup>x</sup>:
 
     ## [1] 0.9958124
 
-Con cualquiera de las aproximaciones a la influencia de la variabilidad
-ambiental en la *tasa asintótica de crecimiento lambda* obtenemos
-valores inferiores a la *lambda determinista (1.02)*. En este caso de
-hecho la incorporación de la estocasticidad deja lambda por debajo de 1,
-es decir, **indica una tendencia decreciente**; el intervalo de
-confianza para la tasa estocástica simulada, `$sim.CI` en el resultado
-de `stoch_growth_rate()`, en ambos extremos menor que 0, la confirma.
+`$sim.CI` en el resultado de la tasa estocástica de crecimiento muestra
+el intervalo de confianza para la *r* estocástica simulada (la analítica
+es un valor único derivado de la matriz), en este caso incluyendo 0 en
+el centro de la distribución de valores; indica una población con una
+lambda estocástica esencialmente igual a 1.
 
 ### Elasticidades
 
