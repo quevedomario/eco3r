@@ -46,13 +46,15 @@ Y construimos la matriz de transición combinando estadios y transiciones:
 lotus_matrix <- matrix2(lotus_trans, lotus_stages)
 ```
 
-Una vez definido el modelo de la población, podemos empezar a extraerle información. Por ejemplo, dibujando el ciclo de vida de *L. arinagensis* con la función `plotmat()`, la cual presenta muchos ajustes (e.g. muchos *argumentos*) que determinarán el aspecto final del gráfico:
+Una vez definido el modelo de la población, podemos empezar a extraerle información. Por ejemplo, dibujando el ciclo de vida de *L. arinagensis* con la función `plotmat()`. Puede pareer complicada porque presenta muchos ajustes posibles (e.g. muchos *argumentos*), que determinarán el aspecto final del gráfico:
 ```{r}
 plotmat(lotus_matrix, relsize =.86, self.cex = 0.5, self.shifty=0.051,
         box.prop = 0.3, box.type = "round" ,box.size = 0.1, lwd = 1, pos =, 
         arr.col = "blue", arr.lcol = "black", arr.type = "triangle",
         main = "")
 ```
+
+Podemos obtener explicación de cómo trabajan esos argumentos con `?plotmat`.
 
 El ciclo de vida facilita la interpretación visual de las transiciones observadas en la población, y de las diferencias dentro de la misma: algunos individuos permanecen en el mismo estadio entre t y t + 1; otros regresan a estadios anteriores; y otros se "saltan" estadios en el crecimiento. Esas peculiaridades, especialmente habituales en organismos modulares con modelos basados en tamaño o estadio reproductor, se modelan eficientemente con estas matrices.   
 
@@ -136,6 +138,28 @@ La obtenemos con la función `stoch.sens()`:
 set.seed(12345)
 stoch.sens(lotus_lista)
 ```
+
+La tasa de crecimiento asintótica lambda = 1 indica una población con dinámica estable, si las tasas vitales de la matriz se mantienen. Sin embargo un análisis de viabilidad debe ofrecer un resultado más concreto: probabilidad de extinción en un tiempo determinado. Ese cálculo lo podemos ofrecer a partir de la función `stoch.quai.ext`. En realidad calcula la probabilidad de cuasi-extinción, o probabilidad de que la abundancia de la población baje de un determinado umbral:
+
+```{r}
+set.seed(12345)
+lotus_sqe <- stoch.quasi.ext (lotus_lista, lotus_n0, tmax=25, Nx=50, maxruns = 10, nreps=1000)
+tail(lotus_sqe)
+```
+
+El código implica 10 ejecuciones `maxruns=` separadas de la estima de probabilidad de cuasi-extinción, cada una con `nreps=` 1000 estimas de crecimiento de la población, ante un umbral de `Nx=` 50 individuos y un tiempo de `tmax=`25 años. `tail(lotus_sqe)` muestra las seis últimas filas, años en este caso, del resultado `lotus_sqe`. Fijándonos en el año 25, podemos resumir la probabilidad media de cuasi-extinción proyectada a 25 años: 
+```{r}
+mean(lotus_sqe[25,]); sd(lotus_sqe[25,])
+```
+
+Es decir, pedimos la media y desviación estándar de la probabilidad de que N~t~ < N~x~ en el año 25 de las 10 ejecuciones. A pesar de que la tasa asintótica determinista era 1.02, en presencia de variabilidad ambiental tenemos una probabilidad superior al 10% de que la población disminuya por debajo de 50 individuos en 25 años.
+
+Para terminar, usamos aquello de que una imagen vale más que mil palabras, también en el contexto de análisis de viabilidad de poblaciones:
+```{r}
+matplot (lotus_sqe, xlab="Años", ylab=expression(P[q-ext]), 
+         type='l', lty=1, las=1)
+```
+
 
 ### Enlaces, referencias, anotaciones de código
 Para abrir los enlaces en otra pestaña, *botón derecho + abrir en nueva pestaña*, o *Ctrl click*)  
