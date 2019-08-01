@@ -6,7 +6,7 @@ output: rmarkdown::github_document
 editor_options: 
   chunk_output_type: console
 ---
-$$\lambda$$
+
 Para este ejercicio son necesarias las librerías **popbio** y **diagram**
 ```{r message=FALSE, warning=FALSE}
 library(diagram)
@@ -108,7 +108,7 @@ La función `tail()`anterior muestra las 6 últimas de las 1000 (`nreps=1000`) p
 La función `set.seed(12345)` es responsable de que todos obtengamos el mismo resultado a partir dde este guión, a pesar de "jugar" con números aleatorios. Le dice al generador de números aleatorios por donde empezar a generar. Es decir, proporciona un código repetible. De no definirlo onbtendríamos un resultado diferente para cada proyección, si bien resultado general será esencialmente el mismo si el número de repeticiones `nreps=` es suficientemente grande.
 
 ### Tasa estocástica de crecimiento 
-Nos podemos preguntar cómo afecta la estocasticidad ambiental a la tasa asintótica de crecimiento, lambda. El valor determinista de la misma obtenido con `lambda (lotus_matrix)` era 1.02. la librería **popbio** calcula la tasa de crecimiento estocástico mediante dos aproximaciones, usando la función `stoch.growth.rate()`: 
+Nos podemos preguntar cómo afecta la estocasticidad ambiental a la tasa asintótica de crecimiento, lambda. El valor determinista de la misma obtenido con `lambda (lotus_matrix)` era 1.02. La librería **popbio** calcula la tasa de crecimiento estocástico usando la función `stoch.growth.rate()`, y devuelve dos aproximaciones: 
 
 - *Analítica*, basada en los elementos de esas matrices. Esta se llama *aproximación analítica de Tuljapurkar*. 
 - *Simulada*, utilizando en cada repetición una de las 3 matrices disponibles en **lotus_lista**. 

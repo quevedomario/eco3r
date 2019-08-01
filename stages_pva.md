@@ -1,8 +1,8 @@
 Estocasticidad en dinámica de poblaciones estructuradas
 ================
 
-\[\lambda\] Para este ejercicio son necesarias las librerías **popbio**
-y **diagram**
+Para este ejercicio son necesarias las librerías **popbio** y
+**diagram**
 
 ``` r
 library(diagram)
@@ -183,9 +183,9 @@ repeticiones `nreps=` es suficientemente grande.
 
 Nos podemos preguntar cómo afecta la estocasticidad ambiental a la tasa
 asintótica de crecimiento, lambda. El valor determinista de la misma
-obtenido con `lambda (lotus_matrix)` era 1.02. la librería **popbio**
-calcula la tasa de crecimiento estocástico mediante dos aproximaciones,
-usando la función `stoch.growth.rate()`:
+obtenido con `lambda (lotus_matrix)` era 1.02. La librería **popbio**
+calcula la tasa de crecimiento estocástico usando la función
+`stoch.growth.rate()`, y devuelve dos aproximaciones:
 
   - *Analítica*, basada en los elementos de esas matrices. Esta se llama
     *aproximación analítica de Tuljapurkar*.
