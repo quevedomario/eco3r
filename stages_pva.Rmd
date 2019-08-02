@@ -152,11 +152,11 @@ El código implica 10 ejecuciones `maxruns=` separadas de la estima de probabili
 mean(lotus_sqe[25,]); sd(lotus_sqe[25,])
 ```
 
-Es decir, pedimos la media y desviación estándar de la probabilidad de que N~t~ < N~x~ en el año 25 de las 10 ejecuciones. A pesar de que la tasa asintótica determinista era 1.02, en presencia de variabilidad ambiental tenemos una probabilidad superior al 10% de que la población disminuya por debajo de 50 individuos en 25 años.
+Es decir, pedimos la media y desviación estándar de la probabilidad de que N~t~ < N~x~ en el año 25 de cada una de las 10 ejecuciones. A pesar de que la tasa asintótica determinista era 1.02, teniendo en cuenta la variabilidad ambiental reflejada en las tres matrices ed 2002 a 2005, tenemos una probabilidad superior al 10% de que la población disminuya por debajo de 50 individuos en 25 años.
 
 Para terminar, usamos aquello de que una imagen vale más que mil palabras, también en el contexto de análisis de viabilidad de poblaciones:
 ```{r}
-matplot (lotus_sqe, xlab="Años", ylab=expression(P[q-ext]), 
+matplot (lotus_sqe, xlab="Años", ylab=expression(P[cuasi-extinción]), 
          type='l', lty=1, las=1)
 ```
 
