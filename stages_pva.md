@@ -67,13 +67,14 @@ Una vez definido el modelo de la población, podemos empezar a extraerle
 información. Por ejemplo, dibujando el ciclo de vida de *L. arinagensis*
 con la función `plotmat()`. Puede pareer complicada porque presenta
 muchos ajustes posibles (e.g. muchos *argumentos*), que determinarán el
-aspecto final del gráfico:
+aspecto final del
+gráfico:
 
 ``` r
-plotmat(lotus_matrix, relsize =.86, self.cex = 0.5, self.shifty=0.051,
-        box.prop = 0.3, box.type = "round" ,box.size = 0.1, lwd = 1, pos =, 
-        arr.col = "blue", arr.lcol = "black", arr.type = "triangle",
-        main = "")
+plotmat(lotus_matrix, relsize =0.80, self.cex = 0.6, self.shifty=0.08, self.shiftx = c(0,0,-0.05,0),
+        box.prop = 0.3, box.type = "round" , box.size = 0.1, lwd = 1, pos =, 
+        arr.col = "yellow", arr.lcol = "black", arr.type = "triangle", txt.col = "blue",
+        main = "Esquema del ciclo de L. arinagensis")
 ```
 
 ![](stages_pva_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
@@ -348,7 +349,7 @@ matplot (lotus_sqe, xlab="Años", ylab=expression(P[cuasi-extinción]),
          type='l', lty=1, las=1)
 ```
 
-![](stages_pva_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+<img src="stages_pva_files/figure-gfm/unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
 
 #### Enlaces y referencias
 

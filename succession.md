@@ -1,191 +1,257 @@
-Sucesión ecológica - modelos cuantitativos con R
+Sucesión ecológica con R
 ================
 
 ![](succession_files/figure-markdown_github/sucesion_stand_dev0_100.png)
 
-#### Configuración previa
+### Un modelo analítico de sucesión
+
+Estos modelos son simplificaciones de los procesos reales, pero permiten
+fijarse en los aspectos básicos de la dinámica de sustitución de
+especies, y compararla entre distintas comunidades, o vías de sucesión.
+
+Planteamos un modelo matricial análogo al usado para modelar (ctrl.
+click) [dinámica de poblaciones
+estructuradas](https://github.com/quevedomario/eco3r/blob/master/stages.md)
+en clases de edad o estadios. Ese modelo plantea en este caso de qué
+manera las comunidades cambian de estado a lo largo del tiempo. Esos
+estados los asumimos o construimos discretos, sin solapamiento.
 
 El ejercicio requiere escasa preparación previa. Usamos las librerías
-**popbio** para manipular las probabilidades de sustitución, y
-**pander** para mejorar la presentación de resultados:
+**popbio** para procesar las probabilidades de sustitución, **pander**
+para mejorar la presentación de resultados, y **diagram** para dibujar
+ciclos. No son imprescindibles, todo se podría hacer con R básico.
 
 ``` r
 library(popbio)
 library(pander)
+library(diagram)
 ```
 
-#### Un modelo analítico de sucesión
+Vamos a usar como ejemplo el cambio temporal en un ecosistema cuyos
+estadios reconocibles a lo largo de una sucesión ecológica son *espacio
+abierto*, *pradera*, *matorral*, y *bosque*<sup>1</sup>. Esencialmente
+un esquema de sucesión común a los ecosistemas forestales.
 
-Estos modelos son simplificaciones de los procesos reales, pero pueden
-servir para comprender mejor los procesos que conducen la sustitución de
-especies, y para comparar la dinámica de distintas comunidades. El
-modelo analítico de Horn (1981) de sucesión secundaria forestal parte de
-la composición inicial de adultos de las especies arbóreas, y de la
-proporción de cada especie entre los juveniles. Dicha proporción
-indicaría la probabilidad de que un adulto de una especie sea
-reemplazado por otro de su misma especie, u otra. Cada reemplazo puede
-ser representado como una transición, que ocurrirá con una determinada
-probabilidad.
+Necesitamos saber donde empieza la sucesión, y las *probabilidades de
+transición* de un estado de la comunidad al siguiente<sup>2</sup>. En
+este ejemplo partiremos de un paisaje - la foto fija de un ecosistema -
+en el que tenemos 500 parches de hábitat, todos en el estado inicial de
+la sucesión, *espacio abierto*. Con esa información construiremos más
+adelante el **vector de estado inicial**, **N<sub>0</sub>**.
 
-El ejemplo a continuación de sucesión secundaria forestal<sup>1</sup>
-<sup>y</sup> <sup>2</sup> incluye cuatro especies arbóreas
-norteamericanas: *Betula populifolia* (GB en la imagen), *Nyssa
-sylvatica* (BG), *Acer rubrum* (RM) y *Fagus grandifolia* (BE).
+#### Matriz de transición
 
-![](succession_files/figure-markdown_github/sustituciones.jpg)
+Un modelo como este en el que reconocemos 4 estados (*fases*,
+*estadios*, da igual) requiere una matriz cuadrada con cuatro filas y
+cuatro columnas, que contienen las probabilidades de transición del
+estado actual (columnas) al siguiente (filas).
 
-La matriz contiene las probabilidades de sustitución, en columnas, en un
-intervalo de tiempo (50 años en el trabajo original de Horn). Así la
-probabilidad de que GB *Betula* sea sustituido por BG *Nyssa* es 0.36,
-mientras que la probabilidad de que RM *Acer* sea sustituido por BE
-*Fagus* es 0.31.
-
-Para introducir los datos y construir la matriz podemos definir primero
-los **nombres** de las especies, almacenándolos en un vector de texto
-con `c()`. A continuación almacenamos las **probabilidades** de
-sustitución en otro vector, numérico en este caso (i.e. valores sin
-comillas). Por último, combinamos ambos objetos en la **matriz** de
-proyección con la función `matrix2()`:
+Para introducir los datos y construir la matriz definimos primero las
+etiquetas de los **estados**, almacenándolos en un vector de texto con
+`c()`.
 
 ``` r
-especies <- c("Betula","Nyssa","Acer","Fagus") 
-
-probabilidades <- c(
-  0.05, 0.01,   0.00,   0.00,
-  0.36, 0.57,   0.14,   0.01,
-  0.50, 0.25,   0.55,   0.03,
-  0.09, 0.17,   0.31,   0.96
-  )
-
-matriz <- matrix2(probabilidades, especies)
+estados <- c("espacio abierto","pradera","matorral","bosque") 
 ```
 
-Visualizamos el resultado, la matriz almacenada, simplemente
-“llamándola” en la consola con `matriz`:
+A continuación almacenamos las **probabilidades** de transición en otro
+vector, numérico en este caso (i.e. valores sin comillas).
 
-|            | Betula | Nyssa | Acer | Fagus |
-| :--------: | :----: | :---: | :--: | :---: |
-| **Betula** |  0.05  | 0.01  |  0   |   0   |
-| **Nyssa**  |  0.36  | 0.57  | 0.14 | 0.01  |
-|  **Acer**  |  0.5   | 0.25  | 0.55 | 0.03  |
-| **Fagus**  |  0.09  | 0.17  | 0.31 | 0.96  |
+``` r
+probabilidades <- c(
+  0.65, 0.23,   0.25,   0.40,
+  0.15, 0.70,   0.25,   0.10,
+  0.00, 0.07,   0.25,   0.15,
+  0.20, 0.00,   0.25,   0.35
+  )
+```
+
+Por último, combinamos estados y probabilidades en la **matriz** de
+proyección con la función `matrix2()`. Los paréntesis rodeando a esta le
+piden a R que nos la enseñe directamente:
+
+``` r
+(matriz <- matrix2(probabilidades, estados))
+```
+
+    ##                 espacio abierto pradera matorral bosque
+    ## espacio abierto            0.65    0.23     0.25   0.40
+    ## pradera                    0.15    0.70     0.25   0.10
+    ## matorral                   0.00    0.07     0.25   0.15
+    ## bosque                     0.20    0.00     0.25   0.35
+
+La matriz muestra probabilidades de sustitución del tiempo *t* al tiempo
+*t+1*. Así, la probabilidad de que un parche de *espacio abierto* pase a
+*pradera* es 0.15, mientras que la probabilidad de que un parche de
+*bosque* pase a *pradera* es 0.10. La diagonal de la matriz indica la
+probabilidad de que un parche permanezca en el mismo estado entre *t* y
+*t+1*. Los valores de cada columna deben sumar 1.0, ya que recojen el
+estado de los parches en el tiempo *t*.
+
+#### Diagrama de sucesión
+
+Podemos representar gráficamente las transiciones de la matriz con la
+intimidante pero útil función `plotmat()`, vista en ejercicios
+anteriores. `?plotmat` devuelve la explicación del significado de cada
+argumento de la
+función.
+
+``` r
+plotmat(matriz, relsize =0.70, self.cex = 0.5, self.shifty=0.10, self.shiftx = c(0.07,0.16,-0.23,0),
+        box.prop = c(0.4,0.3,0.3,0.3), box.type = "round", box.size = 0.14, lwd = 1.2, 
+        arr.col = "green", arr.lcol = "black", arr.type = "triangle", txt.col = "blue",
+        main = "Sucesión en ecosistema forestal")
+```
+
+<img src="succession_files/figure-gfm/unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
 
 #### Proyecciones
 
-Para saber las abundancias o proporciones de las distintas especies en
-el futuro a partir de las probabilidades de sustitución, proyectamos los
-cambios del parche forestal asumiendo que la composición inicial
-**N<sub>0</sub>** son 100 abedules *Betula populifolia*. Definimos
-también un vector de intervalos de **tiempo** con el generador de
-secuencias `seq()`:
+Para almacenar los resultados de cada intervalo de sustitución
+construimos una matriz con tantas filas como intervalos de tiempo
+pretendidos, y 4 columnas para los 4 estados. La primera línea del
+código a continuación deja definida esa matriz **proyecciones** para 6
+intervalos, y vacía.
 
-``` r
-n0 <- c(100,0,0,0)
-tiempo <- seq(from=50, to=300, by=50)
-```
+La segunda define la variable de intervalos de tiempo, hasta 20.
 
-Para almacenar los resultados de cada intervalo de sustitución, las
-**proyecciones**, construimos una matriz con 6 filas para los intervalos
-de tiempo definidos arriba con `seq()`), y 4 columnas para las 4
-especies que tenemos. Queda por el momento vacía.
+A continuación usamos los nombres de los estados y 6 intervalos de
+tiempo para etiquetar las columnas `colnames()` y las filas `rownames()`
+en **proyecciones**.
+
+Después definimos el estado inicial de la comunidad *N<sub>0</sub>*; en
+este caso los 500 parches de hábitat están en fase *espacio abierto*:
 
 ``` r
 proyecciones <- matrix(nrow = 6, ncol = 4)
+
+tiempo <- seq(from=0, to=20, by=1)
+
+colnames(proyecciones) <- estados
+rownames(proyecciones) <- (tiempo[2:7])
+proyecciones
 ```
 
-Usamos los nombres de las especies y los intervalos de tiempo para
-etiquetar las columnas `colnames()` y las filas `rownames()` en
-**proyecciones**:
+    ##   espacio abierto pradera matorral bosque
+    ## 1              NA      NA       NA     NA
+    ## 2              NA      NA       NA     NA
+    ## 3              NA      NA       NA     NA
+    ## 4              NA      NA       NA     NA
+    ## 5              NA      NA       NA     NA
+    ## 6              NA      NA       NA     NA
 
 ``` r
-colnames(proyecciones) <- especies
-rownames(proyecciones) <- tiempo[1:6]
-
-pander(proyecciones)
+n0 <- c(500,0,0,0)
 ```
 
-|         | Betula | Nyssa | Acer | Fagus |
-| :-----: | :----: | :---: | :--: | :---: |
-| **50**  |   NA   |  NA   |  NA  |  NA   |
-| **100** |   NA   |  NA   |  NA  |  NA   |
-| **150** |   NA   |  NA   |  NA  |  NA   |
-| **200** |   NA   |  NA   |  NA  |  NA   |
-| **250** |   NA   |  NA   |  NA  |  NA   |
-| **300** |   NA   |  NA   |  NA  |  NA   |
-
 Las proyecciones de estos modelos de sustitución son multiplicaciones
-sucesivas de la matriz de probabilidades por el vector de abundancias
-*N<sub>i</sub>*
-
-Para automatizar las proyecciones durante *i* intervalos de sustitución
-podemos usar un bucle. Una de las formas de prepararlos en **R** es la
-función `for()`
+sucesivas de la matriz de probabilidades por el vector de abundancias en
+el tiempo *t*, o *vector de estado*. Para automatizar las proyecciones
+durante *i* intervalos de sustitución podemos usar un bucle. Una de las
+formas de prepararlos en **R** es la función `for()`:
 
 ``` r
 for (i in 1:6) {
   n0 <- matriz %*% n0
   proyecciones[i,] <- n0
-  pander(proyecciones)
-  Sys.sleep(1)
+  pander(proyecciones[i,])
+  Sys.sleep(0.5)
   }
 ```
 
-El código se lee “*para cada intervalo de tiempo i entre 1 a 6, almacena
+El bucle `for` se lee “*para cada intervalo de tiempo de 1 a 6, almacena
 como n0 el resultado de multiplicar la matriz por el N<sub>0</sub>
-previo, guarda el resultado en la columna i de proyecciones, y muestra
-la matriz*”<sup>3</sup>. En la consola **R** aparecerá brevemente el
-estado de la matriz en cada intervalo.
-
-|         | Betula | Nyssa | Acer  | Fagus |
-| :-----: | :----: | :---: | :---: | :---: |
-| **50**  |   5    |  36   |  50   |   9   |
-| **100** |  0.61  | 29.41 | 39.27 | 30.71 |
-| **150** | 0.3246 | 22.79 | 30.18 | 46.71 |
-| **200** | 0.2441 | 17.8  | 23.86 | 58.1  |
-| **250** | 0.1902 | 14.15 | 19.44 | 66.22 |
-| **300** | 0.151  | 11.52 | 16.31 | 72.02 |
-
-Usando los resultados almacenados en **proyecciones** podemos pintar el
-cambio de abundancia de las 4 especies entre los intervalos 1 y 6,
-t<sub>50</sub> y t<sub>300</sub>. En negro *Betula*, en azul *Nyssa*, en
-rojo *Acer*, y en verde
-*Fagus*:
+previo, guarda el resultado en la fila i de proyecciones, y muestra esa
+última fila o vector de estado*”<sup>3</sup>.  
+En la consola **R** aparecerán sucesivamente los vectores de estado
+*N<sub>1</sub>* a *N<sub>6</sub>*.
 
 ``` r
-plot(tiempo[1:6], proyecciones[,1], type="l", ylim=c(0,70), ylab = "individuos",
-     main="Proyección de N0 durante 6 intervalos de sustitución")
-lines(tiempo[1:6], proyecciones[,2], col="blue")
-lines(tiempo[1:6], proyecciones[,3], col="red")
-lines(tiempo[1:6], proyecciones[,4], col="green")
+pander(proyecciones)
 ```
 
-![](succession_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+| espacio abierto | pradera | matorral | bosque |
+| :-------------: | :-----: | :------: | :----: |
+|       325       |   75    |    0     |  100   |
+|      268.5      |  111.2  |  20.25   |  100   |
+|      245.2      |  133.2  |  27.85   | 93.76  |
+|      234.5      |  146.4  |  30.35   | 88.81  |
+|      229.2      |  154.1  |  31.16   | 85.57  |
+|      226.4      |  158.6  |  31.41   | 83.57  |
 
-La proyección de cada especie está almacenada en cada una de las
-columnas de **proyecciones**. `plot()` pinta la primera curva, la de los
-*Betula*, y a continuación añade el resto de curvas a los mismos ejes
-con `lines()`.
+Para pintar los resultados nos interesa tener en el mismo conjunto de
+datos el estado inicial de la sucesión, aquel *N<sub>0</sub>* con 500
+parches de *espacio abierto*. El código a continuación crea el vector
+*inicial*, lo combina en **todo** con los resultados de las
+**proyecciones**, y elimina los nombres de las filas (para pintarlo más
+fácil):
 
-Adaptando el código anterior es inmediato proyectar la sustitución de
-especies más tiempo, o incluir cambios en las probabilidades de
-sustitución. Por ejemplo, si perturbaciones recurrentes incrementan un
-35% la **probabilidad global de transición a arces** y **disminuyen la
-de las hayas** en la misma magnitud, ¿cuál es la proporción de arces y
-hayas tras 6 intervalos de sustitución?
+``` r
+inicial <- c(500,0,0,0)
+todo <- rbind(inicial, proyecciones)
+rownames(todo) <- NULL
+pander(todo)
+```
 
-#### Referencias y anotaciones de código
+| espacio abierto | pradera | matorral | bosque |
+| :-------------: | :-----: | :------: | :----: |
+|       500       |    0    |    0     |   0    |
+|       325       |   75    |    0     |  100   |
+|      268.5      |  111.2  |  20.25   |  100   |
+|      245.2      |  133.2  |  27.85   | 93.76  |
+|      234.5      |  146.4  |  30.35   | 88.81  |
+|      229.2      |  154.1  |  31.16   | 85.57  |
+|      226.4      |  158.6  |  31.41   | 83.57  |
 
-1.  Morin PJ. 2011. Community Ecology, 2nd Edition. Wiley. Tabla 13.2.  
-2.  Horn HS. 1975. Markovian properties of forest succession. En
-    *Ecology and Evolution of Communities*; Cody ML, Diamond JM (eds.).
-    Harvard University Press, Cambridge, MS.  
+A continuación pintamos el cambio de los parches entre los intervalos
+t=0 y t=6. En negro *espacio abierto*, en azul *pradera*, en rojo
+*matorral*, y en verde
+*bosque*:
+
+``` r
+plot(tiempo[1:7], todo[,1], type="l", xlab="intervalos", ylab = "parches", ylim = c(0,500),
+     main="Proyección de N0 durante 6 intervalos de sustitución")
+lines(tiempo[1:7], todo[,2], col="blue")
+lines(tiempo[1:7], todo[,3], col="red")
+lines(tiempo[1:7], todo[,4], col="green")
+```
+
+![](succession_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+La proyección de cada tipo de parche está almacenada en cada una de las
+columnas de **todo**. `plot()` pinta la primera curva, la de *espacio
+abierto*, y a continuación añadimos el resto de curvas al gráfico
+existente con `lines()`<sup>4</sup>.
+
+El gráfico ilustra una propiedad de estos modelos analíticos: al
+multiplicar sucesivamente los vectores de estado por la misma matriz de
+transición, se alcanza una estructura estable. Es decir, el vector de
+estado deja de cambiar por mucho que proyectemos la dinámica. Y esa
+estructura se alcanza independientemente de cual sea el estado inicial.
+En nuestro ejemplo empieza a ser aparente a partir de *N<sub>4</sub>*.
+
+Adaptando el código anterior es fácil incluir cambios en las
+probabilidades de sustitución. Estas podrían derivarse por ejemplo de
+una menor frecuencia de perturbaciones, que reduciría la probabilidad de
+regresión a estados previos de la sucesión (i.e. todas aquellas por
+encima de la diagonal en la matriz de transición).
+
+#### Referencias y notas
+
+1.  Ejemplo adaptado de Gotelli NJ. 2008. A primer of ecology (AD
+    Sinauer, Ed). Sunderland: Sinauer.  
+2.  Los cambios regresivos son *tarea* de las perturbaciones, y dependen
+    de la intensidad, frecuencia y escala espacial de estas.  
 3.  En cada repetición **n0** es sustituido por el resultado de
     multiplicar el anterior por la matriz, si bien el contenido queda
     guardado en **proyecciones**. Los bucles `for(){}` son útiles para
     repetir cálculos y almacenar los resultados sucesivos. Entre
     paréntesis llevan siempre la variable que identifica la secuencia
-    de repeticiones; entre corchetes, el conjunto de comandos u
-    operaciones en orden de ejecución. En el ejemplo, `Sys.sleep()`
-    introduce un retraso de un segundo para ver los resultados sucesivos
-    en la consola. Para acelerar el código podemos prescindir de la
-    visualización de resultados intermedios, y del retraso.
+    de repeticiones; entre corchetes, el conjunto de operaciones en
+    orden de ejecución. En el ejemplo, `Sys.sleep()` introduce un
+    retraso de medio segundo para ver los resultados sucesivos en la
+    consola. Para acelerar el código podemos prescindir de la
+    visualización de resultados intermedios, y del retraso.  
+4.  `tiempo[1:7]` hace referencia a las posiciones primera a septima en
+    el vector tiempo, que corresponden a los intervalos *t<sub>0</sub>*
+    a *t<sub>6</sub>*.

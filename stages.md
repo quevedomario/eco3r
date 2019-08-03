@@ -110,9 +110,10 @@ posit
     ## [4,]  0.0  0.8
 
 ``` r
-plotmat(whale, pos=posit, relsize =0.75, self.shifty=0.05, box.prop = 0.2,
-        box.type = "square", box.size = 0.12, lwd = 1, arr.col = "green",
-        arr.lcol = "black", arr.type = "triangle", main = "Orcas")
+plotmat(whale, pos=posit, relsize =0.75, self.shifty=0.08, self.shiftx = c(0,0.13,-0.05,0), 
+        box.prop = 0.3, box.type = "round", box.size = 0.12, lwd = 1, 
+        arr.col = "red", arr.lcol = "black", arr.type = "triangle", 
+        main = "Orcas")
 ```
 
 ![](stages_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->

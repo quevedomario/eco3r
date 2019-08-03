@@ -49,11 +49,11 @@ lotus_matrix <- matrix2(lotus_trans, lotus_stages)
 
 #### Esquema del ciclo de vida
 Una vez definido el modelo de la población, podemos empezar a extraerle información. Por ejemplo, dibujando el ciclo de vida de *L. arinagensis* con la función `plotmat()`. Puede pareer complicada porque presenta muchos ajustes posibles (e.g. muchos *argumentos*), que determinarán el aspecto final del gráfico:
-```{r}
-plotmat(lotus_matrix, relsize =.86, self.cex = 0.5, self.shifty=0.051,
-        box.prop = 0.3, box.type = "round" ,box.size = 0.1, lwd = 1, pos =, 
-        arr.col = "blue", arr.lcol = "black", arr.type = "triangle",
-        main = "")
+```{r, fig.asp=0.8}
+plotmat(lotus_matrix, relsize =0.80, self.cex = 0.6, self.shifty=0.08, self.shiftx = c(0,0,-0.05,0),
+        box.prop = 0.3, box.type = "round" , box.size = 0.1, lwd = 1, pos =, 
+        arr.col = "yellow", arr.lcol = "black", arr.type = "triangle", txt.col = "blue",
+        main = "Esquema del ciclo de L. arinagensis")
 ```
 
 Podemos obtener explicación de cómo trabajan esos argumentos con `?plotmat`.
@@ -158,7 +158,7 @@ mean(lotus_sqe[25,]); sd(lotus_sqe[25,])
 Es decir, pedimos la media y desviación estándar de la probabilidad de que N~t~ < N~x~ en el año 25 de cada una de las 10 ejecuciones. A pesar de que la [tasa de crecimiento determinista](#lambda) era 1.02, teniendo en cuenta la variabilidad ambiental reflejada en las tres matrices ed 2002 a 2005, tenemos una probabilidad superior al 10% de que la población disminuya por debajo de 50 individuos en 25 años.
 
 Para terminar, usamos aquello de que una imagen vale más que mil palabras, también en el contexto de análisis de viabilidad de poblaciones:
-```{r}
+```{r, fig.asp=0.8, fig.align='center'}
 matplot (lotus_sqe, xlab="Años", ylab=expression(P[cuasi-extinción]), 
          type='l', lty=1, las=1)
 ```
