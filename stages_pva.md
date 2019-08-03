@@ -23,6 +23,8 @@ estructuradas vistos anteriormente en
 <https://github.com/quevedomario/eco3r/blob/master/stages.md> y en
 <https://github.com/quevedomario/eco3r/blob/master/stages2.md>
 
+#### Construcción del modelo
+
 El modelo está estructurado en 4 estadios, plántulas y 3 clases de
 reproductores. Introducimos el vector de estadios, al que llamo
 arbitrariamente `lotus_stages`; podría llamarse `molly`, pero quizás
@@ -59,6 +61,8 @@ transiciones:
 lotus_matrix <- matrix2(lotus_trans, lotus_stages)
 ```
 
+#### Esquema del ciclo de vida
+
 Una vez definido el modelo de la población, podemos empezar a extraerle
 información. Por ejemplo, dibujando el ciclo de vida de *L. arinagensis*
 con la función `plotmat()`. Puede pareer complicada porque presenta
@@ -85,6 +89,8 @@ crecimiento. Esas peculiaridades, especialmente habituales en organismos
 modulares con modelos basados en tamaño o estadio reproductor, se
 modelan eficientemente con estas matrices.
 
+#### Cálculos deterministas
+
 Los cálculos deterministas se extraerían de manera análoga a la vista en
 ejercicios anteriores
 (<https://github.com/quevedomario/eco3r/blob/master/stages.md> y
@@ -99,6 +105,8 @@ lambda (lotus_matrix)
 ```
 
     ## [1] 1.020247
+
+#### Variabilidad en tasas vitales
 
 Para incorporar estocasticidad ambiental una posibilidad es contar con
 información sobre la variación de las tasas vitales de la matriz de
@@ -137,7 +145,7 @@ para realizar algunos cálculos:
 lotus_lista <- list(lotus_20022003, lotus_20032004, lotus_20042005)
 ```
 
-### Proyección estocástica
+#### Proyección estocástica
 
 A continuación podemos simular el crecimiento bajo influencia de
 estocásticidad ambiental, con la función `stoch.projection()`. Esta
@@ -183,7 +191,7 @@ onbtendríamos un resultado diferente para cada proyección, si bien
 resultado general será esencialmente el mismo si el número de
 repeticiones `nreps=` es suficientemente grande.
 
-### Tasa estocástica de crecimiento
+#### Tasa estocástica de crecimiento
 
 Nos podemos preguntar cómo afecta la estocasticidad ambiental a la tasa
 asintótica de crecimiento, lambda. El valor determinista de la misma
@@ -238,9 +246,10 @@ es un valor único derivado de la matriz), en este caso incluyendo 0 en
 el centro de la distribución de valores; indica una población con una
 lambda estocástica esencialmente igual a 1.
 
-### Elasticidades
+#### Elasticidades
 
-En el ejercicio previo [de análisis exclusivamente
+En el ejercicio previo (Ctrl. click para abrir en una pestaña nueva) [de
+análisis exclusivamente
 determinista](https://github.com/quevedomario/eco3r/blob/master/stages.md)
 veíamos que la salida de `eigen.analysis()` incluía sensibilidades y
 elasticidades. La **elasticidad** de un elemento de la matriz de
@@ -324,10 +333,11 @@ mean(lotus_sqe[25,]); sd(lotus_sqe[25,])
 
 Es decir, pedimos la media y desviación estándar de la probabilidad de
 que N<sub>t</sub> \< N<sub>x</sub> en el año 25 de cada una de las 10
-ejecuciones. A pesar de que la tasa asintótica determinista era 1.02,
-teniendo en cuenta la variabilidad ambiental reflejada en las tres
-matrices ed 2002 a 2005, tenemos una probabilidad superior al 10% de que
-la población disminuya por debajo de 50 individuos en 25 años.
+ejecuciones. A pesar de que la [tasa de crecimiento
+determinista](#lambda) era 1.02, teniendo en cuenta la variabilidad
+ambiental reflejada en las tres matrices ed 2002 a 2005, tenemos una
+probabilidad superior al 10% de que la población disminuya por debajo de
+50 individuos en 25 años.
 
 Para terminar, usamos aquello de que una imagen vale más que mil
 palabras, también en el contexto de análisis de viabilidad de
@@ -340,7 +350,7 @@ matplot (lotus_sqe, xlab="Años", ylab=expression(P[cuasi-extinción]),
 
 ![](stages_pva_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
-### Enlaces, referencias, anotaciones de código
+#### Enlaces y referencias
 
 Para abrir los enlaces en otra pestaña, *botón derecho + abrir en nueva
 pestaña*, o *Ctrl click*)  
