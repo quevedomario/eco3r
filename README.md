@@ -16,4 +16,4 @@ Los archivos .rmd de igual nombre al ejercicio correspondiente contienen el cód
 5\. [Estocasticidad en dinámica de poblaciones estructuradas](https://github.com/quevedomario/eco3r/blob/master/stages_pva.md)  
 6\. [Análisis de comunidades - Diversidad y dominancia](https://github.com/quevedomario/eco3r/blob/master/communities.md)  
 7\. [Redes tróficas](https://github.com/quevedomario/eco3r/blob/master/networks.md)  
-8\. [Sucesión ecológica - modelo analítico de sustitución de especies](https://github.com/quevedomario/eco3r/blob/master/succession.md)    
+8\. [Sucesión ecológica](https://github.com/quevedomario/eco3r/blob/master/succession.md)    
