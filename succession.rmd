@@ -48,7 +48,7 @@ Por último, combinamos estados y probabilidades en la **matriz** de proyección
 
 La matriz muestra probabilidades de sustitución del tiempo *t* al tiempo *t+1*. Así, la probabilidad de que un parche de *espacio abierto* pase a *pradera* es 0.9, mientras que la probabilidad de que una perturbación "reinicie" un parche de *bosque* a *espacio abierto* es de 0.01. La diagonal de la matriz indica la probabilidad de que un parche permanezca en el mismo estado entre *t* y *t+1*. Los valores de cada columna deben sumar 1.0, ya que recojen el estado de los parches en el tiempo *t*.
 
-El conjunto de probabilidades de transición definido en **matriz** indica un **modelo de facilitación**, aquel en el que distinguimos especies pioneras, intermedias y tardías. Las primeras son las capaces de "arrancar" la sucesión, modificando el contexto abiótico y facilitando la entrada posterior de especies intermedias (e.g. *leguminosas como *Lupinus spp.*, fijadora de nitrógeno). 
+El conjunto de probabilidades de transición definido en **matriz** indica un **modelo de facilitación**, aquel en el que distinguimos especies pioneras, intermedias y tardías. Las primeras son las capaces de "arrancar" la sucesión, modificando el contexto abiótico y facilitando la entrada posterior de especies intermedias (e.g. leguminosas como *Lupinus* spp., fijadora de nitrógeno). 
 
 ![](succession_files/figure-gfm/lupinus.jpg)
 

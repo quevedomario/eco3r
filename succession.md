@@ -85,8 +85,8 @@ El conjunto de probabilidades de transición definido en **matriz**
 indica un **modelo de facilitación**, aquel en el que distinguimos
 especies pioneras, intermedias y tardías. Las primeras son las capaces
 de “arrancar” la sucesión, modificando el contexto abiótico y
-facilitando la entrada posterior de especies intermedias (e.g.
-*leguminosas como *Lupinus spp.\*, fijadora de nitrógeno).
+facilitando la entrada posterior de especies intermedias
+(e.g. leguminosas como *Lupinus* spp., fijadora de nitrógeno).
 
 ![](succession_files/figure-gfm/lupinus.jpg)
 
