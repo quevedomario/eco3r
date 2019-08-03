@@ -82,10 +82,10 @@ en el mismo estado entre *t* y *t+1*. Los valores de cada columna deben
 sumar 1.0, ya que recojen el estado de los parches en el tiempo *t*.
 
 El conjunto de probabilidades de transición definido en **matriz**
-indica un **modelo de facilitación**, aquel en el que distinguimos
-especies pioneras, intermedias y tardías. Las primeras son las capaces
-de “arrancar” la sucesión, modificando el contexto abiótico y
-facilitando la entrada posterior de especies intermedias
+indica un **modelo de facilitación**<sup>2</sup>, aquel en el que
+distinguimos especies pioneras, intermedias y tardías. Las primeras son
+las capaces de “arrancar” la sucesión, modificando el contexto abiótico
+y facilitando la entrada posterior de especies intermedias
 (e.g. leguminosas como *Lupinus* spp., fijadora de nitrógeno).
 
 ![](succession_files/figure-gfm/lupinus.jpg)
@@ -189,7 +189,7 @@ proyecciones
 El bucle `for` se lee “*para cada intervalo de tiempo de 1 a 6, almacena
 como n0 el resultado de multiplicar la matriz por el N<sub>0</sub>
 previo, guarda el resultado en la fila i de proyecciones, y muestra esa
-última fila o vector de estado*”<sup>2</sup>.  
+última fila o vector de estado*”<sup>3</sup>.  
 En la consola **R** aparecerán sucesivamente los vectores de estado
 *N<sub>1</sub>* a *N<sub>6</sub>*, completando los resultados.
 
@@ -230,17 +230,17 @@ t=0 y t=6. En negro *espacio abierto*, en azul *pradera*, en rojo
 está almacenada en cada una de las columnas de **todo**. `plot()` pinta
 la primera curva, la de *espacio abierto*, y a continuación añadimos el
 resto de curvas al gráfico existente con
-`lines()`<sup>3</sup>:
+`lines()`<sup>4</sup>:
 
 ``` r
 plot(tiempo[1:13], todo[,1], type="l", xlab="intervalos", ylab = "parches", ylim = c(0,500),
-     main="Proyección de N0 durante 6 intervalos de sustitución")
+     main="")
 lines(tiempo[1:13], todo[,2], col="blue")
 lines(tiempo[1:13], todo[,3], col="red")
 lines(tiempo[1:13], todo[,4], col="green")
 ```
 
-![](succession_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+<img src="succession_files/figure-gfm/unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
 
 El gráfico ilustra una propiedad de estos modelos analíticos: al
 multiplicar sucesivamente los vectores de estado por la misma matriz de
@@ -258,7 +258,14 @@ parches en estados tardíos.
 
 1.  Ejemplo adaptado de Gotelli NJ. 2008. A primer of ecology (AD
     Sinauer, Ed). Sunderland: Sinauer.  
-2.  En cada repetición **n0** es sustituido por el resultado de
+2.  Hay modelos alternativos de sucesión, esencialmente basados en el
+    tipo de control de la dinámica ejercido por las especies que
+    colonizan un espacio reiniciado por la perturbación. Al menos habrá
+    que tener en cuenta la posibilidad de que las colonizadoras no
+    tengan especial influencia en qué se asienta después (**modelo de
+    tolerancia**), y de que impidan el asentamiento de nuevas especies
+    hasta una nueva perturbación (**modelo de inhibición**).
+3.  En cada repetición **n0** es sustituido por el resultado de
     multiplicar el anterior por la matriz, si bien el contenido queda
     guardado en **proyecciones**. Los bucles `for(){}` son útiles para
     repetir cálculos y almacenar los resultados sucesivos. Entre
@@ -268,6 +275,6 @@ parches en estados tardíos.
     retraso de medio segundo para ver los resultados sucesivos en la
     consola. Para acelerar el código podemos prescindir de la
     visualización de resultados intermedios, y del retraso.  
-3.  `tiempo[1:13]` hace referencia a las posiciones primera a
+4.  `tiempo[1:13]` hace referencia a las posiciones primera a
     decimotercera en el vector tiempo, que corresponden a los intervalos
     *t<sub>0</sub>* a *t<sub>12</sub>*.

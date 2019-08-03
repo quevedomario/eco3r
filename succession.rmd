@@ -48,7 +48,7 @@ Por último, combinamos estados y probabilidades en la **matriz** de proyección
 
 La matriz muestra probabilidades de sustitución del tiempo *t* al tiempo *t+1*. Así, la probabilidad de que un parche de *espacio abierto* pase a *pradera* es 0.9, mientras que la probabilidad de que una perturbación "reinicie" un parche de *bosque* a *espacio abierto* es de 0.01. La diagonal de la matriz indica la probabilidad de que un parche permanezca en el mismo estado entre *t* y *t+1*. Los valores de cada columna deben sumar 1.0, ya que recojen el estado de los parches en el tiempo *t*.
 
-El conjunto de probabilidades de transición definido en **matriz** indica un **modelo de facilitación**, aquel en el que distinguimos especies pioneras, intermedias y tardías. Las primeras son las capaces de "arrancar" la sucesión, modificando el contexto abiótico y facilitando la entrada posterior de especies intermedias (e.g. leguminosas como *Lupinus* spp., fijadora de nitrógeno). 
+El conjunto de probabilidades de transición definido en **matriz** indica un **modelo de facilitación**^2^, aquel en el que distinguimos especies pioneras, intermedias y tardías. Las primeras son las capaces de "arrancar" la sucesión, modificando el contexto abiótico y facilitando la entrada posterior de especies intermedias (e.g. leguminosas como *Lupinus* spp., fijadora de nitrógeno). 
 
 ![](succession_files/figure-gfm/lupinus.jpg)
 
@@ -97,7 +97,7 @@ for (i in 1:12) {
 proyecciones
 ```
 
-El bucle `for` se lee "*para cada intervalo de tiempo de 1 a 6, almacena como n0 el resultado de multiplicar la matriz por el N~0~ previo, guarda el resultado en la fila i de proyecciones, y muestra esa última fila o vector de estado*"^2^.   
+El bucle `for` se lee "*para cada intervalo de tiempo de 1 a 6, almacena como n0 el resultado de multiplicar la matriz por el N~0~ previo, guarda el resultado en la fila i de proyecciones, y muestra esa última fila o vector de estado*"^3^.   
 En la consola **R** aparecerán sucesivamente los vectores de estado *N~1~* a *N~6~*, completando los resultados.
 
 Para pintar los resultados nos interesa tener en el mismo conjunto de datos el estado inicial de la sucesión, aquel *N~0~* con 500 parches de *espacio abierto* que ha sido modificado por las iteraciones del bucle anterior. El código a continuación construye de nuevo un el vector *inicial*, lo combina en **todo** con los resultados de **proyecciones**, y elimina los nombres de las filas (para pintarlo más fácil):
@@ -110,10 +110,10 @@ pander(todo)
 ```
 
 A continuación pintamos el cambio de los parches entre los intervalos t=0 y t=6. En negro *espacio abierto*, en azul *pradera*, en rojo *matorral*, y en verde *bosque*.
-La proyección de cada tipo de parche está almacenada en cada una de las columnas de **todo**. `plot()` pinta la primera curva, la de *espacio abierto*, y a continuación añadimos el resto de curvas al gráfico existente con `lines()`^3^:
-```{r}
+La proyección de cada tipo de parche está almacenada en cada una de las columnas de **todo**. `plot()` pinta la primera curva, la de *espacio abierto*, y a continuación añadimos el resto de curvas al gráfico existente con `lines()`^4^:
+```{r, fig.align="center", fig.asp=0.7}
 plot(tiempo[1:13], todo[,1], type="l", xlab="intervalos", ylab = "parches", ylim = c(0,500),
-     main="Proyección de N0 durante 6 intervalos de sustitución")
+     main="")
 lines(tiempo[1:13], todo[,2], col="blue")
 lines(tiempo[1:13], todo[,3], col="red")
 lines(tiempo[1:13], todo[,4], col="green")
@@ -125,5 +125,6 @@ Adaptando el código anterior es fácil incluir cambios en las probabilidades de
 
 #### Referencias y notas
 1. Ejemplo adaptado de Gotelli NJ. 2008. A primer of ecology (AD Sinauer, Ed). Sunderland: Sinauer.  
+2. Hay modelos alternativos de sucesión, esencialmente basados en el tipo de control de la dinámica ejercido por las especies que colonizan un espacio reiniciado por la perturbación. Al menos habrá que tener en cuenta la posibilidad de que las colonizadoras no tengan especial influencia en qué se asienta después (**modelo de tolerancia**), y de que impidan el asentamiento de nuevas especies hasta una nueva perturbación (**modelo de inhibición**). 
 3. En cada repetición **n0** es sustituido por el resultado de multiplicar el anterior por la matriz, si bien el contenido queda guardado en **proyecciones**. Los bucles `for(){}` son útiles para repetir cálculos y almacenar los resultados sucesivos. Entre paréntesis llevan siempre la variable que identifica la secuencia de repeticiones; entre corchetes, el conjunto de operaciones en orden de ejecución. En el ejemplo, `Sys.sleep()` introduce un retraso de medio segundo para ver los resultados sucesivos en la consola. Para acelerar el código podemos prescindir de la visualización de resultados intermedios, y del retraso.  
-3. `tiempo[1:13]` hace referencia a las posiciones primera a decimotercera en el vector tiempo, que corresponden a los intervalos *t~0~* a *t~12~*.
+4. `tiempo[1:13]` hace referencia a las posiciones primera a decimotercera en el vector tiempo, que corresponden a los intervalos *t~0~* a *t~12~*.
