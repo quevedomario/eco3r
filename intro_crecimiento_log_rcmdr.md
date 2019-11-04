@@ -35,7 +35,8 @@ mutualistas).
 
 Usad el modelo **EcoVirtual :: One Population :: Exponential…**. El
 cuadro de diálogo de ese módulo muestra valores por defecto que sirven
-para comenzar: \* Tiempo de duración de la simulación (**Maximum
+para comenzar:
+\* Tiempo de duración de la simulación (**Maximum
 time**)  
 \* Tamaño inicial de población del que queremos partir (**Initial
 population size**)  
