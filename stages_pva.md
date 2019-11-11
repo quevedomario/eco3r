@@ -226,7 +226,7 @@ set.seed(12345)
 (lotus_stoch_r <- stoch.growth.rate (lotus_lista, prob = NULL, maxt = 50 ))
 ```
 
-    ## [1] Calculating stochastic growth at time 1
+    ## Calculating stochastic growth at time 1
 
     ## $approx
     ## [1] -0.004196428
@@ -238,10 +238,8 @@ set.seed(12345)
     ## [1] -0.1457980  0.1459934
 
 Esos valores próximos a 0 corresponden en realidad a la tasa intrínseca
-de crecimiento *r*, o ![](stages_pva_files/figure-gfm/lnlambda.jpg);
-para obtener lambda tenemos que usar
-![](stages_pva_files/figure-gfm/lambda_e_r.jpg). `exp()` es la función
-que devuelve el resultado de e<sup>x</sup>:
+de crecimiento *r*, o ln (λ); por tanto λ = e<sup>r</sup>. `exp()` es la
+función que devuelve el resultado de e<sup>x</sup>:
 
 ``` r
 (lotus_lambda_sim <- exp(lotus_stoch_r$sim))
@@ -307,16 +305,25 @@ set.seed(12345)
 lotus_sqe <- stoch.quasi.ext (lotus_lista, lotus_n0, tmax=25, Nx=50, maxruns = 10, nreps=1000)
 ```
 
-    ## [1] Calculating extinction probability for run 1
-    ## [1] Calculating extinction probability for run 2
-    ## [1] Calculating extinction probability for run 3
-    ## [1] Calculating extinction probability for run 4
-    ## [1] Calculating extinction probability for run 5
-    ## [1] Calculating extinction probability for run 6
-    ## [1] Calculating extinction probability for run 7
-    ## [1] Calculating extinction probability for run 8
-    ## [1] Calculating extinction probability for run 9
-    ## [1] Calculating extinction probability for run 10
+    ## Calculating extinction probability for run 1
+
+    ## Calculating extinction probability for run 2
+
+    ## Calculating extinction probability for run 3
+
+    ## Calculating extinction probability for run 4
+
+    ## Calculating extinction probability for run 5
+
+    ## Calculating extinction probability for run 6
+
+    ## Calculating extinction probability for run 7
+
+    ## Calculating extinction probability for run 8
+
+    ## Calculating extinction probability for run 9
+
+    ## Calculating extinction probability for run 10
 
 ``` r
 tail(lotus_sqe)

@@ -129,7 +129,7 @@ set.seed(12345)
 (lotus_stoch_r <- stoch.growth.rate (lotus_lista, prob = NULL, maxt = 50 ))
 ```
 
-Esos valores próximos a 0 corresponden en realidad a la tasa intrínseca de crecimiento *r*, o ![](stages_pva_files/figure-gfm/lnlambda.jpg); para obtener lambda tenemos que usar ![](stages_pva_files/figure-gfm/lambda_e_r.jpg). `exp()` es la función que devuelve el resultado de e^x^:
+Esos valores próximos a 0 corresponden en realidad a la tasa intrínseca de crecimiento *r*, o ln (λ); por tanto λ = e^r^. `exp()` es la función que devuelve el resultado de e^x^:
 
 ```{r}
 (lotus_lambda_sim <- exp(lotus_stoch_r$sim))
