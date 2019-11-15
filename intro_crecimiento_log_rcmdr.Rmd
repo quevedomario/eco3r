@@ -71,7 +71,7 @@ Entre las facilidades de manejar R desde RStudio está la exportación de result
 ![](intro_crecimiento_log_rcmdr_files/6.png)
 
 ####  Crecimiento logístico
-El crecimiento exponencial es un modelo muy simple del crecimiento de poblaciones, si bien puede resultar apropiado (realista) durante periodos limitados de tiempo. Para añadir algo de realismo al modelado del cambio en el tiempo de las poblaciones, podemos tratar de incorporar *competencia intraespecífica*. Ese es el objetivo del modelo logístico de crecimiento: 
+El crecimiento exponencial es un modelo muy simple del crecimiento de poblaciones, si bien puede resultar apropiado (realista) durante periodos limitados de tiempo. Para añadir algo de realismo al modelado del cambio en el tiempo de las poblaciones, podemos tratar de incorporar *competencia intraespecífica* o, más concretamente, influencia de la densidad de población en la tasa de crecimiento, *densodependencia*. Ese es el objetivo del modelo logístico de crecimiento: 
 
 ![](intro_crecimiento_log_rcmdr_files/7.png)
 
@@ -97,6 +97,6 @@ Esa pregunta la podéis abordar numéricamente resolviendo la ecuación del mode
 
 El gráfico anterior muestra simultáneamente la curva correspondiente a la ecuación del modelo logístico, así como la correspondiente a una versión discreta de la influencia de la densidad en el crecimiento poblacional. En el caso de los parámetros seleccionados, las curvas son coincidentes. Sin embargo, en poblaciones con *eventos discretos de reproducción* existe normalmente un retraso en la respuesta a la densidad de población, que puede implicar que la abundancia de la población supere temporalmente la capacidad de carga. 
 
-Los modelos discretos que incorporan la influencia de la densidad en el crecimiento de poblaciones suelen incorporar el retraso en la respuesta a la densidad de población, y no los tratamos en Ecología de 3º. Sin embargo el modulo **Logistic Growth** disponible en R Commander permite simular esta idea para tasas de crecimiento muy altas. La Gráfica 3 muestra las curvas continua y discreta resultantes de simular crecimiento logístico con **r = 1.9**, y **tmax = 20**. En la curva discreta la tasa de crecimiento muy elevada implica que *el tamaño de la población en el eje Y supera temporalmente la capacidad de carga*, dando lugar a dinámicas con oscilaciones.
+Los modelos discretos que incorporan la influencia de la densidad en el crecimiento de poblaciones suelen incorporar el retraso en la respuesta a la densidad de población, y me ocuparé [](de ellos en otra página). Sin embargo el modulo **Logistic Growth** disponible en R Commander permite simular esta idea para tasas de crecimiento muy altas. La Gráfica 3 muestra las curvas continua y discreta resultantes de simular crecimiento logístico con **r = 1.9**, y **tmax = 20**. En la curva discreta la tasa de crecimiento muy elevada implica que *el tamaño de la población en el eje Y supera temporalmente la capacidad de carga*, dando lugar a dinámicas con oscilaciones.
 
 ![](intro_crecimiento_log_rcmdr_files/10.png)
