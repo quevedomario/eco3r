@@ -16,7 +16,6 @@ options(warn=-1)
 ```{r message=FALSE, warning=FALSE}
 library (popbio)
 library(diagram)
-library(pander)
 ```
 
 ### Introducción
@@ -34,11 +33,11 @@ La primera fila de las matrices de transición, ya sean de edades (dcha.) o de e
 ### Matriz de proyección (estadios)
 Para el ejercicio usamos datos de un modelo estructurado en estadios de una población de orcas *Orcinus orca*. Los datos están incluidos en la librería `popbio` (Caswell 2001)^1^^,^^2^.
 
-El código a continuación carga en memoria los datos **whale**, y visualiza a continuación la matriz. la visualización incluye un pequeño truco estético: la función `pander()` rodeando al conjunto de datos devuelve una matriz con un formato más enriquecido útil especialmente para la producción de informes en pdf o html; es opcional:
+El código a continuación carga en memoria los datos **whale**, y visualiza a continuación la matriz:
 
 ```{r}
 data (whale)
-pander (whale)
+whale
 ```
 
 En el modelo la población está dividida en individuos de primer año **yearling**, juveniles no reproductores **juvenile**, individuos reproductores **mature**, y postreproductores **postreprod**. Este último estadio es muy peculiar: muy pocas especies en la naturaleza conservan aquellos individuos que han dejado de contribuir a la reproducción^3^. 
@@ -63,10 +62,10 @@ plotmat(whale, pos=posit, relsize =0.75, self.shifty=0.08, self.shiftx = c(0,0.1
 ```
 
 ### Calculos básicos
-Una vez comprendida la estructura del modelo, extraemos la información numérica contenida en la matriz de transición; es decir, aquella dependiente solo de la combinación de valores de supervivencia y fecundidad. La función que extrae buena parte de esa información determinista del modelo es `eigen.analysis()`. Como en el caso anterior, `pander()` es una mera opción estética. Los parámetros están explicados a continuación de la salida:
+Una vez comprendida la estructura del modelo, extraemos la información numérica contenida en la matriz de transición; es decir, aquella dependiente solo de la combinación de valores de supervivencia y fecundidad. La función que extrae buena parte de esa información determinista del modelo es `eigen.analysis()`:
 
 ```{r}
-pander(eigen.analysis (whale))
+eigen.analysis (whale)
 ```
 
 **lambda1** muestra el valor de la tasa de crecimiento determinista. En matemáticas corresponde con el *valor propio* de la matriz, *eigenvalue* en inglés.

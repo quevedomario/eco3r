@@ -17,13 +17,12 @@ manera las comunidades cambian de estado a lo largo del tiempo. Esos
 estados los asumimos o construimos discretos, sin solapamiento.
 
 El ejercicio requiere escasa preparación previa. Usamos las librerías
-**popbio** para procesar las probabilidades de sustitución, **pander**
-para mejorar la presentación de resultados, y **diagram** para dibujar
-ciclos. No son imprescindibles, todo se podría hacer con R básico.
+**popbio** para procesar las probabilidades de sustitución y **diagram**
+para dibujar ciclos. No son imprescindibles, todo se podría hacer con R
+básico.
 
 ``` r
 library(popbio)
-library(pander)
 library(diagram)
 ```
 
@@ -165,7 +164,7 @@ formas de prepararlos en **R** es la función `for()`:
 for (i in 1:12) {
   n0 <- matriz %*% n0
   proyecciones[i,] <- n0
-  pander(proyecciones[i,])
+  proyecciones[i,]
   Sys.sleep(0.4)
 }
 
@@ -205,24 +204,23 @@ fácil):
 inicial <- c(500,0,0,0)
 todo <- rbind(inicial, proyecciones)
 rownames(todo) <- NULL
-pander(todo)
+todo
 ```
 
-| espacio abierto | pradera | matorral | bosque |
-| :-------------: | :-----: | :------: | :----: |
-|       500       |    0    |    0     |   0    |
-|       50        |   450   |    0     |   0    |
-|       50        |   90    |   360    |   0    |
-|       50        |   54    |   108    |  288   |
-|      24.08      |  50.4   |    54    | 371.5  |
-|      16.56      |  26.71  |  45.72   |  411   |
-|      13.01      |  17.58  |  25.94   | 443.5  |
-|      10.09      |  13.47  |  16.66   | 459.8  |
-|      8.619      |  10.43  |  12.44   | 468.5  |
-|      7.833      |   8.8   |  9.584   | 473.8  |
-|      7.36       |  7.93   |  7.998   | 476.7  |
-|      7.096      |  7.417  |  7.144   | 478.3  |
-|      6.949      |  7.128  |  6.648   | 479.3  |
+    ##       espacio abierto    pradera   matorral   bosque
+    ##  [1,]      500.000000   0.000000   0.000000   0.0000
+    ##  [2,]       50.000000 450.000000   0.000000   0.0000
+    ##  [3,]       50.000000  90.000000 360.000000   0.0000
+    ##  [4,]       50.000000  54.000000 108.000000 288.0000
+    ##  [5,]       24.080000  50.400000  54.000000 371.5200
+    ##  [6,]       16.563200  26.712000  45.720000 411.0048
+    ##  [7,]       13.009568  17.578080  25.941600 443.4708
+    ##  [8,]       10.087632  13.466419  16.656624 459.7893
+    ##  [9,]        8.618961  10.425511  12.438798 468.5167
+    ## [10,]        7.833494   8.799616   9.584289 473.7826
+    ## [11,]        7.359566   7.930106   7.998122 476.7122
+    ## [12,]        7.095901   7.416620   7.143897 478.3436
+    ## [13,]        6.949078   7.127973   6.647686 479.2753
 
 A continuación pintamos el cambio de los parches entre los intervalos
 t=0 y t=6. En negro *espacio abierto*, en azul *pradera*, en rojo

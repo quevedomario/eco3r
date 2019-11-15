@@ -14,10 +14,9 @@ Estos modelos son simplificaciones de los procesos reales, pero permiten fijarse
 Planteamos un modelo matricial análogo al usado para modelar (ctrl. click) [dinámica de poblaciones estructuradas](https://github.com/quevedomario/eco3r/blob/master/stages.md) en clases de edad o estadios.
 Ese modelo plantea en este caso de qué manera las comunidades cambian de estado a lo largo del tiempo. Esos estados los asumimos o construimos discretos, sin solapamiento.
 
-El ejercicio requiere escasa preparación previa. Usamos las librerías **popbio** para procesar las probabilidades de sustitución, **pander** para mejorar la presentación de resultados, y **diagram** para dibujar ciclos. No son imprescindibles, todo se podría hacer con R básico.
+El ejercicio requiere escasa preparación previa. Usamos las librerías **popbio** para procesar las probabilidades de sustitución y **diagram** para dibujar ciclos. No son imprescindibles, todo se podría hacer con R básico.
 ```{r message=FALSE, warning=FALSE}
 library(popbio)
-library(pander)
 library(diagram)
 ```
 
@@ -90,7 +89,7 @@ Las proyecciones de estos modelos de sustitución son multiplicaciones sucesivas
 for (i in 1:12) {
   n0 <- matriz %*% n0
   proyecciones[i,] <- n0
-  pander(proyecciones[i,])
+  proyecciones[i,]
   Sys.sleep(0.4)
 }
 
@@ -106,7 +105,7 @@ Para pintar los resultados nos interesa tener en el mismo conjunto de datos el e
 inicial <- c(500,0,0,0)
 todo <- rbind(inicial, proyecciones)
 rownames(todo) <- NULL
-pander(todo)
+todo
 ```
 
 A continuación pintamos el cambio de los parches entre los intervalos t=0 y t=6. En negro *espacio abierto*, en azul *pradera*, en rojo *matorral*, y en verde *bosque*.

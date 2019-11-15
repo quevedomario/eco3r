@@ -15,7 +15,6 @@ options(warn=-1)
 #### Librerías utilizadas
 ```{r message=FALSE, warning=FALSE}
 library (popbio)
-library(pander)
 ```
 
 #### Introduciendo matrices y estadios
