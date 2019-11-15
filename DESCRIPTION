@@ -17,8 +17,6 @@ Depends:
     knitr,
     pander,
     popbio,
-    readODS,
-    readr,
     rmarkdown,
     vegan
 Encoding: UTF-8
