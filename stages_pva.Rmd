@@ -1,6 +1,6 @@
 ---
 title: "Estocasticidad en dinámica de poblaciones estructuradas"
-author: ""
+author: "Mario Quevedo"
 date: ""
 output: rmarkdown::github_document
 editor_options: 

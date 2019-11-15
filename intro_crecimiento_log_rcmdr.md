@@ -95,9 +95,7 @@ inferior a 1, modificando el parámetro correspondiente en el código:
 
 Una vez modificado el código, el botón **Submit** envía el código a
 RStudio, y ejecuta la nueva simulación. El gráfico resultante estará
-disponible entonces en RStudio.
-
-Fijaos una vez más que la salida gráfica muestra la tasa discreta, y la
+disponible entonces en RStudio. La salida gráfica muestra la tasa discreta, y la
 correspondiente continua o intrínseca **r = -0.01**. Una población con
 dinámica estable mostrará valores de *λ* muy próximos a 1, y valores de
 *r* muy próximos a 0.
@@ -121,11 +119,10 @@ to clipboard*) para pegarlas inmediatamente en un documento.
 #### Crecimiento logístico
 
 El crecimiento exponencial es un modelo muy simple del crecimiento de
-poblaciones, si bien puede resultar apropiado (realista) durante
-periodos limitados de tiempo. Para añadir algo de realismo al modelado
-del cambio en el tiempo de las poblaciones, podemos tratar de incorporar
-*competencia intraespecífica*. Ese es el objetivo del modelo logístico
-de crecimiento:
+poblaciones, si bien puede resultar realista durante
+periodos limitados de tiempo. 
+
+Para añadir algo de realismo al modelado del cambio en el tiempo de las poblaciones, podemos tratar de incorporar *competencia intraespecífica*. Ese es el objetivo del modelo logístico de crecimiento:
 
 ![](intro_crecimiento_log_rcmdr_files/7.png)
 
@@ -147,22 +144,22 @@ Population :: Logistic Growth…**
 ![](intro_crecimiento_log_rcmdr_files/8.png)
 
 Ejecutando la simulación con los valores que aparecen por defecto al
-lanzar el módulo, obtendremos en RStudio la siguiente curva:
+lanzar el módulo, obtenemos en RStudio la trayectoria de una población creciente, pero que tiende a una asíntota:
 
 ![](intro_crecimiento_log_rcmdr_files/9.png)
 
 El modelo logístico plantea que la densidad de población limita la tasa
 intrínseca crecimiento de una población. Ese es el papel de la fracción
 libre de la capacidad de carga en la ecuación *1-(N/K)*. Dicho
-componente del modelo logístico es el responsable del cambio de
+componente del modelo logístico es responsable del cambio de
 pendiente de la curva al cambiar la abundancia. La pendiente se aproxima
-a 0 cuando el tamaño de la población e aproxima a la capacidad de carga
+a 0 cuando el tamaño de la población se aproxima a la capacidad de carga
 (en este caso **K = 100**).
 
 Observando la curva, ¿a qué tamaño de población aproximado corresponde
 el máximo crecimiento de la población?
 
-Esa pregunta la podéis abordar numéricamente resolviendo la ecuación del
+Esa pregunta se puede abordar numéricamente resolviendo la ecuación del
 modelo logístico para distintos tamaños poblacionales; por ejemplo *N =
 10, N = 50, N = 90, N = 120*. La consola de R y RStudio funciona también
 como una calculadora. El código siguiente seguido de la tecla intro
@@ -184,8 +181,7 @@ Los modelos discretos que incorporan la influencia de la densidad en el
 crecimiento de poblaciones suelen incorporar el retraso en la respuesta
 a la densidad de población, y no los tratamos en Ecología de 3º. Sin
 embargo el modulo **Logistic Growth** disponible en R Commander permite
-simular esta idea para tasas de crecimiento muy altas. La Gráfica 3
-muestra las curvas continua y discreta resultantes de simular
+simular esta idea para tasas de crecimiento muy altas. La salida gráfica a continuación muestra las curvas continua y discreta resultantes de simular
 crecimiento logístico con **r = 1.9**, y **tmax = 20**. En la curva
 discreta la tasa de crecimiento muy elevada implica que *el tamaño de la
 población en el eje Y supera temporalmente la capacidad de carga*, dando

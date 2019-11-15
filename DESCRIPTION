@@ -1,0 +1,27 @@
+Type: Compendium
+Package: Your compendium name
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.1
+Authors@R: 
+    person(given = "Mario",
+           family = "Quevedo",
+           role = c("aut", "cre"),
+           email = "quevedomario@uniovi.es",
+           comment = c(ORCID = "0000-0002-6067-3237"))
+Description: Your compendium description
+License: What license it uses
+Depends: 
+    cheddar,
+    diagram,
+    dplyr,
+    foodweb,
+    knitr,
+    pander,
+    popbio,
+    readODS,
+    readr,
+    rmarkdown,
+    spocc,
+    vegan
+Encoding: UTF-8
+LazyData: true
