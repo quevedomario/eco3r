@@ -16,7 +16,7 @@ instaladas y sus versiones).
 Los datos usados en este ejercicio están en el archivo comprimido
 [**redes.zip**](https://github.com/quevedomario/eco3r/blob/master/redes.zip).
 Al descomprimirlo en la carpeta de trabajo, mostrará 4 archivos de datos
-separados por comas (csv), 3 de ellos dentro de una carpeta
+separados por comas (extensión csv), 3 de ellos dentro de una carpeta
 *foodweb\_paine*. Corresponden a los enlaces tróficos del experimento de
 Paine<sup>1</sup> excluyendo a la estrella de mar *Pisaster
 ochraceus*<sup>2</sup> de charcas de marea, con el añadido simulado de 8
@@ -36,8 +36,6 @@ usaremos después otra librería.
 library(foodweb)
 ```
 
-    ## Loading required package: rgl
-
 Para dibujar el diagrama de la red trófica<sup>3</sup> usamos la función
 `plotweb()`. Esta abrirá una ventana nueva con diagrama en 3D. Tras
 maximizar la ventana, es posible usar el ratón para hacer *zoom* y rotar
@@ -53,7 +51,8 @@ plotweb (col=c("red", "orange", "blue", "green"), radii=c(15,15,15,15))
 Un vistazo a la representación 3D de esta red trófica simplificada
 muestra **4 niveles tróficos, omnivoría, y dos compartimentos claros**,
 definidos por productores primarios bentónicos y planctónicos, y
-consumidores raspadores y filtradores.
+consumidores raspadores y filtradores. El mesopredador *Thais* y el
+predador superior *Pisaster* conectan ambos compartimentos.
 
 ### Análisis de propiedades de redes tróficas
 
@@ -76,7 +75,7 @@ paine_cheddar <- LoadCommunity(dir="foodweb_paine")
 
 `cheddar` contiene muchas funciones, pero estas son generalmente fáciles
 de usar. Por ejemplo, la función `TLPS()` devuelve los **vínculos
-tróficos** entre las especies o nodos de la red. `head()` limita la
+tróficos** entre las especies (nodos) de la red. `head()` limita la
 presentación de datos en la salida a las 6 primeras filas:
 
 ``` r
@@ -92,10 +91,10 @@ head(TLPS(paine_cheddar))
     ## 6  balano3    thais
 
 Las proporciones de nodos caníbales y omnívoros son susceptibles de
-variar mucho entre distintas comunidades, entre otros factores en
-función de la productividad, y por ello son objeto habitual de
-análisis. Las siguientes líneas comprueban si hay **nodos caníbales y
-omnívoros** en la red de
+variar mucho entre distintas comunidades, en función de la productividad
+entre otros factores, y por ello son objeto habitual de análisis. Las
+siguientes líneas comprueban si hay **nodos caníbales y omnívoros** en
+la red de
     *Pisaster*:
 
 ``` r
@@ -131,7 +130,7 @@ especie, y de recursos de más de un nivel trófico.
 #### Pintando la red trófica
 
 A diferencia de los diagramas de la librería `foodweb` en este caso la
-posición de los nodos es consecuencia de la posición trófica de los
+posición de los nodos es consecuencia de la **posición trófica** de los
 mismos, no del nivel trófico. Por eso *Thais* y *Pisaster* aparecen más
 cerca en este diagrama:
 
