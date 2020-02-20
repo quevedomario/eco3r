@@ -217,11 +217,12 @@ rarecurve(semanas_vegan, sample = 50,
           lwd = 1.5, xlab="individuos identificados", ylab="taxones encontrados")
 ```
 
-![](communities_files/figure-gfm/unnamed-chunk-10-1.png)<!-- --> La
-línea vertical marca el tamaño muestral de referencia, especificado en
-el código con la opción `sample=`. las líneas horizontales muestran la
-riqueza de especies correspondiente a ese tamaño de muestra de
-referencia.
+![](communities_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+La línea vertical marca el tamaño de muestra de referencia, especificado
+en el código con la opción `sample=`. las líneas horizontales muestran
+la riqueza de especies en cada semana correspondiente a dicho tamaño de
+muestra de referencia.
 
 Las posibilidades de análisis son exhaustivas. Podemos por ejemplo
 extraer con facilidad la pendiente de las curvas para un determinado
