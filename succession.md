@@ -2,6 +2,9 @@ Sucesión ecológica con R
 ================
 
 ![](succession_files/figure-markdown_github/sucesion_stand_dev0_100.png)
+(Es recomendable usar “crtl. click” al pulsar en los enlaces,
+abriéndolos así en pestañas nuevas; la opción no es configurable en
+origen en GitHub el momento de escribir esto.)
 
 ### Un modelo analítico de sucesión
 
@@ -9,17 +12,19 @@ Estos modelos son simplificaciones de los procesos reales, pero permiten
 fijarse en los aspectos básicos de la dinámica de sustitución de
 especies, y compararla entre distintas comunidades, o vías de sucesión.
 
-Planteamos un modelo matricial análogo al usado para modelar (ctrl.
-click) [dinámica de poblaciones
+Planteamos un modelo matricial análogo al usado para modelar [dinámica
+de poblaciones
 estructuradas](https://github.com/quevedomario/eco3r/blob/master/stages.md)
-en clases de edad o estadios. Ese modelo plantea en este caso de qué
-manera las comunidades cambian de estado a lo largo del tiempo. Esos
-estados los asumimos o construimos discretos, sin solapamiento.
+en clases de edad o estadios. Dicho modelo matricial plantea de qué
+manera las comunidades cambian de estado a lo largo del pulsos discretos
+de tiempo, sin solapamiento.
 
 El ejercicio requiere escasa preparación previa. Usamos las librerías
 **popbio** para procesar las probabilidades de sustitución y **diagram**
 para dibujar ciclos. No son imprescindibles, todo se podría hacer con R
 básico.
+
+Cargando las librerías:
 
 ``` r
 library(popbio)
@@ -29,7 +34,7 @@ library(diagram)
 Vamos a usar como ejemplo el cambio temporal en un ecosistema cuyos
 estadios reconocibles a lo largo de una sucesión ecológica son *espacio
 abierto*, *pradera*, *matorral*, y *bosque*<sup>1</sup>. Esencialmente
-un esquema de sucesión común a los ecosistemas forestales.
+un esquema de sucesión común a los ecosistemas forestales templados.
 
 #### Matriz de transición
 

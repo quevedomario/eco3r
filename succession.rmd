@@ -7,20 +7,23 @@ editor_options:
   chunk_output_type: console
 ---
 ![](succession_files/figure-markdown_github/sucesion_stand_dev0_100.png)
+(Es recomendable usar "crtl. click" al pulsar en los enlaces, abriéndolos así en pestañas nuevas; la opción no es configurable en origen en GitHub el momento de escribir esto.)
 
 ### Un modelo analítico de sucesión
 Estos modelos son simplificaciones de los procesos reales, pero permiten fijarse en los aspectos básicos de la dinámica de sustitución de especies, y compararla entre distintas comunidades, o vías de sucesión. 
 
-Planteamos un modelo matricial análogo al usado para modelar (ctrl. click) [dinámica de poblaciones estructuradas](https://github.com/quevedomario/eco3r/blob/master/stages.md) en clases de edad o estadios.
-Ese modelo plantea en este caso de qué manera las comunidades cambian de estado a lo largo del tiempo. Esos estados los asumimos o construimos discretos, sin solapamiento.
+Planteamos un modelo matricial análogo al usado para modelar [dinámica de poblaciones estructuradas](https://github.com/quevedomario/eco3r/blob/master/stages.md) en clases de edad o estadios.
+Dicho modelo matricial plantea de qué manera las comunidades cambian de estado a lo largo del pulsos discretos de tiempo, sin solapamiento.
 
 El ejercicio requiere escasa preparación previa. Usamos las librerías **popbio** para procesar las probabilidades de sustitución y **diagram** para dibujar ciclos. No son imprescindibles, todo se podría hacer con R básico.
+
+Cargando las librerías:
 ```{r message=FALSE, warning=FALSE}
 library(popbio)
 library(diagram)
 ```
 
-Vamos a usar como ejemplo el cambio temporal en un ecosistema cuyos estadios reconocibles a lo largo de una sucesión ecológica son *espacio abierto*, *pradera*, *matorral*, y *bosque*^1^. Esencialmente un esquema de sucesión común a los ecosistemas forestales.
+Vamos a usar como ejemplo el cambio temporal en un ecosistema cuyos estadios reconocibles a lo largo de una sucesión ecológica son *espacio abierto*, *pradera*, *matorral*, y *bosque*^1^. Esencialmente un esquema de sucesión común a los ecosistemas forestales templados.
 
 #### Matriz de transición
 Un modelo como este en el que reconocemos 4 estados (*fases*, *estadios*, da igual) requiere una matriz cuadrada con cuatro filas y cuatro columnas, que contienen las probabilidades de transición del estado actual (columnas) al siguiente (filas).
@@ -124,6 +127,6 @@ Adaptando el código anterior es fácil incluir cambios en las probabilidades de
 
 #### Referencias y notas
 1. Ejemplo adaptado de Gotelli NJ. 2008. A primer of ecology (AD Sinauer, Ed). Sunderland: Sinauer.  
-2. Hay modelos alternativos de sucesión, esencialmente basados en el tipo de control de la dinámica ejercido por las especies que colonizan un espacio reiniciado por la perturbación. Al menos habrá que tener en cuenta la posibilidad de que las colonizadoras no tengan especial influencia en qué se asienta después (**modelo de tolerancia**), y de que impidan el asentamiento de nuevas especies hasta una nueva perturbación (**modelo de inhibición**). 
+2. Hay modelos alternativos de reemplazo de especies, esencialmente basados en el tipo de control de la dinámica ejercido por las especies que colonizan un espacio reiniciado por la perturbación. Al menos habrá que tener en cuenta la posibilidad de que las colonizadoras no tengan especial influencia en qué se asienta después (**modelo de tolerancia**), o que impidan el asentamiento de nuevas especies hasta una nueva perturbación (**modelo de inhibición**). 
 3. En cada repetición **n0** es sustituido por el resultado de multiplicar el anterior por la matriz, si bien el contenido queda guardado en **proyecciones**. Los bucles `for(){}` son útiles para repetir cálculos y almacenar los resultados sucesivos. Entre paréntesis llevan siempre la variable que identifica la secuencia de repeticiones; entre corchetes, el conjunto de operaciones en orden de ejecución. En el ejemplo, `Sys.sleep()` introduce un retraso de medio segundo para ver los resultados sucesivos en la consola. Para acelerar el código podemos prescindir de la visualización de resultados intermedios, y del retraso.  
 4. `tiempo[1:13]` hace referencia a las posiciones primera a decimotercera en el vector tiempo, que corresponden a los intervalos *t~0~* a *t~12~*.
