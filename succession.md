@@ -261,13 +261,14 @@ parches en estados tardíos.
 
 1.  Ejemplo adaptado de Gotelli NJ. 2008. A primer of ecology (AD
     Sinauer, Ed). Sunderland: Sinauer.  
-2.  Hay modelos alternativos de sucesión, esencialmente basados en el
-    tipo de control de la dinámica ejercido por las especies que
-    colonizan un espacio reiniciado por la perturbación. Al menos habrá
-    que tener en cuenta la posibilidad de que las colonizadoras no
-    tengan especial influencia en qué se asienta después (**modelo de
-    tolerancia**), y de que impidan el asentamiento de nuevas especies
-    hasta una nueva perturbación (**modelo de inhibición**).
+2.  Hay modelos alternativos de reemplazo de especies, esencialmente
+    basados en el tipo de control de la dinámica ejercido por las
+    especies que colonizan un espacio reiniciado por la perturbación. Al
+    menos habrá que tener en cuenta la posibilidad de que las
+    colonizadoras no tengan especial influencia en qué se asienta
+    después (**modelo de tolerancia**), o que impidan el asentamiento
+    de nuevas especies hasta una nueva perturbación (**modelo de
+    inhibición**).
 3.  En cada repetición **n0** es sustituido por el resultado de
     multiplicar el anterior por la matriz, si bien el contenido queda
     guardado en **proyecciones**. Los bucles `for(){}` son útiles para
