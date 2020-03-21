@@ -40,8 +40,8 @@ un esquema de sucesión común a los ecosistemas forestales templados.
 
 Un modelo como este en el que reconocemos 4 estados (*fases*,
 *estadios*, da igual) requiere una matriz cuadrada con cuatro filas y
-cuatro columnas, que contienen las probabilidades de transición del
-estado actual (columnas) al siguiente (filas).
+cuatro columnas, que contienen las probabilidades de transición **del
+estado actual (columnas) al siguiente (filas)**.
 
 Para introducir los datos y construir la matriz definimos primero las
 etiquetas de los **estados**, almacenándolos en un vector de texto con
@@ -78,19 +78,20 @@ piden a R que nos la enseñe directamente:
     ## bosque                      0.0     0.0      0.8   0.99
 
 La matriz muestra probabilidades de sustitución del tiempo *t* al tiempo
-*t+1*. Así, la probabilidad de que un parche de *espacio abierto* pase a
-*pradera* es 0.9, mientras que la probabilidad de que una perturbación
-“reinicie” un parche de *bosque* a *espacio abierto* es de 0.01. La
-diagonal de la matriz indica la probabilidad de que un parche permanezca
-en el mismo estado entre *t* y *t+1*. Los valores de cada columna deben
-sumar 1.0, ya que recojen el estado de los parches en el tiempo *t*.
+*t+1*. Se lee así: - La probabilidad de reemplazo de un parche de
+*espacio abierto* por *pradera* es 0.9, \[2,1\]. - La probabilidad de
+que una perturbación “reinicie” un parche de *bosque* a *espacio
+abierto* es de 0.01, \[1,4\]. - La diagonal de la matriz indica la
+probabilidad de que un parche permanezca en el mismo estado entre *t* y
+*t+1*. - Los valores de cada columna deben sumar 1.0, ya que recojen el
+estado de los parches en un tiempo *t*.
 
-El conjunto de probabilidades de transición definido en **matriz**
+El conjunto de probabilidades de transición definido en la **matriz**
 indica un **modelo de facilitación**<sup>2</sup>, aquel en el que
-distinguimos especies pioneras, intermedias y tardías. Las primeras son
-las capaces de “arrancar” la sucesión, modificando el contexto abiótico
-y facilitando la entrada posterior de especies intermedias
-(e.g. leguminosas como *Lupinus* spp., fijadora de nitrógeno).
+distinguimos especies pioneras, intermedias y tardías. Las primeras
+(e.g. leguminosas como *Lupinus* spp., fijadoras de nitrógeno) inician
+la sucesión, modificando el contexto abiótico y facilitando la entrada
+posterior de especies intermedias.
 
 ![](succession_files/figure-gfm/lupinus.jpg)
 
@@ -98,8 +99,10 @@ y facilitando la entrada posterior de especies intermedias
 
 Podemos representar gráficamente las transiciones de la matriz con la
 intimidante pero útil función `plotmat()`, vista en ejercicios
-anteriores. `?plotmat` devuelve la explicación del significado de cada
-argumento de la
+anteriores
+(e.g. <https://github.com/quevedomario/eco3r/blob/master/stages.md>).
+`?plotmat` devuelve la explicación del significado de cada argumento de
+la
 función.
 
 ``` r
@@ -117,7 +120,7 @@ partiremos de un paisaje - la foto fija de un ecosistema - en el que
 tenemos 500 parches de hábitat, todos en el estado inicial de la
 sucesión, *espacio abierto*. Con esa información construimos el
 **vector de estado inicial**, **N<sub>0</sub>**; en este caso los 500
-parches de hábitat están en fase *espacio abierto*:
+parches de hábitat evaluados están en fase *espacio abierto*:
 
 ``` r
 n0 <- c(500,0,0,0)
@@ -126,14 +129,14 @@ n0 <- c(500,0,0,0)
 Para almacenar los resultados de cada intervalo de sustitución
 construimos una matriz con tantas filas como intervalos de tiempo
 pretendidos, y 4 columnas para los 4 estados. La primera línea del
-código a continuación deja definida esa matriz **proyecciones** para 12
-intervalos, y de momento vacía.
+código a continuación deja definida una matriz llamada **proyecciones**
+para 12 intervalos, y de momento vacía.
 
 La segunda define la variable de intervalos de tiempo, hasta 20.
 
 A continuación usamos los nombres de los estados y 12 intervalos de
-tiempo para etiquetar las columnas `colnames()` y las filas `rownames()`
-en **proyecciones**.
+tiempo para etiquetar las columnas de **proyecciones** con `colnames()`
+y las filas con `rownames()`.
 
 ``` r
 proyecciones <- matrix(nrow = 12, ncol = 4)
@@ -162,8 +165,9 @@ proyecciones
 Las proyecciones de estos modelos de sustitución son multiplicaciones
 sucesivas de la matriz de probabilidades por el vector de abundancias en
 el tiempo *t*, o *vector de estado*. Para automatizar las proyecciones
-durante *i* intervalos de sustitución podemos usar un bucle. Una de las
-formas de prepararlos en **R** es la función `for()`:
+durante *i* intervalos de sustitución podemos usar un bucle.
+
+Una de las formas de prepararlos en **R** es la función `for()`:
 
 ``` r
 for (i in 1:12) {
@@ -190,20 +194,21 @@ proyecciones
     ## 11        7.095901   7.416620   7.143897 478.3436
     ## 12        6.949078   7.127973   6.647686 479.2753
 
-El bucle `for` se lee “*para cada intervalo de tiempo de 1 a 6, almacena
-como n0 el resultado de multiplicar la matriz por el N<sub>0</sub>
-previo, guarda el resultado en la fila i de proyecciones, y muestra esa
-última fila o vector de estado*”<sup>3</sup>.  
-En la consola **R** aparecerán sucesivamente los vectores de estado
-*N<sub>1</sub>* a *N<sub>6</sub>*, completando los resultados.
+Ese bucle `for` se lee “*para cada intervalo de tiempo de 1 a 12,
+almacena como n0 el resultado de multiplicar la matriz por el
+N<sub>0</sub> previo, guarda el resultado en la fila i de proyecciones,
+y muestra esa última fila o vector de estado*”<sup>3</sup>.  
+En la consola **R** aparecerán los vectores de estado *N<sub>1</sub>* a
+*N<sub>12</sub>*.
 
 Para pintar los resultados nos interesa tener en el mismo conjunto de
 datos el estado inicial de la sucesión, aquel *N<sub>0</sub>* con 500
 parches de *espacio abierto* que ha sido modificado por las iteraciones
-del bucle anterior. El código a continuación construye de nuevo un el
-vector *inicial*, lo combina en **todo** con los resultados de
-**proyecciones**, y elimina los nombres de las filas (para pintarlo más
-fácil):
+del bucle anterior.
+
+El código a continuación construye de nuevo un el vector *inicial*, lo
+combina en **todo** con los resultados de **proyecciones**, y elimina
+los nombres de las filas (para pintarlo más fácil):
 
 ``` r
 inicial <- c(500,0,0,0)
@@ -228,11 +233,13 @@ todo
     ## [13,]        6.949078   7.127973   6.647686 479.2753
 
 A continuación pintamos el cambio de los parches entre los intervalos
-t=0 y t=6. En negro *espacio abierto*, en azul *pradera*, en rojo
-*matorral*, y en verde *bosque*. La proyección de cada tipo de parche
-está almacenada en cada una de las columnas de **todo**. `plot()` pinta
-la primera curva, la de *espacio abierto*, y a continuación añadimos el
-resto de curvas al gráfico existente con
+t=0 y t=12. En negro *espacio abierto*, en azul *pradera*, en rojo
+*matorral*, y en verde *bosque*.
+
+La proyección de cada tipo de parche está almacenada en cada una de las
+columnas de **todo**. `plot()` pinta la primera curva, la de *espacio
+abierto*, almacenada en la columna 1 \[,1\], y a continuación añadimos
+el resto de curvas a ese primer gráfico con
 `lines()`<sup>4</sup>:
 
 ``` r
@@ -247,10 +254,11 @@ lines(tiempo[1:13], todo[,4], col="green")
 
 El gráfico ilustra una propiedad de estos modelos analíticos: al
 multiplicar sucesivamente los vectores de estado por la misma matriz de
-transición, se alcanza una estructura estable. Es decir, el vector de
+transición, se alcanza una *estructura estable*. Es decir, el vector de
 estado deja de cambiar por mucho que proyectemos la dinámica. Y esa
 estructura se alcanza independientemente de cual sea el estado inicial.
-En nuestro ejemplo empieza a ser aparente a partir de *N<sub>6</sub>*.
+En nuestro ejemplo esa dinámica empieza a ser aparente a partir de
+*N<sub>6</sub>*.
 
 Adaptando el código anterior es fácil incluir cambios en las
 probabilidades de sustitución. Estas podrían derivarse por ejemplo de
