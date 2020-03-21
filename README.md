@@ -4,7 +4,7 @@
 
 ### Ecología en código abierto
 
-(Es recomendable usar "crtl. click" al pulsar en los enlaces, y asíabrirlos en pestañas nuevas; la opción no es configurable en GitHub el momento de escribir esto.)
+(Es recomendable usar "crtl. click" al pulsar en los enlaces, abriéndolos así en pestañas nuevas; la opción no es configurable en origen en GitHub el momento de escribir esto.)
 
 Conjunto de ejercicios pensados como 1) herramientas de estudio o repaso de conceptos en Ecología, y 2) entrenamiento con herramientas genéricas de análisis y presentación de datos.
 
