@@ -2,7 +2,8 @@ Sucesión ecológica con R
 ================
 
 ![](succession_files/figure-markdown_github/sucesion_stand_dev0_100.png)
-(Es recomendable usar “crtl. click” al pulsar en los enlaces,
+
+(Es recomendable usar **“crtl. click” al pulsar en los enlaces**,
 abriéndolos así en pestañas nuevas; la opción no es configurable en
 origen en GitHub el momento de escribir esto.)
 
