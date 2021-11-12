@@ -2,7 +2,7 @@
   [![Launch Rstudio Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/quevedomario/eco3r/master?urlpath=rstudio)
   <!-- badges: end -->
 
-### Ecología en código abierto desde RStudio
+### Ecología en código abierto
 
 (Es recomendable usar "crtl. click" al pulsar en los enlaces, abriéndolos así en pestañas nuevas; la opción no es configurable en origen en GitHub el momento de escribir esto.)
 
