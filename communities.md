@@ -1,14 +1,12 @@
 Introducción al análisis de comunidades ecológicas en R
 ================
-Enero de 2019
+Febrero de 2022
 
 ### Configuración previa y datos
 
 Los procedimientos incluidos a continuación asumen la instalación previa
 de R y RStudio<sup>1</sup>, para trabajar en este último. Instrucciones
-al respecto se encuentran en el apartado *Configuración* del módulo
-**Ecología en código abierto** del Campus Virtual de UniOvi, o [aquí en
-Internet](https://github.com/quevedomario/eco3r/blob/master/config.md).
+al respecto se encuentran [aquí](https://github.com/quevedomario/eco3r/blob/master/config.md).
 
 Antes de entrar a analizar datos, es siempre recomendable echarles un
 vistazo, especialmente si trabajamos con datos recogidos por otros. Para
