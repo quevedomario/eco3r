@@ -22,7 +22,7 @@ vida:
 ![](stages_files/figure-markdown_github/life_cycle_stage.png)
 
 Ese esquema genérico muestra una población modelada a partir de 4 tipos
-de individuos, las “cajas”, agrupados en clases de edad o estadios. Las
+de individuos agrupados en clases de edad o estadios. Las
 flechas indican las transiciones posibles entre clases o estadios. A ese
 ciclo de vida le correspondería la visión numérica aportada por las
 matrices de transición:
