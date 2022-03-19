@@ -16,6 +16,7 @@ options(warn=-1)
 ```{r message=FALSE, warning=FALSE}
 library (popbio)
 library(diagram)
+library(pander)
 ```
 
 ### Introducción
@@ -37,7 +38,7 @@ El código a continuación carga en memoria los datos **whale**, y visualiza a c
 
 ```{r}
 data (whale)
-whale
+pander(whale)
 ```
 
 En el modelo la población está dividida en individuos de primer año **yearling**, juveniles no reproductores **juvenile**, individuos reproductores **mature**, y postreproductores **postreprod**. Este último estadio es muy peculiar: muy pocas especies en la naturaleza conservan aquellos individuos que han dejado de contribuir a la reproducción^3^. 

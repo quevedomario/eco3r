@@ -13,8 +13,8 @@ library(pander)
 
 Trabajamos con poblaciones en las que los individuos presentan
 características *a priori* contrastadas desde el punto de vista de la
-dinámica de la población, asociadas a su edad o estado fisiológico, ya
-sea por contribuir de forma diferencial a la reproducción o por
+dinámica de la población, asociadas a su edad o estado fisiológico; ya
+sea porque contribuyen de forma diferencial a la reproducción, o por
 presentar diferentes supervivencias. En líneas generales los modelos de
 poblaciones estructuradas los podemos representar mediante ciclos de
 vida:
@@ -22,8 +22,8 @@ vida:
 ![](stages_files/figure-markdown_github/life_cycle_stage.png)
 
 Ese esquema genérico muestra una población modelada a partir de 4 tipos
-de individuos agrupados en clases de edad o estadios. Las
-flechas indican las transiciones posibles entre clases o estadios. A ese
+de individuos, agrupados en clases de edad o estadios. Las flechas
+indican transiciones posibles entre dichas clases o estadios. A ese
 ciclo de vida le correspondería la visión numérica aportada por las
 matrices de transición:
 
@@ -31,12 +31,12 @@ matrices de transición:
 
 La primera fila de las matrices de transición, ya sean de edades (dcha.)
 o de estadios (izda.), muestra el *esquema de fecundidad*, expresada
-como promedio de individuos contribuidos al momento *t+1*, producidos
-por cada individuo presente en el momento *t*. El resto de valores
-distintos de cero en la matriz representan probabilidades de
-supervivencia entre *t* y *t+1*, ya sea *permaneciendo* en el mismo
-estadio, e.g. *P<sub>2</sub>* en la matriz de estadios, o *creciendo* al
-siguiente, e.g. *G<sub>3</sub>* en estadios o *S<sub>2</sub>* en edades.
+como promedio de individuos contribuidos al tiempo *t+1*, producidos por
+cada individuo presente en el tiempo *t*. El resto de valores distintos
+de cero en la matriz representan probabilidades de supervivencia entre
+*t* y *t+1*, ya sea *permaneciendo* en el mismo estadio,
+e.g. *P<sub>2</sub>* en la matriz de estadios, o *creciendo* al
+siguiente, e.g. *G<sub>3</sub>* en estadios o *S<sub>2</sub>* en edades.
 
 ### Matriz de proyección (estadios)
 
@@ -45,18 +45,15 @@ una población de orcas *Orcinus orca*. Los datos están incluidos en la
 librería `popbio` (Caswell 2001)<sup>1,2</sup>.
 
 El código a continuación carga en memoria los datos **whale**, y
-visualiza a continuación la matriz. la visualización incluye un pequeño
-truco estético: la función `pander()` rodeando al conjunto de datos
-devuelve una matriz con un formato más enriquecido útil especialmente
-para la producción de informes en pdf o html; es opcional:
+visualiza a continuación la matriz:
 
 ``` r
 data (whale)
-pander (whale)
+pander(whale)
 ```
 
-|                | yearling | juvenile | mature | postreprod |
-| :------------: | :------: | :------: | :----: | :--------: |
+|                | yearling | juvenile | mature | postreprod |
+|:--------------:|:--------:|:--------:|:------:|:----------:|
 |  **yearling**  |    0     |  0.0043  | 0.1132 |     0      |
 |  **juvenile**  |  0.9775  |  0.9111  |   0    |     0      |
 |   **mature**   |    0     |  0.0736  | 0.9534 |     0      |
@@ -75,7 +72,7 @@ haber alcanzado la menopausia. Algo más sorprendente será la pequeña
 proporción de individuos a priori juveniles que sí contribuyen; es el
 valor contenido en la celda \[1, 2\]. Los valores de las filas 2, 3 y 4
 representan probabilidades de supervivencia permaneciendo en el mismo
-estadio, e.g. `whale[2,2]`, o pasando al siguiente `whale[3,2]`. En
+estadio, e.g. `whale[2,2]`, o pasando al siguiente `whale[3,2]`. En
 general, las supervivencias son muy altas y la fecundidad baja, como
 corresponde a un predador apical.
 
@@ -92,11 +89,12 @@ transición.
 
 La función `plotmat()` tiene una aspecto algo intimidante al admitir
 muchos argumentos que modifican la estética del ciclo resultante; no
-todos son necesarios. El comando más simple `plotmat(whale)` pinta una
-versión muy mejorable del ciclo de las orcas, en la que algunos valores
-quedan superpuestos, y la disposición de los estadios no es buena. Por
-eso usamos el argumento `pos=` dentro de `plotmat()`para definir la
-posición de los estadios en un espacio XY<sup>4</sup> entre 0 y 1:
+todos son necesarios. El comando más simple `plotmat(whale)`, sin otros
+parámetros, pinta una versión muy mejorable del ciclo de las orcas:
+algunos valores quedan superpuestos, y la disposición de los estadios no
+es buena. Por eso usamos el argumento `pos=` dentro de `plotmat()` para
+definir la posición de los estadios en un espacio XY<sup>4</sup> entre 0
+y 1. Definimos y guardamos esas coordenadas previamente en **posit**:
 
 ``` r
 posit <- cbind (c(0.6, 0.9, 0, 0), c(1, 0, 0, 0.8))
@@ -124,53 +122,39 @@ Una vez comprendida la estructura del modelo, extraemos la información
 numérica contenida en la matriz de transición; es decir, aquella
 dependiente solo de la combinación de valores de supervivencia y
 fecundidad. La función que extrae buena parte de esa información
-determinista del modelo es `eigen.analysis()`. Como en el caso anterior,
-`pander()` es una mera opción estética. Los parámetros están explicados
-a continuación de la salida:
+determinista del modelo es `eigen.analysis()`:
 
 ``` r
-pander(eigen.analysis (whale))
+eigen.analysis (whale)
 ```
 
-  - **lambda1**: *1.025*
-
-  - **stable.stage**:
-    
-    | yearling | juvenile | mature | postreprod |
-    | :------: | :------: | :----: | :--------: |
-    | 0.03697  |  0.3161  | 0.3229 |   0.324    |
-    
-
-  - **sensitivities**:
-    
-    |                | yearling  | juvenile  |  mature   | postreprod |
-    | :------------: | :-------: | :-------: | :-------: | :--------: |
-    |  **yearling**  |  0.04221  |  0.3608   |  0.3686   |   0.3699   |
-    |  **juvenile**  |  0.04428  |  0.3785   |  0.3867   |   0.3881   |
-    |   **mature**   |  0.06632  |   0.567   |  0.5793   |   0.5813   |
-    | **postreprod** | 2.533e-17 | 2.166e-16 | 2.213e-16 |  2.22e-16  |
-    
-
-  - **elasticities**:
-    
-    |                | yearling | juvenile |  mature   | postreprod |
-    | :------------: | :------: | :------: | :-------: | :--------: |
-    |  **yearling**  |    0     | 0.001513 |  0.0407   |     0      |
-    |  **juvenile**  | 0.04221  |  0.3363  |     0     |     0      |
-    |   **mature**   |    0     |  0.0407  |  0.5386   |     0      |
-    | **postreprod** |    0     |    0     | 9.753e-18 | 2.123e-16  |
-    
-
-  - **repro.value**:
-    
-    | yearling | juvenile | mature | postreprod |
-    | :------: | :------: | :----: | :--------: |
-    |    1     |  1.049   | 1.571  | 6.002e-16  |
-    
-
-  - **damping.ratio**: *1.046*
-
-<!-- end of list -->
+    ## $lambda1
+    ## [1] 1.025441
+    ## 
+    ## $stable.stage
+    ##   yearling   juvenile     mature postreprod 
+    ## 0.03697187 0.31607121 0.32290968 0.32404724 
+    ## 
+    ## $sensitivities
+    ##                yearling     juvenile       mature   postreprod
+    ## yearling   4.220825e-02 3.608369e-01 3.686439e-01 3.699426e-01
+    ## juvenile   4.427835e-02 3.785341e-01 3.867240e-01 3.880864e-01
+    ## mature     6.632269e-02 5.669904e-01 5.792577e-01 5.812983e-01
+    ## postreprod 2.533397e-17 2.165792e-16 2.212651e-16 2.220446e-16
+    ## 
+    ## $elasticities
+    ##              yearling    juvenile       mature   postreprod
+    ## yearling   0.00000000 0.001513103 4.069515e-02 0.000000e+00
+    ## juvenile   0.04220825 0.336325827 0.000000e+00 0.000000e+00
+    ## mature     0.00000000 0.040695151 5.385625e-01 0.000000e+00
+    ## postreprod 0.00000000 0.000000000 9.753053e-18 2.122916e-16
+    ## 
+    ## $repro.value
+    ##     yearling     juvenile       mature   postreprod 
+    ## 1.000000e+00 1.049045e+00 1.571320e+00 6.002137e-16 
+    ## 
+    ## $damping.ratio
+    ## [1] 1.04594
 
 **lambda1** muestra el valor de la tasa de crecimiento determinista. En
 matemáticas corresponde con el *valor propio* de la matriz, *eigenvalue*
@@ -213,18 +197,18 @@ Para llevar a cabo dicha proyección necesitamos saber o simular cuántos
 individuos hay en cada estadio en t<sub>0</sub>.
 
 El código a continuación define y almacena ese N<sub>0</sub> como
-**n0\_whale\_1**, con 10 individuos en cada uno de los 4 estadios. A
+**n0_whale_1**, con 10 individuos en cada uno de los 4 estadios. A
 continuación `pop.projection()` proyecta ese N<sub>0</sub> 50 intervalos
 de tiempo (N<sub>50</sub>) con los parámetros de la matriz de transición
-o proyección `whale`. Almacena los resultados en **whale\_nt\_1**:
+o proyección `whale`. Almacena los resultados en **whale_nt_1**:
 
 ``` r
 n0_whale_1 <- c(10,10,10,10)
 whale_nt_1 <- pop.projection (whale, n0_whale_1, 50)
 ```
 
-`stage.vector.plot` usa los resultados de **whale\_nt\_1** para dibujar
-el cambio de las proporciones de los estadios entre t<sub>0</sub> y
+`stage.vector.plot` usa los resultados de **whale_nt_1** para dibujar el
+cambio de las proporciones de los estadios entre t<sub>0</sub> y
 t<sub>50</sub>:
 
 ``` r
@@ -251,7 +235,7 @@ stage.vector.plot (whale_nt_2$stage.vectors, ylim = c(0, 0.6))
 ![](stages_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 La convergencia a la distribución estable de estadios es más rápida ante
-la distribución de abundancias de **n0\_whale\_1**. Una interpretación
+la distribución de abundancias de **n0_whale_1**. Una interpretación
 posible es que esa distribución inicial corresponde a una población en
 mejor estado, dado el modelo contenido en la matriz de transición
 `whale`, que tiene una tasa de crecimiento lambda = 1.025, ligeramente
@@ -261,8 +245,8 @@ positiva.
 
 Para abrir los enlaces en otra pestaña, *botón derecho + abrir en nueva
 pestaña*, o *Ctrl click*)  
-1\. Caswell, H. 2001. Matrix population models: construction, analysis,
-and interpretation; 2nd ed. Sinauer
+1. Caswell, H. 2001. Matrix population models: construction, analysis,
+and interpretation; 2nd ed. Sinauer
 
 2.  Este otro ejercicio corto incluye instrucciones para introducir
     datos matriciales: *Ctrl. + click*
@@ -275,8 +259,8 @@ and interpretation; 2nd ed. Sinauer
     dos columnas, con las posiciones XY de los estadios. Así la primera
     fila (0.6,1) corresponde en el caso de las orcas a la posición de
     *yearling*. El resto de argumentos en la función `plotmat()` retocan
-    aspectos estéticos, como el color de las flechas `arr.col =
-    "green"`.
+    aspectos estéticos, como el color de las flechas
+    `arr.col = "green"`.
 
 5.  O no; ver el ciclo de vida de *Arisaema triphyllum*,
     Jack-in-the-pulpit
