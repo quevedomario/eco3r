@@ -20,11 +20,11 @@ Los datos usados en este ejercicio están en el archivo comprimido  [**redes.zip
 
 La librería **foodweb** dibuja **diagramas tridimensionales e interactivos de redes tróficas**, y extrae métricas habituales en el estudio de las mismas. Sin embargo, no está actualizada, por lo que usaremos solo su función de visualización. Para obtener las métricas usaremos después otra librería.
 
-```{r echo=TRUE, message=FALSE}
+```{r echo=FALSE, message=FALSE}
 library(foodweb)
 ```
 
-```{r include=FALSE}
+```{r include=FALSE, echo=FALSE}
 analyse.single(filename = "foodweb_pkg_paine0.csv")
 ```
 
@@ -119,11 +119,14 @@ data("YthanEstuary")
 ```{r}
 head(TLPS(YthanEstuary))
 ```
-
 Pintamos el diagrama de la red, que es mucho más compleja que la simulación de *Pisaster*:
 
 ```{r}
-PlotWebByLevel(YthanEstuary)
+PlotWebByLevel(YthanEstuary, x.layout = 'wide')
+```
+La posición de cada nodo en el diagrama de la red sale de:
+```{r}
+sort(PreyAveragedTrophicLevel(YthanEstuary), decreasing = TRUE)
 ```
 
 Densidad de vínculos y conectancia (**L/S**, **C**)

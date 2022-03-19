@@ -20,15 +20,15 @@ library(diagram)
 
 ### Introducción
 
-Trabajamos con poblaciones en las que los individuos presentan características *a priori* contrastadas desde el punto de vista de la dinámica de la población, asociadas a su edad o estado fisiológico, ya sea por contribuir de forma diferencial a la reproducción o por presentar diferentes supervivencias. En líneas generales los modelos de poblaciones estructuradas los podemos representar mediante ciclos de vida:
+Trabajamos con poblaciones en las que los individuos presentan características *a priori* contrastadas desde el punto de vista de la dinámica de la población, asociadas a su edad o estado fisiológico; ya sea porque contribuyen de forma diferencial a la reproducción, o por presentar diferentes supervivencias. En líneas generales los modelos de poblaciones estructuradas los podemos representar mediante ciclos de vida:
 
 ![](stages_files/figure-markdown_github/life_cycle_stage.png)
 
-Ese esquema genérico muestra una población modelada a partir de 4 tipos de individuos, las "cajas", agrupados en clases de edad o estadios. Las flechas indican las transiciones posibles entre clases o estadios. A ese ciclo de vida le correspondería la visión numérica aportada por las matrices de transición:
+Ese esquema genérico muestra una población modelada a partir de 4 tipos de individuos, agrupados en clases de edad o estadios. Las flechas indican las transiciones posibles entre dichas clases o estadios. A ese ciclo de vida le correspondería la visión numérica aportada por las matrices de transición:
 
 ![](stages_files/figure-markdown_github/structured_matrices.png)
 
-La primera fila de las matrices de transición, ya sean de edades (dcha.) o de estadios (izda.), muestra el *esquema de fecundidad*, expresada como promedio de individuos contribuidos al momento *t+1*, producidos por cada individuo presente en el momento *t*. El resto de valores distintos de cero en la matriz representan probabilidades de supervivencia entre *t* y *t+1*, ya sea *permaneciendo* en el mismo estadio, e.g. *P~2~* en la matriz de estadios, o *creciendo* al siguiente, e.g. *G~3~* en estadios o *S~2~* en edades.
+La primera fila de las matrices de transición, ya sean de edades (dcha.) o de estadios (izda.), muestra el *esquema de fecundidad*, expresada como promedio de individuos contribuidos al tiempo *t+1*, producidos por cada individuo presente en el tiempo *t*. El resto de valores distintos de cero en la matriz representan probabilidades de supervivencia entre *t* y *t+1*, ya sea *permaneciendo* en el mismo estadio, e.g. *P~2~* en la matriz de estadios, o *creciendo* al siguiente, e.g. *G~3~* en estadios o *S~2~* en edades.
 
 ### Matriz de proyección (estadios)
 Para el ejercicio usamos datos de un modelo estructurado en estadios de una población de orcas *Orcinus orca*. Los datos están incluidos en la librería `popbio` (Caswell 2001)^1^^,^^2^.
@@ -50,7 +50,7 @@ Los ciclos de vida como el genérico del esquema anterior pueden ser útiles par
 
 En **R** se pueden dibujar con `plotmat()`, a partir de una matriz de transición. 
 
-La función `plotmat()` tiene una aspecto algo intimidante al admitir muchos argumentos que modifican la estética del ciclo resultante; no todos son necesarios. El comando más simple `plotmat(whale)` pinta una versión muy mejorable del ciclo de las orcas, en la que algunos valores quedan superpuestos, y la disposición de los estadios no es buena. Por eso usamos el argumento `pos=` dentro de `plotmat()`para definir la posición de los estadios en un espacio XY^4^ entre 0 y 1:  
+La función `plotmat()` tiene una aspecto algo intimidante al admitir muchos argumentos que modifican la estética del ciclo resultante; no todos son necesarios. El comando más simple `plotmat(whale)`, sin otros parámetros, pinta una versión muy mejorable del ciclo de las orcas: algunos valores quedan superpuestos, y la disposición de los estadios no es buena. Por eso usamos el argumento `pos=` dentro de `plotmat()` para definir la posición de los estadios en un espacio XY^4^ entre 0 y 1. Definimos y guardamos esas coordenadas previamente en **posit**:  
 
 ```{r}
 posit <- cbind (c(0.6, 0.9, 0, 0), c(1, 0, 0, 0.8))
