@@ -35,9 +35,9 @@ tendríamos problemas para recordarlo después:
 lotus_stages <- c ("plántula", "repro1", "repro2", "repro3")
 ```
 
-Definimos además dos vectores alternativos de abundancias en t = 0,
-*N<sub>0</sub>*; uno con el mismo número de individuos por estadio, y
-otro con mayoría del estadio *repro3*:
+Definimos además dos vectores alternativos de abundancias en t = 0; uno
+con el mismo número de individuos por estadio, y otro con mayoría del
+estadio *repro3*:
 
 ``` r
 lotus_n0 <- c (100,100,100,100)
@@ -64,11 +64,12 @@ lotus_matrix <- matrix2(lotus_trans, lotus_stages)
 
 #### Esquema del ciclo de vida
 
-Una vez definido el modelo de la población, podemos empezar a extraerle
+Una vez definido el modelo de la población, podemos empezar a extraer
 información. Por ejemplo, dibujando el ciclo de vida de *L. arinagensis*
 con la función `plotmat()`. Puede parecer complicada, ya ofrece muchas
 posibilidades de ajustar el aspecto final del gráfico (e.g. muchos
-*argumentos*):
+*argumentos*), pero el punto de partida e informaciónn esencial sería un
+mero `plotmat(lotus_matrix)`:
 
 ``` r
 plotmat(lotus_matrix, relsize =0.80, self.cex = 0.6, self.shifty=0.08, self.shiftx = c(0,0,-0.05,0),
@@ -112,7 +113,7 @@ Para incorporar estocasticidad ambiental una posibilidad es contar con
 información sobre la variación de las tasas vitales de la matriz de
 transición. En este caso disponemos de datos de tres temporadas de
 campo, tres matrices anuales<sup>1</sup>. La matriz de transición
-anterior, **lotus\_matrix**, es una matriz promedio de las siguientes:
+anterior, **lotus_matrix**, es una matriz promedio de las siguientes:
 
 ``` r
 lotus_20022003 <- matrix(c(
@@ -177,7 +178,7 @@ requiere 2 o más matrices de proyección (tenemos 3); es decir, requiere
 tener información sobre la variación en las tasas vitales.
 
 El resultado de la *proyección estocástica* lo guardamos como
-**lotus\_stoch\_proj**. Los argumentos de la función son el tiempo de
+**lotus_stoch_proj**. Los argumentos de la función son el tiempo de
 proyección `tmax=` y el número de repeticiones `nreps=`:
 
 ``` r
@@ -200,12 +201,12 @@ de matrices de *Lotus arinagensis*. Nos muestra el tamaño de cada
 estadio a los 25 años (`tmax=25`), sometido a variación ambiental. Las
 fluctuaciones son consecuencia de los distintos valores de las
 transiciones obtenidos en las tres temporadas de campo, y recogidos en
-las matrices **lotus\_20022003**, **lotus\_20032004** y
-**lotus\_20042005**. Por ejemplo, el elemento `[4,1]` de las matrices
-que indica la probabilidad de transición del estadio *plántula* a
-*repro3* entre t y t+1, oscila entre 0 y 0.379. Y en el resultado la
-abundancia del estadio *plántula* oscila entre 113.7 (repetición 998) y
-885.3 (repetición 997) en las 6 últimas repeticiones de la proyección.
+las matrices **lotus_20022003**, **lotus_20032004** y
+**lotus_20042005**. Por ejemplo, el elemento `[4,1]` de las matrices que
+indica la probabilidad de transición del estadio *plántula* a *repro3*
+entre t y t+1, oscila entre 0 y 0.379. Y en el resultado la abundancia
+del estadio *plántula* oscila entre 113.7 (repetición 998) y 885.3
+(repetición 997) en las 6 últimas repeticiones de la proyección.
 
 #### Tasa estocástica de crecimiento
 
@@ -215,10 +216,10 @@ obtenido con `lambda (lotus_matrix)` era 1.02. La librería **popbio**
 calcula la tasa de crecimiento estocástico usando la función
 `stoch.growth.rate()`, mediante dos aproximaciones:
 
-  - *Analítica*, basada en datos de las matrices. Esta se llama
+-   *Analítica*, basada en datos de las matrices. Esta se llama
     *aproximación analítica de Tuljapurkar*.
-  - *Simulada*, utilizando en cada repetición una de las 3 matrices
-    disponibles en **lotus\_lista**.
+-   *Simulada*, utilizando en cada repetición una de las 3 matrices
+    disponibles en **lotus_lista**.
 
 Aparecen identificadas como `$aprox` y `$sim` en los resultados:
 
@@ -297,9 +298,9 @@ La tasa de crecimiento asintótica lambda = 1 indica una población con
 dinámica estable, si las tasas vitales de la matriz se mantienen. Sin
 embargo un análisis de viabilidad debe ofrecer un resultado más
 concreto: probabilidad de extinción en un tiempo determinado. Ese
-cálculo lo podemos extraer con la función `stoch.quasi.ext`. En
-realidad calcula la probabilidad de cuasi-extinción, o probabilidad de
-que la abundancia de la población baje de un determinado umbral:
+cálculo lo podemos extraer con la función `stoch.quasi.ext`. En realidad
+calcula la probabilidad de cuasi-extinción, o probabilidad de que la
+abundancia de la población baje de un determinado umbral:
 
 ``` r
 set.seed(12345)
@@ -378,14 +379,14 @@ matplot (lotus_sqe, xlab="Años", ylab=expression(P[cuasi-extinción]),
 
 Para abrir los enlaces en otra pestaña, *botón derecho + abrir en nueva
 pestaña*, o *Ctrl click*)  
-1\. Datos incluidos en Iriondo et al. (Eds). 2009. [Poblaciones en
+1. Datos incluidos en Iriondo et al. (Eds). 2009. [Poblaciones en
 peligro: viabilidad demográfica de la flora vascular amenazada de
 España. Madrid: Ministerio de Medio Ambiente, y Medio Rural y
 Marino](https://www.miteco.gob.es/es/biodiversidad/temas/inventarios-nacionales/viabilidaddemografica_tcm30-99752.pdf)  
-2\. La función `set.seed(12345)` es responsable de que todos obtengamos
+2. La función `set.seed(12345)` es responsable de que todos obtengamos
 el mismo resultado a partir de este guión, a pesar de “jugar” con
-números aleatorios. Le dice al generador de números aleatorios por
-donde empezar. Es decir, proporciona un código repetible. De no
-definirlo obtendríamos un resultado diferente en cada proyección, si
-bien el resultado general será esencialmente el mismo si el número de
+números aleatorios. Le dice al generador de números aleatorios por donde
+empezar. Es decir, proporciona un código repetible. De no definirlo
+obtendríamos un resultado diferente en cada proyección, si bien el
+resultado general será esencialmente el mismo si el número de
 repeticiones `nreps=` es suficientemente grande.
