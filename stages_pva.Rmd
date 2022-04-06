@@ -26,7 +26,7 @@ El modelo está estructurado en 4 estadios, plántulas y 3 clases de reproductor
 lotus_stages <- c ("plántula", "repro1", "repro2", "repro3")
 ```
 
-Definimos además dos vectores alternativos de abundancias en t = 0, *N~0~*; uno con el mismo número de individuos por estadio, y otro con mayoría del estadio *repro3*:
+Definimos además dos vectores alternativos de abundancias en t = 0; uno con el mismo número de individuos por estadio, y otro con mayoría del estadio *repro3*:
 ```{r}
 lotus_n0 <- c (100,100,100,100)
 lotus_n0_alt <- c(10,10,10,370)
@@ -48,7 +48,7 @@ lotus_matrix <- matrix2(lotus_trans, lotus_stages)
 ```
 
 #### Esquema del ciclo de vida
-Una vez definido el modelo de la población, podemos empezar a extraerle información. Por ejemplo, dibujando el ciclo de vida de *L. arinagensis* con la función `plotmat()`. Puede parecer complicada, ya ofrece muchas posibilidades de ajustar el aspecto final del gráfico (e.g. muchos *argumentos*): 
+Una vez definido el modelo de la población, podemos empezar a extraer información. Por ejemplo, dibujando el ciclo de vida de *L. arinagensis* con la función `plotmat()`. Puede parecer complicada, ya ofrece muchas posibilidades de ajustar el aspecto final del gráfico (e.g. muchos *argumentos*), pero el punto de partida e informaciónn esencial sería un mero `plotmat(lotus_matrix)`: 
 ```{r, fig.asp=0.8}
 plotmat(lotus_matrix, relsize =0.80, self.cex = 0.6, self.shifty=0.08, self.shiftx = c(0,0,-0.05,0),
         box.prop = 0.3, box.type = "round" , box.size = 0.1, lwd = 1, pos =, 
